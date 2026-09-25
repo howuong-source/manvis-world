@@ -18,11 +18,6 @@
     .gantt-container { background: #151d2a; border: 1px solid #26334d; border-radius: 12px; padding: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
     .gantt-header-box { margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px; }
     .gantt-title { font-weight: bold; color: #38bdf8; font-size: 15px; display: flex; align-items: center; justify-content: space-between; }
-    
-    /* 🏠 返回首頁按鈕樣式 */
-    .btn-back { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; font-size: 12px; font-weight: 600; color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 6px; text-decoration: none; transition: all 0.2s ease; }
-    .btn-back:hover { background: rgba(56, 189, 248, 0.25); color: #ffffff; border-color: #38bdf8; }
-
     .render-timestamp { font-size: 11px; color: #10b981; font-weight: normal; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.2); width: fit-content; }
     .gantt-viewport { background: #0d1424; border: 1px solid #26334d; border-radius: 8px; padding: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .gantt-canvas { position: relative; width: 2660px; min-height: 180px; }
@@ -59,7 +54,7 @@
     @media (max-width: 768px) {
       body { padding: 8px; }
       .gantt-container { padding: 12px; }
-      .gantt-title { font-size: 14px; flex-direction: row; align-items: center; justify-content: space-between; width: 100%; }
+      .gantt-title { font-size: 14px; flex-direction: column; align-items: flex-start; gap: 4px; }
       .gantt-bar { font-size: 10px; padding: 0 4px; }
       .metrics-grid { grid-template-columns: 1fr; gap: 8px; }
       .timeline-item { flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -73,16 +68,15 @@
       <div class="gantt-header-box">
         <div class="gantt-title">
           <span>📊 개발 펄스 차트 (KV 스냅샷)</span>
-          <a href="/kr/index.html" class="btn-back">🏠 메인으로</a>
         </div>
-        <div class="render-timestamp">⚡ 마지막 처리 시간: 2026/09/25 15:35:42</div>
+        <div class="render-timestamp">⚡ 마지막 처리 시간: 2026/09/25 15:45:42</div>
       </div>
       <div class="gantt-viewport">
         <div class="gantt-canvas">
           <div class="timeline-header"><div class="time-tick" style="left: 0px;">03:00</div><div class="time-tick" style="left: 140px;">04:00</div><div class="time-tick" style="left: 280px;">05:00</div><div class="time-tick" style="left: 420px;">06:00</div><div class="time-tick" style="left: 560px;">07:00</div><div class="time-tick" style="left: 700px;">08:00</div><div class="time-tick" style="left: 840px;">09:00</div><div class="time-tick" style="left: 980px;">10:00</div><div class="time-tick" style="left: 1120px;">11:00</div><div class="time-tick" style="left: 1260px;">12:00</div><div class="time-tick" style="left: 1400px;">13:00</div><div class="time-tick" style="left: 1540px;">14:00</div><div class="time-tick" style="left: 1680px;">15:00</div><div class="time-tick" style="left: 1820px;">16:00</div><div class="time-tick" style="left: 1960px;">17:00</div><div class="time-tick" style="left: 2100px;">18:00</div><div class="time-tick" style="left: 2240px;">19:00</div><div class="time-tick" style="left: 2380px;">20:00</div><div class="time-tick" style="left: 2520px;">21:00</div><div class="time-tick" style="left: 2660px;">22:00</div></div>
           <div class="gantt-grid">
         <div class="gantt-row-container">
-          <div class="gantt-row-title">🟦 HTML Code Pulse (30)</div>
+          <div class="gantt-row-title">🟦 HTML Code Pulse (32)</div>
           <div class="gantt-row-bg">
             <div class="grid-line" style="left: 0px;"></div><div class="grid-line" style="left: 140px;"></div><div class="grid-line" style="left: 280px;"></div><div class="grid-line" style="left: 420px;"></div><div class="grid-line" style="left: 560px;"></div><div class="grid-line" style="left: 700px;"></div><div class="grid-line" style="left: 840px;"></div><div class="grid-line" style="left: 980px;"></div><div class="grid-line" style="left: 1120px;"></div><div class="grid-line" style="left: 1260px;"></div><div class="grid-line" style="left: 1400px;"></div><div class="grid-line" style="left: 1540px;"></div><div class="grid-line" style="left: 1680px;"></div><div class="grid-line" style="left: 1820px;"></div><div class="grid-line" style="left: 1960px;"></div><div class="grid-line" style="left: 2100px;"></div><div class="grid-line" style="left: 2240px;"></div><div class="grid-line" style="left: 2380px;"></div><div class="grid-line" style="left: 2520px;"></div><div class="grid-line" style="left: 2660px;"></div>
             
@@ -204,6 +198,14 @@
           
             <div class="gantt-bar track-bb" style="left: 1761.5px; width: 75px;" title="-P2MURsh2Rxdpog4qQsc (15:34:57)">
               📌 15:34 (-P2MUR)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1782.6px; width: 75px;" title="-P2MWViCi3miKqtcGTQi (15:43:58)">
+              📌 15:43 (-P2MWV)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1786.1px; width: 75px;" title="-P2MWjO1mf0U-0r2wO_R (15:45:28)">
+              📌 15:45 (-P2MWj)
             </div>
           
           </div>
