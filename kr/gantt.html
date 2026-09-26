@@ -36,7 +36,7 @@
     .gantt-bar.over-hour { background: #451a1a; color: #f87171; border: 1px solid #7f1d1d; }
     .launch-section { margin-top: 16px; border-top: 1px dashed #26334d; padding-top: 16px; display: flex; flex-direction: column; gap: 14px; }
 
-    /* 🥗 0922 正式發射站卡片專用原生 CSS (取代舊有測試版 MVP 樣式) */
+    /* 🥗 卡片通用原生 CSS */
     .card-box {
       border: 1px solid #232d3f !important;
       background: #151d2a !important;
@@ -110,14 +110,14 @@
         <div class="gantt-title">
           <span>📊 개발 펄스 차트 (KV 스냅샷)</span>
         </div>
-        <div class="render-timestamp">⚡ 마지막 처리 시간: 2026/09/26 12:47:41</div>
+        <div class="render-timestamp">⚡ 마지막 처리 시간: 2026/09/26 14:41:45</div>
       </div>
       <div class="gantt-viewport">
         <div class="gantt-canvas">
           <div class="timeline-header"><div class="time-tick" style="left: 0px;">03:00</div><div class="time-tick" style="left: 140px;">04:00</div><div class="time-tick" style="left: 280px;">05:00</div><div class="time-tick" style="left: 420px;">06:00</div><div class="time-tick" style="left: 560px;">07:00</div><div class="time-tick" style="left: 700px;">08:00</div><div class="time-tick" style="left: 840px;">09:00</div><div class="time-tick" style="left: 980px;">10:00</div><div class="time-tick" style="left: 1120px;">11:00</div><div class="time-tick" style="left: 1260px;">12:00</div><div class="time-tick" style="left: 1400px;">13:00</div><div class="time-tick" style="left: 1540px;">14:00</div><div class="time-tick" style="left: 1680px;">15:00</div><div class="time-tick" style="left: 1820px;">16:00</div><div class="time-tick" style="left: 1960px;">17:00</div><div class="time-tick" style="left: 2100px;">18:00</div><div class="time-tick" style="left: 2240px;">19:00</div><div class="time-tick" style="left: 2380px;">20:00</div><div class="time-tick" style="left: 2520px;">21:00</div><div class="time-tick" style="left: 2660px;">22:00</div></div>
           <div class="gantt-grid">
         <div class="gantt-row-container">
-          <div class="gantt-row-title">🟦 HTML Code Pulse (17)</div>
+          <div class="gantt-row-title">🟦 HTML Code Pulse (18)</div>
           <div class="gantt-row-bg">
             <div class="grid-line" style="left: 0px;"></div><div class="grid-line" style="left: 140px;"></div><div class="grid-line" style="left: 280px;"></div><div class="grid-line" style="left: 420px;"></div><div class="grid-line" style="left: 560px;"></div><div class="grid-line" style="left: 700px;"></div><div class="grid-line" style="left: 840px;"></div><div class="grid-line" style="left: 980px;"></div><div class="grid-line" style="left: 1120px;"></div><div class="grid-line" style="left: 1260px;"></div><div class="grid-line" style="left: 1400px;"></div><div class="grid-line" style="left: 1540px;"></div><div class="grid-line" style="left: 1680px;"></div><div class="grid-line" style="left: 1820px;"></div><div class="grid-line" style="left: 1960px;"></div><div class="grid-line" style="left: 2100px;"></div><div class="grid-line" style="left: 2240px;"></div><div class="grid-line" style="left: 2380px;"></div><div class="grid-line" style="left: 2520px;"></div><div class="grid-line" style="left: 2660px;"></div>
             
@@ -189,6 +189,10 @@
               📌 12:47 (-P2R1_)
             </div>
           
+            <div class="gantt-bar track-bb" style="left: 1634.9px; width: 75px;" title="-P2RRg8N9eaMREtrM6mS (14:40:41)">
+              📌 14:40 (-P2RRg)
+            </div>
+          
           </div>
         </div>
 
@@ -202,8 +206,39 @@
       </div>
         </div>
       </div>
-      <div class="launch-section"><div class="card-box">
-          <div class="title">📊 2026-09-26 일일 식단 및 운동 종합 보고서<div class="card-box">
+      <div class="launch-section">
+        <div class="card-box">
+          <div class="title">📊 2026-09-26 일일 식단 및 운동 종합 보고서</div>
+          <div>[TDEE: 1776 kcal] + [운동 소모: 0 kcal] = 총 소모 허용량 1776 kcal</div>
+          <div class="row" style="margin-top:6px;">
+            <span>일일 총 섭취량: 450 kcal</span>
+            <span class="highlight">🔥 현재 칼로리 적자: -1326 kcal (달성)</span>
+          </div>
+          <hr>
+          <div>단백질: 53g  지방: 19g  탄수화물: 19g  나트륨: 140mg</div>
+        </div>
+
+<div class="card-box">
+          <div class="title">📜 오늘의 활동 기록</div><div class="row item-food"><span>🟢 [오전 08:10 아침] 씨없는 구아바 (200g)</span><span>+76 kcal 단백질:1.4g</span></div><div class="row item-food"><span>🟢 [오전 09:30 점심] 소고기 (일반) (200g)</span><span>+374 kcal 단백질:52g</span></div>
+        </div>
+
+        <div class="card-box">
+          <div class="title">🎯 오늘의 체지방 감량 결과 (7,700 kcal / kg 기준)</div>
+          <div>오늘의 누적 칼로리 적자:  <span class="highlight">-1326 kcal</span></div>
+          <div style="font-size:14px; font-weight:bold; margin-top:4px;">오늘 예상 체지방 감량:  ⚡ <span style="color:#f59e0b;">172.2 Grams (g)</span></div>
+          <hr>
+          <div style="font-size:12px; color:#94a3b8;">매일 100g 체지방 감량 진행률 (목표 적자 770 kcal):</div>
+          
+          <div class="progress-container">
+            <div class="progress-bar-fill"></div>
+          </div>
+          
+          <div class="row" style="font-size:11px; color:#94a3b8;">
+            <span>진행률: 100.0%</span>
+            <span>(목표까지 0.0g 남음)</span>
+          </div>
+        </div>
+        <div class="card-box">
   <div class="title">🚀 Dev Milestone Snapshots (ko)</div>
   <div class="timeline-item">
     <strong>[12:45] 전체 언어 태그 영구 저장 취약점 수정 및 블록 2 초기화 기능 추가</strong> - <span style="color:#10b981;">완료</span>
@@ -214,108 +249,7 @@
 <div class="card-box">
   <div class="title">🌙 Bedtime Reflection & Summary</div>
   <div class="reflection-box">오늘은 개발이 좀 더 수월하게 진행된 것 같다. 드디어 AI한테 괴롭힘당하지 않았다!</div>
-</div></div>
-          <div>[TDEE: 1776 kcal] + [운동 소모: 0 kcal] = 총 소모 허용량 1776 kcal</div>
-          <div class="row" style="margin-top:6px;">
-            <span>일일 총 섭취량: 450 kcal</span>
-            <span class="highlight">🔥 현재 칼로리 적자: -1326 kcal (달성)</span>
-          </div>
-          <hr>
-          <div>단백질: 53g  지방: 19g  탄수화물: 19g  나트륨: 140mg</div>
-        </div>
-
-<div class="card-box">
-          <div class="title">📜 오늘의 활동 기록</div><div class="row item-food"><span>🟢 [오전 08:10 아침] 씨없는 구아바 (200g)</span><span>+76 kcal 단백질:1.4g</span></div><div class="row item-food"><span>🟢 [오전 09:30 점심] 소고기 (일반) (200g)</span><span>+374 kcal 단백질:52g</span></div>
-        </div>
-
-        <div class="card-box">
-          <div class="title">🎯 오늘의 체지방 감량 결과 (7,700 kcal / kg 기준)</div>
-          <div>오늘의 누적 칼로리 적자:  <span class="highlight">-1326 kcal</span></div>
-          <div style="font-size:14px; font-weight:bold; margin-top:4px;">오늘 예상 체지방 감량:  ⚡ <span style="color:#f59e0b;">172.2 Grams (g)</span></div>
-          <hr>
-          <div style="font-size:12px; color:#94a3b8;">매일 100g 체지방 감량 진행률 (목표 적자 770 kcal):</div>
-          
-          <div class="progress-container">
-            <div class="progress-bar-fill"></div>
-          </div>
-          
-          <div class="row" style="font-size:11px; color:#94a3b8;">
-            <span>진행률: 100.0%</span>
-            <span>(목표까지 0.0g 남음)</span>
-          </div>
-        </div></div>
-  <div class="timeline-item">
-    <strong>[12:30] 블록 1을 LocalStorage 추가 모드 및 단일 노드 삭제로 리팩토링</strong> - <span style="color:#10b981;">완료</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">새로고침 시 데이터 손실 해결 및 태그 삭제 지원</div>
-  </div>
-  <div class="timeline-item">
-    <strong>[12:45] 전체 언어 태그 영구 저장 취약점 수정 및 블록 2 초기화 기능 추가</strong> - <span style="color:#10b981;">완료</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">언어 설정을 LocalStorage에 저장하고 초기화 버튼 추가</div>
-  </div>
 </div>
-
-<div class="card-box">
-  <div class="title">🌙 Bedtime Reflection & Summary</div>
-  <div class="reflection-box">오늘은 개발이 좀 더 수월하게 진행된 것 같다. 드디어 AI한테 괴롭힘당하지 않았다!</div>
-</div></div>
-          <div>[TDEE: 1776 kcal] + [운동 소모: 0 kcal] = 총 소모 허용량 1776 kcal</div>
-          <div class="row" style="margin-top:6px;">
-            <span>일일 총 섭취량: 450 kcal</span>
-            <span class="highlight">🔥 현재 칼로리 적자: -1326 kcal (달성)</span>
-          </div>
-          <hr>
-          <div>단백질: 53g  지방: 19g  탄수화물: 19g  나트륨: 140mg</div>
-        </div>
-
-<div class="card-box">
-          <div class="title">📜 오늘의 활동 기록</div><div class="row item-food"><span>🟢 [오전 08:10 아침] 씨없는 구아바 (200g)</span><span>+76 kcal 단백질:1.4g</span></div><div class="row item-food"><span>🟢 [오전 09:30 점심] 소고기 (일반) (200g)</span><span>+374 kcal 단백질:52g</span></div>
-        </div>
-
-        <div class="card-box">
-          <div class="title">🎯 오늘의 체지방 감량 결과 (7,700 kcal / kg 기준)</div>
-          <div>오늘의 누적 칼로리 적자:  <span class="highlight">-1326 kcal</span></div>
-          <div style="font-size:14px; font-weight:bold; margin-top:4px;">오늘 예상 체지방 감량:  ⚡ <span style="color:#f59e0b;">172.2 Grams (g)</span></div>
-          <hr>
-          <div style="font-size:12px; color:#94a3b8;">매일 100g 체지방 감량 진행률 (목표 적자 770 kcal):</div>
-          
-          <div class="progress-container">
-            <div class="progress-bar-fill"></div>
-          </div>
-          
-          <div class="row" style="font-size:11px; color:#94a3b8;">
-            <span>진행률: 100.0%</span>
-            <span>(목표까지 0.0g 남음)</span>
-          </div>
-        </div></div>
-          <div>[TDEE: 1776 kcal] + [운동 소모: 0 kcal] = 총 소모 허용량 1776 kcal</div>
-          <div class="row" style="margin-top:6px;">
-            <span>일일 총 섭취량: 1385 kcal</span>
-            <span class="highlight">🔥 현재 칼로리 적자: -391 kcal (달성)</span>
-          </div>
-          <hr>
-          <div>단백질: 183g  지방: 67g  탄수화물: 19g  나트륨: 480mg</div>
-        </div>
-
-<div class="card-box">
-          <div class="title">📜 오늘의 활동 기록</div><div class="row item-food"><span>🟢 [오전 08:10 아침]씨없는 구아바 (200g)</span><span>+76 kcal 단백질:1.4g</span></div><div class="row item-food"><span>🟢 [오전 09:30 점심]소고기 (일반) (200g)</span><span>+374 kcal 단백질:52g</span></div><div class="row item-food"><span>🟢 [오전 09:45 점심]소고기 (일반) (500g)</span><span>+935 kcal 단백질:130g</span></div>
-        </div>
-
-        <div class="card-box">
-          <div class="title">🎯 오늘의 체지방 감량 결과 (7,700 kcal / kg 기준)</div>
-          <div>오늘의 누적 칼로리 적자:  <span class="highlight">-391 kcal</span></div>
-          <div style="font-size:14px; font-weight:bold; margin-top:4px;">오늘 예상 체지방 감량:  ⚡ <span style="color:#f59e0b;">50.8 Grams (g)</span></div>
-          <hr>
-          <div style="font-size:12px; color:#94a3b8;">매일 100g 체지방 감량 진행률 (목표 적자 770 kcal):</div>
-          
-          <div class="progress-container">
-            <div class="progress-bar-fill" style="width: 50.8%;"></div>
-          </div>
-          
-          <div class="row" style="font-size:11px; color:#94a3b8;">
-            <span>진행률: 50.8%</span>
-            <span>(목표까지 49.2g 남음)</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
