@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개발 펄스 차트 - 블랙라이트 엔진</title>
+
+  <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/gantt.html" />
+  <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/gantt.html" />
+  <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/gantt.html" />
+  <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/gantt.html" />
+
+  <style>
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0b0f19; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; min-height: 100vh; padding: 12px; }
+    .container { max-width: 1200px; margin: 0 auto; width: 100%; }
+    
+    .gantt-container { background: #151d2a; border: 1px solid #26334d; border-radius: 12px; padding: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
+    .gantt-header-box { margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .gantt-title { font-weight: bold; color: #38bdf8; font-size: 15px; display: flex; align-items: center; justify-content: space-between; }
+    .render-timestamp { font-size: 11px; color: #10b981; font-weight: normal; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.2); width: fit-content; }
+    .gantt-viewport { background: #0d1424; border: 1px solid #26334d; border-radius: 8px; padding: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .gantt-canvas { position: relative; width: 2660px; min-height: 180px; }
+    .timeline-header { position: relative; height: 32px; border-bottom: 2px solid #38bdf8; margin-bottom: 12px; }
+    .time-tick { position: absolute; top: 0; font-size: 11px; color: #38bdf8; font-weight: bold; padding-left: 4px; border-left: 1px solid rgba(56, 189, 248, 0.4); height: 100%; white-space: nowrap; }
+    .gantt-grid { position: relative; width: 100%; display: flex; flex-direction: column; gap: 14px; }
+    .gantt-row-container { display: flex; flex-direction: column; gap: 4px; }
+    .gantt-row-title { font-size: 11px; font-weight: bold; color: #94a3b8; display: flex; align-items: center; gap: 6px; }
+    .gantt-row-bg { height: 38px; background: rgba(255, 255, 255, 0.02); border-radius: 6px; position: relative; border: 1px solid rgba(255, 255, 255, 0.05); width: 100%; }
+    .grid-line { position: absolute; top: 0; bottom: 0; border-left: 1px dashed rgba(255, 255, 255, 0.05); pointer-events: none; }
+    .gantt-bar { position: absolute; top: 4px; height: 30px; border-radius: 6px; display: flex; align-items: center; padding: 0 8px; font-size: 11px; font-weight: 600; white-space: nowrap; background: #1e293b; color: #38bdf8; border: 1px solid #0284c7; box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 2; overflow: hidden; text-overflow: ellipsis; }
+    .gantt-bar.track-bb { background: #0c4a6e; color: #38bdf8; border: 1px solid #0284c7; }
+    .gantt-bar.track-cc { background: #4c1d95; color: #c084fc; border: 1px solid #7e22ce; }
+    .gantt-bar.over-hour { background: #451a1a; color: #f87171; border: 1px solid #7f1d1d; }
+    
+    .launch-section { margin-top: 16px; border-top: 1px dashed #26334d; padding-top: 16px; display: flex; flex-direction: column; gap: 14px; }
+    .devlog-section { margin-top: 16px; border-top: 1px dashed #26334d; padding-top: 16px; display: flex; flex-direction: column; gap: 14px; }
+
+    .card-box {
+      border: 1px solid #232d3f !important;
+      background: #151d2a !important;
+      border-radius: 8px !important;
+      padding: 12px !important;
+      margin-bottom: 10px !important;
+      color: #e2e8f0 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+      font-size: 13px !important;
+      line-height: 1.5 !important;
+      word-break: break-word !important;
+    }
+    .card-box .title {
+      font-weight: bold !important;
+      font-size: 14px !important;
+      color: #38bdf8 !important;
+      margin-bottom: 8px !important;
+      border-bottom: 1px solid #232d3f !important;
+      padding-bottom: 4px !important;
+    }
+    .card-box .row {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      gap: 6px !important;
+      margin-bottom: 6px !important;
+    }
+    .card-box .highlight { font-weight: bold !important; }
+    .card-box .item-food { color: #10b981 !important; }
+    .card-box .item-ex { color: #f97316 !important; }
+    .card-box .progress-container {
+      width: 100% !important;
+      background-color: #0d131e !important;
+      border: 1px solid #232d3f !important;
+      border-radius: 6px !important;
+      height: 14px !important;
+      overflow: hidden !important;
+      margin: 6px 0 !important;
+    }
+    .card-box .progress-bar-fill {
+      height: 100% !important;
+      background: linear-gradient(90deg, #3b82f6, #10b981) !important;
+      transition: width 0.3s ease !important;
+    }
+    .card-box hr {
+      border: 0 !important;
+      border-top: 1px solid #232d3f !important;
+      margin: 8px 0 !important;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 8px; }
+      .gantt-container { padding: 12px; }
+      .gantt-title { font-size: 14px; flex-direction: column; align-items: flex-start; gap: 4px; }
+      .gantt-bar { font-size: 10px; padding: 0 4px; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="gantt-container">
+      <div class="gantt-header-box">
+        <div class="gantt-title">
+          <span>📊 개발 펄스 차트 (KV 스냅샷)</span>
+        </div>
+        <div class="render-timestamp">⚡ 마지막 처리 시간: 2026/09/26 16:15:44</div>
+      </div>
+      <div class="gantt-viewport">
+        <div class="gantt-canvas">
+          <div class="timeline-header"><div class="time-tick" style="left: 0px;">03:00</div><div class="time-tick" style="left: 140px;">04:00</div><div class="time-tick" style="left: 280px;">05:00</div><div class="time-tick" style="left: 420px;">06:00</div><div class="time-tick" style="left: 560px;">07:00</div><div class="time-tick" style="left: 700px;">08:00</div><div class="time-tick" style="left: 840px;">09:00</div><div class="time-tick" style="left: 980px;">10:00</div><div class="time-tick" style="left: 1120px;">11:00</div><div class="time-tick" style="left: 1260px;">12:00</div><div class="time-tick" style="left: 1400px;">13:00</div><div class="time-tick" style="left: 1540px;">14:00</div><div class="time-tick" style="left: 1680px;">15:00</div><div class="time-tick" style="left: 1820px;">16:00</div><div class="time-tick" style="left: 1960px;">17:00</div><div class="time-tick" style="left: 2100px;">18:00</div><div class="time-tick" style="left: 2240px;">19:00</div><div class="time-tick" style="left: 2380px;">20:00</div><div class="time-tick" style="left: 2520px;">21:00</div><div class="time-tick" style="left: 2660px;">22:00</div></div>
+          <div class="gantt-grid">
+        <div class="gantt-row-container">
+          <div class="gantt-row-title">🟦 HTML Code Pulse (26)</div>
+          <div class="gantt-row-bg">
+            <div class="grid-line" style="left: 0px;"></div><div class="grid-line" style="left: 140px;"></div><div class="grid-line" style="left: 280px;"></div><div class="grid-line" style="left: 420px;"></div><div class="grid-line" style="left: 560px;"></div><div class="grid-line" style="left: 700px;"></div><div class="grid-line" style="left: 840px;"></div><div class="grid-line" style="left: 980px;"></div><div class="grid-line" style="left: 1120px;"></div><div class="grid-line" style="left: 1260px;"></div><div class="grid-line" style="left: 1400px;"></div><div class="grid-line" style="left: 1540px;"></div><div class="grid-line" style="left: 1680px;"></div><div class="grid-line" style="left: 1820px;"></div><div class="grid-line" style="left: 1960px;"></div><div class="grid-line" style="left: 2100px;"></div><div class="grid-line" style="left: 2240px;"></div><div class="grid-line" style="left: 2380px;"></div><div class="grid-line" style="left: 2520px;"></div><div class="grid-line" style="left: 2660px;"></div>
+            
+            <div class="gantt-bar track-bb" style="left: 715.2px; width: 75px;" title="-P2Q1EzBemwalHuXg8PH (08:06:30)">
+              📌 08:06 (-P2Q1E)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 743.9px; width: 75px;" title="-P2Q4DO8AxaueY_qSVFk (08:18:48)">
+              📌 08:18 (-P2Q4D)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 753.5px; width: 75px;" title="-P2Q57z27wHmJOdbi34h (08:22:56)">
+              📌 08:22 (-P2Q57)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 944.4px; width: 75px;" title="-P2QNxUkshXh5YITn_Md (09:44:44)">
+              📌 09:44 (-P2QNx)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 985.7px; width: 75px;" title="-P2QRokKKhtsggzyxtWi (10:02:26)">
+              📌 10:02 (-P2QRo)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1007.5px; width: 75px;" title="-P2QU6Iorh81nUke6hL_ (10:11:46)">
+              📌 10:11 (-P2QU6)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1017.5px; width: 75px;" title="-P2QV0pLn6L-I3gl4wjw (10:16:03)">
+              📌 10:16 (-P2QV0)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1078.7px; width: 75px;" title="-P2Q_ymdS6BxqfdbS2Ij (10:42:18)">
+              📌 10:42 (-P2Q_y)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1085.0px; width: 75px;" title="-P2Qagg1dvdxGmtWsyjs (10:45:01)">
+              📌 10:45 (-P2Qag)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1159.4px; width: 75px;" title="-P2QhzEmXDG9ooJ_W2Ed (11:16:52)">
+              📌 11:16 (-P2Qhz)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1192.1px; width: 75px;" title="-P2QlB8Vc5NxZpk0dNls (11:30:54)">
+              📌 11:30 (-P2QlB)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1198.2px; width: 75px;" title="-P2Qldd2ENnIw5lRmNeg (11:33:32)">
+              📌 11:33 (-P2Qld)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1213.6px; width: 75px;" title="-P2QnHLn_pBp6Z4v0Z9v (11:40:06)">
+              📌 11:40 (-P2QnH)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1248.1px; width: 75px;" title="-P2QqhDjKUggASHZISCQ (11:54:54)">
+              📌 11:54 (-P2Qqh)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1270.3px; width: 75px;" title="-P2Qsj_wD8q7v-4ROHlf (12:04:26)">
+              📌 12:04 (-P2Qsj)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1331.0px; width: 75px;" title="-P2QykJLiyu4Ipkdsueg (12:30:27)">
+              📌 12:30 (-P2Qyk)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1370.2px; width: 75px;" title="-P2R1_TiDDQjdRzTYcC1 (12:47:14)">
+              📌 12:47 (-P2R1_)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1634.9px; width: 75px;" title="-P2RRg8N9eaMREtrM6mS (14:40:41)">
+              📌 14:40 (-P2RRg)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1656.1px; width: 75px;" title="-P2RTjyqvKSi1bGm1Ppr (14:49:45)">
+              📌 14:49 (-P2RTj)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1666.2px; width: 75px;" title="-P2RUeYe-xam9ZeWnhRR (14:54:05)">
+              📌 14:54 (-P2RUe)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1730.8px; width: 75px;" title="-P2Ra3hJRv4MobrdKjz- (15:21:46)">
+              📌 15:21 (-P2Ra3)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1795.0px; width: 75px;" title="-P2RgFCmx1AZubfua_MP (15:49:18)">
+              📌 15:49 (-P2RgF)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1822.2px; width: 75px;" title="-P2Rj-1rI2CU5gbrfCvb (16:00:56)">
+              📌 16:00 (-P2Rj-)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1834.4px; width: 75px;" title="-P2Rk8FEcBZ0_D8oVhL2 (16:06:09)">
+              📌 16:06 (-P2Rk8)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1841.1px; width: 75px;" title="-P2RkpAsWYDR5rBwE1Hp (16:09:03)">
+              📌 16:09 (-P2Rkp)
+            </div>
+          
+            <div class="gantt-bar track-bb" style="left: 1854.3px; width: 75px;" title="-P2RmC4-vB6pL1CnbbGO (16:14:42)">
+              📌 16:14 (-P2RmC)
+            </div>
+          
+          </div>
+        </div>
+
+        <div class="gantt-row-container">
+          <div class="gantt-row-title">🟪 Worker Repo Push (0)</div>
+          <div class="gantt-row-bg">
+            <div class="grid-line" style="left: 0px;"></div><div class="grid-line" style="left: 140px;"></div><div class="grid-line" style="left: 280px;"></div><div class="grid-line" style="left: 420px;"></div><div class="grid-line" style="left: 560px;"></div><div class="grid-line" style="left: 700px;"></div><div class="grid-line" style="left: 840px;"></div><div class="grid-line" style="left: 980px;"></div><div class="grid-line" style="left: 1120px;"></div><div class="grid-line" style="left: 1260px;"></div><div class="grid-line" style="left: 1400px;"></div><div class="grid-line" style="left: 1540px;"></div><div class="grid-line" style="left: 1680px;"></div><div class="grid-line" style="left: 1820px;"></div><div class="grid-line" style="left: 1960px;"></div><div class="grid-line" style="left: 2100px;"></div><div class="grid-line" style="left: 2240px;"></div><div class="grid-line" style="left: 2380px;"></div><div class="grid-line" style="left: 2520px;"></div><div class="grid-line" style="left: 2660px;"></div>
+            
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <div class="launch-section">
+<div class="card-box">
+          <div class="title">📊 2026-09-26 毎日の食事と運動の総合レポート</div>
+          <div>[TDEE: 1776 kcal] + [運動消費: 0 kcal] = 許容消費カロリー 1776 kcal</div>
+          <div class="row" style="margin-top:6px;">
+            <span>一日の総摂取カロリー: 1441 kcal</span>
+            <span class="highlight">🔥 現在のカロリー赤字: -335 kcal (達成)</span>
+          </div>
+          <hr>
+          <div>タンパク質: 300g  脂質: 11g  炭水化物: 34g  ナトリウム: 1672mg</div>
+        </div>
+
+<div class="card-box">
+          <div class="title">📜 本日のログ履歴</div><div class="row item-food"><span>🟢 [午前 08:10 朝食]種なしグアバ (200g)</span><span>+76 kcal タンパク質:1.4g</span></div><div class="row item-food"><span>🟢 [午後 04:28 昼食]皮なし鶏胸肉 (250g)</span><span>+285 kcal タンパク質:58.3g</span></div><div class="row item-food"><span>🟢 [午後 04:28 昼食]大豆ペプチドパウダー (300g)</span><span>+1080 kcal タンパク質:240g</span></div>
+        </div>
+
+        <div class="card-box">
+          <div class="title">🎯 本日の体脂肪減少結果 (7,700 kcal / kg 換算)</div>
+          <div>本日の累積赤字カロリー： <span class="highlight">-335 kcal</span></div>
+          <div style="font-size:14px; font-weight:bold; margin-top:4px;">本日予想される体脂肪減少量： ⚡ <span style="color:#f59e0b;">43.5 Grams (g)</span></div>
+          <hr>
+          <div style="font-size:12px; color:#94a3b8;">毎日 100g の体脂肪消滅進捗 (目標赤字 770 kcal):</div>
+          
+          <div class="progress-container">
+            <div class="progress-bar-fill" style="width: 43.5%;"></div>
+          </div>
+          
+          <div class="row" style="font-size:11px; color:#94a3b8;">
+            <span>進捗：43.5%</span>
+            <span>(目標まであと 56.5g)</span>
+          </div>
+        </div>
+</div><div class="devlog-section">
+
+</div></div>
+  </div>
+</body>
+</html>
