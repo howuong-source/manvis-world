@@ -324,6 +324,14 @@
     <strong>[14:50] KV 스냅샷 병합 어긋남 진단 및 초기화 후 재렌더링 워크플로 확립</strong> - <span style="color:#10b981;">해결됨</span>
     <div style="font-size:0.8rem; color:#94a3b8;">문자열 대체로 인한 HTML 구조 파손 확인, KV 스냅샷을 근본 원인으로 특정하여 삭제 완료</div>
   </div>
+  <div class="timeline-item">
+    <strong>[16:59] 'GitHub 만능 파일 게시기' 상단에 Firebase 노드가 표시되는 의문 해소 및 백그라운드 수신 아키텍처 확인</strong> - <span style="color:#10b981;">해결됨</span>
+    <div style="font-size:0.8rem; color:#94a3b8;">【문제점 및 결정】Firebase는 백그라운드 Worker 수신을 위한 중계 노드일 뿐임을 확인. Firebase 노드 로직 및 백엔드 Worker는 수정하지 않고, 프론트엔드 UI 경험과 Git 다중 계정 전환 최적화에 집중하기로 결정.</div>
+  </div>
+  <div class="timeline-item">
+    <strong>[17:10] 'GitHub 만능 파일 게시기'의 다중 Git 계정/저장소 전환 프로세스 최적화 및 발사 버튼 알림 메시지의 시각적 이질감 수정</strong> - <span style="color:#10b981;">해결됨</span>
+    <div style="font-size:0.8rem; color:#94a3b8;">【문제점 및 결정】다중 계정 이용 시 Token/저장소명을 번거롭게 복사/붙여넣기해야 하는 불편함과 발사 후 알림 메시지가 최하단에 나타나는 UX 이질감을 해결. 최종 두 가지 최적화 확정: 1. Git Profiles 조합 바로가기 태그 추가, 2. 초록/파란 버튼 전용 독립 알림 상자 분리.</div>
+  </div>
 </div>
 
 <div class="card-box">
