@@ -315,30 +315,104 @@
             <span>(Remaining 56.5g fat to goal)</span>
           </div>
         </div>
-      </div>
-      <div class="devlog-section">
+</div><div class="devlog-section">
 <div class="card-box">
   <div class="title">🚀 Dev Milestone Snapshots (en)</div>
-  <div class="timeline-item">
-    <strong>[14:50] Diagnose KV snapshot merging misalignment and establish clear-and-rerender workflow</strong> - <span style="color:#10b981;">Resolved</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">Confirmed string replacement broke HTML structure, identified KV snapshot as root cause and cleared it</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[07:30]</span>
+        <span style="color: #10b981; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Resolved</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-0'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Resolve the issue of 'deletion completely failing' during morning cleanup in '🚀 Universal Multilingual Dev Snapshots & Bedtime Diary Station 3.3 (Full Persistence Edition)', and thoroughly refactor the flawed, unindexed legacy Firebase logic</div>
+    <div id="note-detail-0" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】The '🚀 Universal Multilingual Dev Snapshots & Bedtime Diary Station 3.3 (Full Persistence Edition)' built by the previous AI was full of bugs—lacking indexing (causing massive Firebase data downloads) and incorrectly applying a single logic stream to two different node structures ('Snapshot Station' vs 'Mobile Sites Bb/Cc'). Decisions were made to refactor the core architecture, introduce indexing and node type branching, and completely rewrite the core code.</div>
   </div>
-  <div class="timeline-item">
-    <strong>[16:59] Clarify why the top of 'GitHub Universal File Publisher' shows Firebase nodes and confirm the background listening architecture</strong> - <span style="color:#10b981;">Resolved</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">【Pain Point & Decision】Clarified that Firebase acts solely as a relay node for background Worker listening. Confirmed no changes are needed for Firebase node logic or backend Worker, focusing optimization on frontend UI experience and multi-Git account switching.</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[07:52]</span>
+        <span style="color: #10b981; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Resolved</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-1'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Post-refactor minor adjustments and UI experience optimizations (including option path completion and layout tweaks)</div>
+    <div id="note-detail-1" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Following the core code rewrite, quickly fixed a minor hardcoding artifact in the targetDeleteNode HTML dropdown for the Cc option (updating to the full path '所有行動網站/Cc') and finalized UI layout optimizations.</div>
   </div>
-  <div class="timeline-item">
-    <strong>[17:10] Optimize multi-Git account/repository switching workflow for 'GitHub Universal File Publisher' and fix launch button notification UI detachment</strong> - <span style="color:#10b981;">Resolved</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">【Pain Point & Decision】Resolved the hassle of repeatedly copying/pasting Tokens/Repos across multiple accounts, and fixed the UX detachment where alert messages appeared at the bottom. Final decisions: 1. Add Git Profiles combo shortcut tags; 2. Separate independent status alert boxes for green/blue buttons.</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:00]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Resolved</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-2'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Add 'Mandatory Multi-language Color Translation Standard' to the AI prompt template in 'Multilingual Dev Milestone Log Station'</div>
+    <div id="note-detail-2" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Prevent AI from using arbitrary translations for status color tags, which breaks frontend colorMap lookup. Defined explicit color translation mapping as Rule #7 in the prompt.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:05]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Resolved</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-3'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Optimize frontend generatePureDiv() rendering logic to enhance tolerance for status color tag parsing</div>
+    <div id="note-detail-3" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Prevent style failures caused by case sensitivity or minor formatting differences. Added case-insensitive keys to JS colorMap to guarantee 100% accurate color matching and rendering across languages.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:30]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Completed</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-4'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Add 'Last Updated Time' display tags for HTML and Worker.js editors in the 'Jimi Edge Publishing Node' workbench to track code deployment timestamps</div>
+    <div id="note-detail-4" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Needed a clear view of the last code deployment time to edge nodes. Decided to add timestamp labels in the headers of both HTML and Worker.js editors and persist updates using localStorage.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:53]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Completed</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-5'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Execute systematic micro-refactoring with AI: Refactor timestamp storage from global keys to dynamic keys bound to each theme/version</div>
+    <div id="note-detail-5" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Timestamps were originally unbound to specific keys, causing time records to be lost upon switching versions/themes. Decided to perform a systematic micro-operation with AI to bind siteName and pageName, ensuring exact time retention across versions for future development time tracking.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[13:00]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Completed</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-6'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Overcome global timestamp sharing issue by implementing dynamic key memory mechanisms for each theme/route</div>
+    <div id="note-detail-6" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Dynamically bound storage keys with siteName and pageName (e.g., jimi_html_time_site_page), giving each theme its own independent time memory slot.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[13:04]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Completed</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-7'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Fix misalignment between write and read operations that caused 'No Record' to display upon switching project themes</div>
+    <div id="note-detail-7" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Publish button handler did not pass siteName and pageName, causing writes to fallback to global keys while reads queried theme-specific keys. Included path parameters in publish events to align write and read keys.</div>
   </div>
 </div>
 
 <div class="card-box">
   <div class="title">🌙 Bedtime Reflection & Summary</div>
-  <div class="reflection-box">Feels like development went smoother today. AI finally stopped torturing me!</div>
+  <div class="reflection-box">Development went smoothly today until around 2:04 PM. We successfully set up a temporary domain in our GitHub repository, and the initial testing was a success.</div>
 </div>
-      </div>
-    </div>
+</div></div>
   </div>
 </body>
 </html>
