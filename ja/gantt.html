@@ -315,30 +315,104 @@
             <span>(目標まであと 56.5g)</span>
           </div>
         </div>
-      </div>
-      <div class="devlog-section">
+</div><div class="devlog-section">
 <div class="card-box">
   <div class="title">🚀 開発マイルストーンスナップショット (ja)</div>
-  <div class="timeline-item">
-    <strong>[14:50] KVスナップショット結合のズレを診断し、クリア・再レンダリングフローを確立</strong> - <span style="color:#10b981;">解決済み</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">文字列置換によるHTML構造の破損を確認し、KVスナップショットを根本原因と特定して削除完了</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[07:30]</span>
+        <span style="color: #10b981; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">解決済み</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-0'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">「🚀 全言語開発スナップショット＆就寝前日記発射局 3.3 (多言語・感想完全永続化版)」において、朝のデータ削除時に「削除が完全に無効化する」問題を解決し、インデックスのない不全な Firebase レガシーロジックを根本から重構（リファクタリング）する</div>
+    <div id="note-detail-0" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【問題点と解決策】旧 AI が作成した「🚀 全言語開発スナップショット＆就寝前日記発射局 3.3 (多言語・感想完全永続化版)」はバグが多く、インデックス設計の欠如により大量の Firebase データをダウンロードする危険があり、異なる構造のノード（「スナップショット発射局」と「モバイルサイト Bb/Cc」）を同一ロジックで処理していた。議論の末、インデックス導入と分岐処理を含むコアアーキテクチャの全改修を決定し、コード全体を一括再構築した。</div>
   </div>
-  <div class="timeline-item">
-    <strong>[16:59] 「GitHub万能ファイルパブリッシャー」上部にFirebaseノードが表示される懸念を解消し、バックグラウンド監視アーキテクチャを確認</strong> - <span style="color:#10b981;">解決済み</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">【課題と決定】FirebaseはバックグラウンドWorkerが監視するための中継点に過ぎないことを確認。FirebaseノードのロジックやバックグラウンドWorkerは変更せず、フロントエンドのUI体験とGit複数アカウント切り替えの最適化に集中することを決定。</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[07:52]</span>
+        <span style="color: #10b981; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">解決済み</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-1'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">リファクタリング後の細部調整および UI エクスペリエンス最適化（選択肢パスの補完とレイアウト微調整）</div>
+    <div id="note-detail-1" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【問題点と解決策】コアコード再構築完了後、HTML ドロップダウン targetDeleteNode の Cc オプションに残っていた軽微なパス不備（完全パス '所有行動網站/Cc' へ補完）を迅速に手動修正し、UI レイアウトの最適化を完了。</div>
   </div>
-  <div class="timeline-item">
-    <strong>[17:10] 「GitHub万能ファイルパブリッシャー」の複数Gitアカウント/リポジトリ切り替えフローの最適化と、送信ボタン通知表示の違和感を修復</strong> - <span style="color:#10b981;">解決済み</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">【課題と決定】複数アカウントでのToken/リポジトリ名の頻繁なコピペの手間と、送信後の通知メッセージが最下部に表示されるUXの違和感を解消。最終的に2大最適化を決定：1. Git Profiles組合せショートカットタグの追加、2. 緑/青ボタン専用の独立通知ボックスの分離。</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:00]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">解決済み</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-2'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">「多言語開発マイルストーンログステーション」のAIプロンプトテンプレートに「多言語カラー翻訳ルール」を追加</div>
+    <div id="note-detail-2" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【課題と決定】AIがstatusフィールドのカラータグを任意に翻訳し、フロントエンドのcolorMap参照エラーが発生するのを防ぐため、色の表記ルールを独立させてプロンプトの第7項目として厳格に定義しました。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:05]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">解決済み</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-3'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">フロントエンドの generatePureDiv() レンダリングロジックを最適化し、カラータグの解析耐性を強化</div>
+    <div id="note-detail-3" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【課題と決定】大文字・小文字や軽微なフォーマットの違いによるスタイル適用失敗を防ぐため、JSのcolorMapに互換キーを追加し、全言語でステータスカラーが100%正確に反映されるように実装しました。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:30]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">完了</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-4'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">「幾米エッジデプロイノード」ワークステーションにて、コードの配信タイムスタンプを追跡するため、HTMLおよびWorker.jsエディタに「最終変更日時」表示タグを追加</div>
+    <div id="note-detail-4" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【課題と決断】エッジノードへの最終デプロイ時間を直感的に把握したい。HTMLエディタとWorker.jsエリアのヘッダーに時間タグを追加し、localStorageでタイムスタンプを永続化保存することを決定。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:53]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">完了</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-5'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">AIとの協調による段階的なマイクロ手術：タイムスタンプを全域保存から各テーマ/バージョンキーに紐付く動的記憶メカニズムへ再構築</div>
+    <div id="note-detail-5" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【課題と決断】元の時間記録が専用キーに紐付いておらず、バージョン切り替え時に記録が消失していた。AIとの系統的な段階的修正により、siteNameとpageNameを動的に紐付け、各バージョンの変更時間を確実に保持し、今後の開発時間統計に役立てることを決定。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[13:00]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">完了</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-6'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">タイムスタンプが全域で共有される問題を解決し、各テーマ/ルーティング独立の動的キー記憶メカニズムを確立</div>
+    <div id="note-detail-6" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【課題と決断】キーにsiteNameとpageNameを動的に紐付け（例：jimi_html_time_site_page）、各テーマが独立した時間記憶スロットを持つように変更。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[13:04]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">完了</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-7'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">テーマ切替時に変更時間が「記録なし」と表示されるデータ読み書きの不一致バグを修正</div>
+    <div id="note-detail-7" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【課題と決断】配信ボタン呼び出し時にsiteNameとpageNameが渡されず、保存時と読み込み時で参照キーがズレていた。配信イベントにパス引数を補完し、書き込みと読み込みのキーを完全に一致させた。</div>
   </div>
 </div>
 
 <div class="card-box">
   <div class="title">🌙 就寝前の振り返りとまとめ</div>
-  <div class="reflection-box">今日は開発がわりとスムーズに進んだ気がする。AIに虐げられずに済んだ！</div>
+  <div class="reflection-box">本日の開発は午後2時4分頃まで順調に進みました。GitHub リポジトリでプレビュー用ドメインを無事に発行でき、テストも無事成功しました。</div>
 </div>
-      </div>
-    </div>
+</div></div>
   </div>
 </body>
 </html>
