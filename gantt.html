@@ -336,30 +336,104 @@
             <span>(還差 56.5g 體脂肪達標)</span>
           </div>
         </div>
-      </div>
-      <div class="devlog-section">
+</div><div class="devlog-section">
 <div class="card-box">
   <div class="title">🚀 開發里程碑快照 (zh-TW)</div>
-  <div class="timeline-item">
-    <strong>[14:50] 診斷 KV 快照縫合錯位並確立清空重新渲染流程</strong> - <span style="color:#10b981;">已解決</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">確認黑燈加工字串替換破壞 HTML 結構，定位 KV 快照為根本原因並完成清空</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[07:30]</span>
+        <span style="color: #10b981; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已解決</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-0'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">針對「🚀 全語系開發快照與睡前日記發射站 3.3 (語系與心得全持久版)」解決晨起執行刪除舊資料時「刪除完全無效」的痛點，並徹底重構失能且缺乏索引的 Firebase 舊邏輯</div>
+    <div id="note-detail-0" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】舊 AI 打造的「🚀 全語系開發快照與睡前日記發射站 3.3 (語系與心得全持久版)」漏洞百出，未設計索引導致需海量下載 Firebase 資料，且將「快照發射站」與「行動網站(Bb/Cc)」兩種不同結構混用同一套邏輯處理。經盤查決議重構核心架構，導入正確索引機制與節點結構分流，並一口氣重寫整體核心代碼。</div>
   </div>
-  <div class="timeline-item">
-    <strong>[16:59] 釐清「GitHub 萬能檔案發布器」頂部顯示 Firebase 節點的疑慮，並確認背後監聽架構</strong> - <span style="color:#10b981;">已解決</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">【痛點與決策】釐清 Firebase 僅為背景 Worker 監聽的傳輸中繼站；確認不更動 Firebase 節點邏輯與後端 Worker，將優化焦點鎖定在前端 UI 體驗與 Git 多帳號切換。</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[07:52]</span>
+        <span style="color: #10b981; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已解決</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-1'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">重構後的細節微調與 UI 體驗優化（包含補齊選項路徑與排版微調）</div>
+    <div id="note-detail-1" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】核心代碼重構完成後，快速修復 HTML 下拉選單中 targetDeleteNode 的 Cc 選項硬編碼微瑕疵（補齊為完整路徑 '所有行動網站/Cc'），並完成 UI 排版優化。</div>
   </div>
-  <div class="timeline-item">
-    <strong>[17:10] 優化「GitHub 萬能檔案發布器」的多 Git 帳號/倉庫切換流程，並修復發射按鈕提示訊息的割裂感</strong> - <span style="color:#10b981;">已解決</span>
-    <div style="font-size:0.8rem; color:#94a3b8;">【痛點與決策】解決多帳號需頻繁複製貼上 Token/倉庫名，以及按下發射後提示訊息跳在最底部的 UX 割裂感。最終確定兩大優化：1. 新增 Git Profiles 組合快捷標籤；2. 拆分綠/藍按鈕獨立提示框。</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:00]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已解決</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-2'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">在「全語系開發里程碑日誌發射站」的 AI 提示詞範本中新增「強制多語系顏色翻譯對照規範」</div>
+    <div id="note-detail-2" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】避免 AI 在翻譯 status 欄位的顏色標記時任意換詞導致前端 colorMap 查表失敗；決定將顏色詞彙規範明確抽離並定義為 Prompt 第 7 點。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:05]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已解決</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-3'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">優化前端 generatePureDiv() 渲染邏輯，強化顏色標記解析之容錯能力</div>
+    <div id="note-detail-3" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】為防止大小寫或細微格式差異導致樣式失效；於 JS colorMap 加入大小寫相容 Key，確保多語系狀態顏色能 100% 精準對應與渲染。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:30]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已完成</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-4'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">在「幾米邊緣發布節點」工作站中，為 HTML 及 Worker.js 編輯器新增「最後變更時間」顯示標籤，以追蹤代碼發布時間點</div>
+    <div id="note-detail-4" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】希望直觀掌握代碼發布至邊緣節點的最後更新時間；決策於 HTML 編輯器與 Worker.js 發布區標頭加入時間標籤，並利用 localStorage 持久化儲存更新時間戳。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[12:53]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已完成</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-5'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">與 AI 協作進行邏輯微手術：將時間戳由全域儲存重構為綁定各主題 Key 的動態記憶機制</div>
+    <div id="note-detail-5" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】原本時間未綁定專屬 Key，導致切換不同版本/主題時時間紀錄直接遺失；決策透過 AI 循序漸進的系統化微手術，改為綁定 siteName 與 pageName，確保各版本切換時都能精準保留當下變更時間，便於日後統計各任務的開發耗時。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[13:00]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已完成</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-6'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">克服時間戳全域共用問題，完成各主題/路由獨立的動態 Key 記憶機制寫入</div>
+    <div id="note-detail-6" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】將儲存 Key 動態綁定 siteName 與 pageName（如 jimi_html_time_site_page），讓每個主題擁有獨立的時間記憶卡槽。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[13:04]</span>
+        <span style="color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已完成</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-7'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">修復切換主題後發布時間顯示「無紀錄」的資料寫入與讀取不對齊問題</div>
+    <div id="note-detail-7" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】發布按鈕呼叫時未傳入 siteName 與 pageName 導致寫入全域帳戶但讀取專屬帳戶；決策補齊發布事件中的路徑參數，確保發布寫入與載入讀取的 key 完全對齊。</div>
   </div>
 </div>
 
 <div class="card-box">
   <div class="title">🌙 睡前心得與總結</div>
-  <div class="reflection-box">感覺今天開發好像比較順了 AI 終於沒有虐待我了</div>
+  <div class="reflection-box">今天開發到下午 2 點 04 分左右，進度看起來相當順利。已經在 GitHub 的倉庫中成功開啟臨時網域，測試結果非常完美。</div>
 </div>
-      </div>
-    </div>
+</div></div>
   </div>
 </body>
 </html>
