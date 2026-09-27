@@ -19,7 +19,30 @@
     
     .gantt-container { background: #151d2a; border: 1px solid #26334d; border-radius: 12px; padding: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
     .gantt-header-box { margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px; }
-    .gantt-title { font-weight: bold; color: #38bdf8; font-size: 15px; display: flex; align-items: center; justify-content: space-between; }
+    .gantt-title-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .gantt-title { font-weight: bold; color: #38bdf8; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    
+    /* 返回按鈕樣式 */
+    .back-home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #0284c7;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .back-home-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+    }
+
     .render-timestamp { font-size: 11px; color: #10b981; font-weight: normal; background: rgba(16, 185, 129, 0.1); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.2); width: fit-content; }
     .gantt-viewport { background: #0d1424; border: 1px solid #26334d; border-radius: 8px; padding: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .gantt-canvas { position: relative; width: 2660px; min-height: 180px; }
@@ -92,7 +115,7 @@
     @media (max-width: 768px) {
       body { padding: 8px; }
       .gantt-container { padding: 12px; }
-      .gantt-title { font-size: 14px; flex-direction: column; align-items: flex-start; gap: 4px; }
+      .gantt-title { font-size: 14px; }
       .gantt-bar { font-size: 10px; padding: 0 4px; }
     }
 
@@ -102,10 +125,13 @@
   <div class="container">
     <div class="gantt-container">
       <div class="gantt-header-box">
-        <div class="gantt-title">
-          <span>📊 개발 펄스 차트 (KV 스냅샷)</span>
+        <div class="gantt-title-row">
+          <div class="gantt-title">
+            <span>📊 개발 펄스 차트 (KV 스냅샷)</span>
+          </div>
+          <a href="../index.html" class="back-home-btn">🏠 홈으로 돌아가기</a>
         </div>
-        <div class="render-timestamp">⚡ 마지막 처리 시간: 2026/09/27 13:43:44</div>
+        <div class="render-timestamp">⚡ 마지막 처리 시간: 2026/09/27 13:44:44</div>
       </div>
       <div class="gantt-viewport">
         <div class="gantt-canvas">
@@ -208,7 +234,7 @@
         </div>
 
         <div class="gantt-row-container">
-          <div class="gantt-row-title">🟪 Worker Repo Push (6)</div>
+          <div class="gantt-row-title">🟪 Worker Repo Push (7)</div>
           <div class="gantt-row-bg">
             <div class="grid-line" style="left: 0px;"></div><div class="grid-line" style="left: 140px;"></div><div class="grid-line" style="left: 280px;"></div><div class="grid-line" style="left: 420px;"></div><div class="grid-line" style="left: 560px;"></div><div class="grid-line" style="left: 700px;"></div><div class="grid-line" style="left: 840px;"></div><div class="grid-line" style="left: 980px;"></div><div class="grid-line" style="left: 1120px;"></div><div class="grid-line" style="left: 1260px;"></div><div class="grid-line" style="left: 1400px;"></div><div class="grid-line" style="left: 1540px;"></div><div class="grid-line" style="left: 1680px;"></div><div class="grid-line" style="left: 1820px;"></div><div class="grid-line" style="left: 1960px;"></div><div class="grid-line" style="left: 2100px;"></div><div class="grid-line" style="left: 2240px;"></div><div class="grid-line" style="left: 2380px;"></div><div class="grid-line" style="left: 2520px;"></div><div class="grid-line" style="left: 2660px;"></div>
             
@@ -234,6 +260,10 @@
           
             <div class="gantt-bar track-cc" style="left: 1500.9px; width: 75px;" title="-P2WO-NtwmET8fDwLCwz (13:43:15)">
               📌 13:43 (-P2WO-)
+            </div>
+          
+            <div class="gantt-bar track-cc" style="left: 1502.4px; width: 75px;" title="-P2WOE1nNn7shNF-eQ3U (13:43:54)">
+              📌 13:43 (-P2WOE)
             </div>
           
           </div>
