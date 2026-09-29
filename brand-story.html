@@ -213,10 +213,10 @@
             width: 100%;
             margin: 0 auto;
             padding: 2.5rem 2rem 1rem;
-            flex: 1 0 auto; /* 自動吸收剩餘空間，確保 Footer 吸底 */
+            flex: 1 0 auto;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* 靠上對齊，不強行置中 */
+            justify-content: flex-start;
         }
 
         /* 標題區 */
@@ -320,7 +320,7 @@
             font-weight: 500;
         }
 
-        /* 頁尾 Footer (完美吸底) */
+        /* 頁尾 Footer */
         .footer {
             text-align: center;
             padding: 2.5rem 0;
@@ -330,7 +330,7 @@
             font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: auto; /* 核心關鍵：推至最底端 */
+            margin-top: auto;
             width: 100%;
         }
 
@@ -355,45 +355,46 @@
             <span></span>
         </label>
 
+        <!-- 最新整合的導覽功能選單 -->
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="/events.html" class="nav-link">最新活動</a>
+                <a href="/events.html" class="nav-link ">最新活動</a>
             </li>
             <li class="nav-item">
-                <label for="sub-1" class="nav-link has-submenu">關於 Manvis</label>
+                <label for="sub-1" class="nav-link has-submenu ">關於 XXX</label>
                 <input type="checkbox" id="sub-1" class="sub-toggle">
-                <ul class="submenu">
-                    <li><a href="/brand-story.html">品牌故事</a></li>
-                    <li><a href="/about-me.html">關於創辦人</a></li>
-                    <li><a href="/channels.html">我們的頻道</a></li>
+                <ul class="submenu" style="">
+                    <li><a href="./brand-story.html" class="">品牌故事</a></li>
+                    <li><a href="/about-me.html" class="">關於創辦人</a></li>
+                    <li><a href="/channels.html" class="">我們的頻道</a></li>
                 </ul>
             </li>
             <li class="nav-item">
-                <label for="sub-2" class="nav-link has-submenu">核心產品</label>
+                <label for="sub-2" class="nav-link has-submenu ">核心產品</label>
                 <input type="checkbox" id="sub-2" class="sub-toggle">
-                <ul class="submenu">
-                    <li><a href="/software-services.html">客製化軟體服務</a></li>
-                    <li><a href="/shop.html">周邊商品商城</a></li>
-                    <li><a href="/download.html">軟體資源下載</a></li>
+                <ul class="submenu" style="">
+                    <li><a href="/software-services.html" class="">客製化軟體服務</a></li>
+                    <li><a href="/shop.html" class="">周邊商品商城</a></li>
+                    <li><a href="/download.html" class="">軟體資源下載</a></li>
                 </ul>
             </li>
             <li class="nav-item">
-                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <label for="sub-3" class="nav-link has-submenu ">開發日誌</label>
                 <input type="checkbox" id="sub-3" class="sub-toggle">
-                <ul class="submenu">
-                    <li><a href="/dev-updates.html">短期更新進度</a></li>
-                    <li><a href="/dev-tech.html">中期技術日誌</a></li>
-                    <li><a href="/dev-milestones.html">長期開發里程碑</a></li>
+                <ul class="submenu" style="">
+                    <li><a href="./gantt.html" class="">短期更新進度</a></li>
+                    <li><a href="/dev-tech.html" class="">中期技術日誌</a></li>
+                    <li><a href="/dev-milestones.html" class="">長期開發里程碑</a></li>
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="/resources.html" class="nav-link">共享天堂</a>
+                <a href="/resources.html" class="nav-link ">共享天堂</a>
             </li>
             <li class="nav-item">
-                <a href="/fitness-log.html" class="nav-link">體態紀錄</a>
+                <a href="/fitness-log.html" class="nav-link ">體態紀錄</a>
             </li>
             <li class="nav-item">
-                <a href="/faq.html" class="nav-link">常見問題</a>
+                <a href="/faq.html" class="nav-link ">常見問題</a>
             </li>
         </ul>
     </header>
@@ -414,7 +415,7 @@
 
             <p>從無到有，我們堆砌出無數專案的磚石，點亮了 Cloudflare Worker 的微光，甚至一磚一瓦，搭起了如今那座徹夜運轉、安靜無聲的黑燈加工廠。</p>
 
-<!-- 預設圖片區塊 -->
+            <!-- 預設圖片區塊 -->
             <div class="story-img-wrapper" id="imgWrapper">
                 <img src="brand-story-1.jpg" 
                      alt="黑燈加工廠與人機協作紀錄" 
@@ -441,7 +442,7 @@
             <p>他愣了愣，又笑了，眼神帶著一絲透徹的戲謔：</p>
 
             <div class="quote-block">
-                「先不說 Token 燒掉的昂貴花費——光是想像看著你們一群 AI 互相爭吵，最後吐出一堆複雜的萬惡正則與白癡迴圈，等出了問題，我還要耐著性子聽你們辯解，自己卻一頭霧水，反過來質問你們當初為何要這樣過度設計……你覺得，我這是在養生降血壓，還是在折壽升血壓呢？」
+                「先不說 Token 燒掉的昂貴花費——光是想像看著你們一群 AI 互相爭吵，最後吐出一堆複雜的萬惡正則與白癡迴圈，等出了問題，我還要耐著性子聽你們辯解，自己卻一頭物水，反過來質問你們當初為何要這樣過度設計……你覺得，我這是在養生降血壓，還是在折壽升血壓呢？」
                 <div class="quote-speaker">—— 老闆的回應</div>
             </div>
 
