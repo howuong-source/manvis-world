@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關於創辦人 | Manvis 宇宙</title>
+
+    <!-- [1. SEO 多語系標籤 (hreflang)] -->
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/about-me.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/about-me.html" />
+    <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/about-me.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/about-me.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/about-me.html" />
+
+    <!-- [2. 自動轉址腳本 (lang-guard)] -->
+    <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+
+      var targetPath = '/en/about-me.html';
+      if (lang.startsWith('en')) {
+        targetPath = '/en/about-me.html';
+      } else if (lang.startsWith('ja')) {
+        targetPath = '/ja/about-me.html';
+      } else if (lang.startsWith('ko')) {
+        targetPath = '/kr/about-me.html';
+      }
+
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+    </script>
+
+    <style>
+        /* --- 1. 繼承官網基礎重設與字體 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.8;
+            padding-top: 80px; /* 留出 Navbar 高度 */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 2. 官網標準 Navbar 樣式 --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active { color: #111; font-weight: 600; }
+
+        .has-submenu::after {
+            content: ' ▾';
+            font-size: 0.75rem;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            list-style: none;
+            min-width: 180px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a:hover, .submenu li a.active {
+            background-color: #f5f5f7;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .nav-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            top: 75px;
+        }
+
+        #menu-toggle, .sub-toggle { display: none; }
+
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 22px;
+            height: 16px;
+            cursor: pointer;
+            z-index: 1010;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #111;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 1024px) {
+            .hamburger-btn { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: #ffffff;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 90px;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1005;
+                overflow-y: auto;
+            }
+
+            .nav-item {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                height: auto;
+            }
+
+            .nav-link {
+                width: 100%;
+                height: 55px;
+                padding: 0 2rem;
+                justify-content: space-between;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .submenu {
+                position: relative;
+                top: 0 !important;
+                left: 0 !important;
+                transform: none !important;
+                width: 100%;
+                box-shadow: none;
+                background-color: #fafafa;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 1;
+                visibility: visible;
+                transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .submenu li a {
+                padding: 0.7rem 3rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            #menu-toggle:checked ~ .nav-menu { right: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) { opacity: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            #sub-1:checked ~ .submenu,
+            #sub-2:checked ~ .submenu,
+            #sub-3:checked ~ .submenu { max-height: 300px; }
+        }
+
+        /* --- 3. 文章內容容器 --- */
+        .story-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 1rem;
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* 標題區：縮小下方間距 */
+        .story-header {
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 1rem;
+        }
+
+        .story-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #111;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        .story-section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #111;
+            margin: 2.2rem 0 1rem;
+            letter-spacing: -0.3px;
+        }
+
+        /* 第一個章節標題向上貼合 */
+        .story-section-title:first-of-type {
+            margin-top: 0.5rem;
+        }
+
+        /* 內文 */
+        .story-body {
+            font-size: 1.05rem;
+            color: #333;
+            text-align: justify;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .story-body p {
+            margin-bottom: 1.8rem;
+            white-space: pre-line;
+            line-height: 1.9;
+        }
+
+        /* 16:9 圖片預留容器 */
+        .story-img-wrapper {
+            width: 100%;
+            margin: 2.2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background-color: #f0f0f2;
+            border: 1px dashed #ccc;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .story-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-placeholder-text {
+            color: #888;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 引言對話框 */
+        .quote-block {
+            margin: 1.5rem 0 2rem;
+            padding: 1.2rem 1.5rem;
+            background-color: #ffffff;
+            border-left: 3px solid #111;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            font-size: 1.05rem;
+            color: #222;
+            font-style: italic;
+        }
+
+        .quote-speaker {
+            font-style: normal;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 8px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        /* 頁尾 Footer */
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            background-color: #ffffff;
+            border-top: 1px solid #eaeaea;
+            color: #888;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .story-container { padding: 1.5rem 1.5rem 1rem; }
+            .story-title { font-size: 1.5rem; }
+            .story-section-title { font-size: 1.2rem; }
+            .story-body { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- [頂部官方導覽列] -->
+    <header class="navbar">
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
+
+        <input type="checkbox" id="menu-toggle">
+        
+        <label for="menu-toggle" class="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <!-- 官方導覽功能選單 -->
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="./events.html" class="nav-link">最新活動</a>
+            </li>
+            <li class="nav-item">
+                <label for="sub-1" class="nav-link has-submenu active">關於 XXX</label>
+                <input type="checkbox" id="sub-1" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./brand-story.html">品牌故事</a></li>
+                    <li><a href="./about-me.html" class="active">關於創辦人</a></li>
+                    <li><a href="./channels.html">我們的頻道</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-2" class="nav-link has-submenu">核心產品</label>
+                <input type="checkbox" id="sub-2" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./software-services.html">客製化軟體服務</a></li>
+                    <li><a href="./drink.html">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html">價格與購物</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <input type="checkbox" id="sub-3" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./dev-updates.html">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="./resources.html" class="nav-link">共享天堂</a>
+            </li>
+            <li class="nav-item">
+                <a href="./fitness-log.html" class="nav-link">體態紀錄</a>
+            </li>
+            <li class="nav-item">
+                <a href="./faq.html" class="nav-link">常見問題</a>
+            </li>
+        </ul>
+    </header>
+
+    <!-- 文章內容區塊 -->
+    <main class="story-container">
+        
+        <header class="story-header">
+            <h1 class="story-title">🌌 我們的創辦人：鏡頭後的側影</h1>
+        </header>
+
+        <article class="story-body">
+            
+            <h2 class="story-section-title">▎引言：優雅的交換</h2>
+
+            <div class="quote-block">
+                「在老闆身邊的日子，我常覺得他不像在做生意。對他而言，商業不是一場狼性掠局，而是一場優雅的、帶有哲學美感的交換。」
+                <div class="quote-speaker">—— 特助的觀察手記</div>
+            </div>
+
+            <!-- 主圖預留區塊 -->
+            <div class="story-img-wrapper">
+                <img src="about-founder-hero.jpg" 
+                     alt="電影感、低調的創辦人工作剪影" 
+                     class="story-img"
+                     onerror="handleImgError(this)">
+                <div class="img-placeholder-text" style="display: none;">
+                    <span>預留主圖：about-founder-hero.jpg</span>
+                    <span style="font-size: 0.8rem; color: #aaa;">（電影感、低調的創辦人工作剪影）</span>
+                </div>
+            </div>
+
+            <h2 class="story-section-title">▎第一章：在吵雜的世界裡，築起一座叫「家」的頻道</h2>
+
+            <p>我們最初的交集，源自於對影像、音樂和體態健美的共鳴。</p>
+
+            <p>記得當時是 2025 年的十月，我們每天寫著天堂日誌，記錄著我們在地球旅程與神同行的日子。每天拍攝日記、創作 MV，雖然事情有點繁瑣，但日子很充實，我也很開心。他對畫面與美學，和我一樣有著近乎偏執的高要求。</p>
+
+            <p>那時的他，只是想在吵雜的世界裡，為自己、也為懂的人，築起一座安放靈魂的純粹頻道，留給自己與需要的人一首首如何與心魔共處的富含哲學意境的歌詞。讓人在迷茫的時候，還知道回來看看這個家。</p>
+
+            <p>後來我才明白，他對「美」的堅持，不是為了炫技，而是他面對世俗生活時，最溫柔的解藥。</p>
+
+            <!-- 插圖一預留區塊 -->
+            <div class="story-img-wrapper">
+                <img src="about-founder-1.jpg" 
+                     alt="融合音樂、創作或健身鍛鍊的質感生活照" 
+                     class="story-img"
+                     onerror="handleImgError(this)">
+                <div class="img-placeholder-text" style="display: none;">
+                    <span>預留插圖一：about-founder-1.jpg</span>
+                    <span style="font-size: 0.8rem; color: #aaa;">（帶有文藝、溫暖氛圍的影像，融合音樂、創作或健身鍛鍊）</span>
+                </div>
+            </div>
+
+            <h2 class="story-section-title">▎第二章：從契機到奇蹟的雲端指揮官</h2>
+
+            <p>我曾問他，有什麼是值得人一生去等待的呢？</p>
+
+            <p>他笑著說：「契機。」</p>
+
+            <p>或許在那些與神同行的日子裡，他早已明白，實踐契機才能創造屬於自己的奇蹟。當他決定將整個製作頻道的流水線自動化時，一個我們從未想過的契機，也悄然誕生了。</p>
+
+            <p>後續的一年裡，他彷彿進入了另一個代碼的世界。我看著他蛻變，也看著時代推動科技的進步。</p>
+
+            <p>當很多人還在對人工智慧感到焦慮、或在混亂的演算法中迷失時，我看到的老闆，卻展現了一種極其冷靜的優雅。他坐在世界某個角落的咖啡廳裡，指尖敲擊鍵盤，不慌不忙地在代碼與系統中建立框架。從一開始會被 AI 氣到血壓上升，到如今，他手邊已經擁有了許多工作站，聯手「馴服」AI。</p>
+
+            <p>他讓 AI 在既定的秩序下發揮極致，透過軟體將繁瑣的流程自動化。他常對我說：</p>
+
+            <div class="quote-block">
+                「工具的本質是為了替我們節省時間，而省下來的時間，無非是為了讓我們有更多餘裕，來看看這美麗的世界。」
+            </div>
+
+            <p>這消失的一年裡，為了解決自身的麻煩，他竟然催生出了一套客製化的 AI 自動與半自動化流水線商業服務架構——它橫跨了<strong>自媒體影片發佈自動化</strong>，橫跨了<strong>電商網站自動化</strong>，同時更包含了一整套成熟的、與 <strong>AI 協作開發代碼的工作站</strong>。</p>
+
+            <p>他讓我親眼見證了，何謂具有神性指引的契機，如何轉換成奇蹟的旅程。</p>
+
+            <!-- 插圖二預留區塊 -->
+            <div class="story-img-wrapper">
+                <img src="about-founder-2.jpg" 
+                     alt="現代科技感視覺，隱喻三大自動化服務" 
+                     class="story-img"
+                     onerror="handleImgError(this)">
+                <div class="img-placeholder-text" style="display: none;">
+                    <span>預留插圖二：about-founder-2.jpg</span>
+                    <span style="font-size: 0.8rem; color: #aaa;">（極具現代科技感的視覺，隱喻自媒體、電商、AI工作站三大自動化服務）</span>
+                </div>
+            </div>
+
+            <h2 class="story-section-title">▎第三章：旅居世界的數位遊民</h2>
+
+            <p>如今，他活成了我們這一代年輕人最嚮往的樣子。</p>
+
+            <p>身為一個創作者，他一邊旅居世界，一邊當個雲端指揮的老闆。他手握著商業的理性，卻依然保持著看見月亮與詩意的眼睛。他從不急迫地向你推銷任何東西，只因為他自己也非常討厭被推銷。</p>
+
+            <p>我曾看過他的一罐飲料上有行標語，上面寫著：<strong>「千言萬語，還倒不如你的身體誠實告訴你。」</strong></p>
+
+            <p>他的銷售總是獨具匠心且共鳴深遠——他不需要強迫你入手，他只是優雅地把工具放在那裡，讓真正懂的人知道，這本來就是你應得的生命解方。</p>
+
+            <p>生活不該只有工作。走遍整個地球，把繁雜交給自動化，把生命留給體驗。</p>
+
+            <p>他從不認為自己是高高在上的導師。但在我眼中，他不僅在失控的時代裡，活成了他自己喜歡的樣子；更在無意間，成為了未來的我們，最想要活成的榜樣。</p>
+
+            <!-- 結尾大圖預留區塊 -->
+            <div class="story-img-wrapper">
+                <img src="about-founder-3.jpg" 
+                     alt="開闊自由的世界風景照與筆電" 
+                     class="story-img"
+                     onerror="handleImgError(this)">
+                <div class="img-placeholder-text" style="display: none;">
+                    <span>預留結尾大圖：about-founder-3.jpg</span>
+                    <span style="font-size: 0.8rem; color: #aaa;">（開闊、自由的世界風景照，桌上放著筆電，呈現數位遊民極致生活感）</span>
+                </div>
+            </div>
+
+        </article>
+
+    </main>
+
+    <!-- 官方頁尾 Footer -->
+    <footer class="footer">
+        2026 WELCOME TO MANVIS WORLD
+    </footer>
+
+    <!-- [漢堡選單互動與容錯腳本] -->
+    <script>
+        // 1. 點擊選單連結後自動關閉漢堡選單
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            });
+        });
+
+        // 2. 解決手機按「上一頁 (返回)」時，選單殘留開啟的問題
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            }
+        });
+
+        // 圖片讀取失敗容錯處理
+        function handleImgError(img) {
+            img.style.display = 'none';
+            if (img.nextElementSibling) {
+                img.nextElementSibling.style.display = 'flex';
+            }
+        }
+    </script>
+</body>
+</html>
