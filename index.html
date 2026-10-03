@@ -4,13 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manvis 宇宙 - 官方網站</title>
+      <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/index.html" />
+  <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/index.html" />
+  <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/index.html" />
+  <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/index.html" />
+  <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/index.html" />
+      <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+
+      var targetPath = '/en/index.html';
+      if (lang.startsWith('en')) {
+        targetPath = '/en/index.html';
+      } else if (lang.startsWith('ja')) {
+        targetPath = '/ja/index.html';
+      } else if (lang.startsWith('ko')) {
+        targetPath = '/kr/index.html';
+      }
+
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+  </script>
     <style>
-        /* --- 1. 基礎重設 (滿版容器高度) --- */
+        /* --- 1. 基礎重設 (滿版容器高度與禁止選取) --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         html, body {
@@ -409,7 +437,7 @@
 
     <!-- 頂部導覽列 (選單留空，專供工作站動態填入) -->
     <header class="navbar">
-        <a href="/index.html" class="logo">Manvis 宇宙</a>
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
 
         <input type="checkbox" id="menu-toggle">
         
@@ -422,43 +450,43 @@
         <ul class="nav-menu">
             
             <li class="nav-item">
-                <a href="/events.html" class="nav-link ">最新活動</a>
+                <a href="./events.html" class="nav-link ">最新活動</a>
             </li>
             <li class="nav-item">
                 <label for="sub-1" class="nav-link has-submenu ">關於 XXX</label>
                 <input type="checkbox" id="sub-1" class="sub-toggle">
                 <ul class="submenu" style="">
                     <li><a href="./brand-story.html" class="">品牌故事</a></li>
-                    <li><a href="/about-me.html" class="">關於創辦人</a></li>
-                    <li><a href="/channels.html" class="">我們的頻道</a></li>
+                    <li><a href="./about-me.html" class="">關於創辦人</a></li>
+                    <li><a href="./channels.html" class="">我們的頻道</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <label for="sub-2" class="nav-link has-submenu ">核心產品</label>
                 <input type="checkbox" id="sub-2" class="sub-toggle">
                 <ul class="submenu" style="">
-                    <li><a href="/software-services.html" class="">客製化軟體服務</a></li>
-                    <li><a href="/shop.html" class="">周邊商品商城</a></li>
-                    <li><a href="/download.html" class="">軟體資源下載</a></li>
+                    <li><a href="./software-services.html" class="">客製化軟體服務</a></li>
+                    <li><a href="./drink.html" class="">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html" class="">價格與購物</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <label for="sub-3" class="nav-link has-submenu ">開發日誌</label>
                 <input type="checkbox" id="sub-3" class="sub-toggle">
                 <ul class="submenu" style="">
-                    <li><a href="./gantt.html" class="">短期更新進度</a></li>
-                    <li><a href="/dev-tech.html" class="">中期技術日誌</a></li>
-                    <li><a href="/dev-milestones.html" class="">長期開發里程碑</a></li>
+                    <li><a href="./dev-updates.html" class="">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html" class="">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html" class="">長期開發里程碑</a></li>
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="/resources.html" class="nav-link ">共享天堂</a>
+                <a href="./resources.html" class="nav-link ">共享天堂</a>
             </li>
             <li class="nav-item">
-                <a href="/fitness-log.html" class="nav-link ">體態紀錄</a>
+                <a href="./fitness-log.html" class="nav-link ">體態紀錄</a>
             </li>
             <li class="nav-item">
-                <a href="/faq.html" class="nav-link ">常見問題</a>
+                <a href="./faq.html" class="nav-link ">常見問題</a>
             </li>
         </ul>
     </header>
@@ -501,7 +529,7 @@
         <p class="caption-text">原來每天看著它安靜地有序工作，也是一種療癒的幸福感</p>
         
         <div class="agi-button-wrapper">
-            <a href="/agi-world.html" class="agi-link">
+            <a href="./agi-world.html" class="agi-link">
                 <span>歡迎進入分散式 AGI 的世界</span>
                 <span class="arrow-icon">➔</span>
             </a>
@@ -591,6 +619,26 @@
         window.onload = () => {
             setTimeout(typeLog, 600);
         };
+
+        // ------------------ 【請直接塞在這裡】 ------------------
+        // 1. 點擊選單連結後自動關閉漢堡選單
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            });
+        });
+
+        // 2. 解決手機按「上一頁 (返回)」時，選單殘留開啟的問題
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            }
+        });
+        // --------------------------------------------------------
     </script>
 </body>
 </html>
