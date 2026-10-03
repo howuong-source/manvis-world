@@ -4,6 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>品牌故事 | Manvis 宇宙</title>
+
+    <!-- [1. SEO 多語系標籤 (hreflang)] -->
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/index.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/index.html" />
+    <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/index.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/index.html" />
+
+    <!-- [2. 自動轉址腳本 (lang-guard)] -->
+    <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+
+      var targetPath = '/en/index.html';
+      if (lang.startsWith('en')) {
+        targetPath = '/en/index.html';
+      } else if (lang.startsWith('ja')) {
+        targetPath = '/ja/index.html';
+      } else if (lang.startsWith('ko')) {
+        targetPath = '/kr/index.html';
+      }
+
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+    </script>
+
     <style>
         /* --- 1. 繼承官網基礎重設與字體 --- */
         * {
@@ -253,11 +284,15 @@
             border-radius: 50%;
         }
 
-        /* 內文 */
+        /* 內文（新增防選取設定，阻止點擊跳出 Google 搜尋） */
         .story-body {
             font-size: 1.05rem;
             color: #333;
             text-align: justify;
+            -webkit-user-select: none; /* Safari / Chrome */
+            -moz-user-select: none;    /* Firefox */
+            -ms-user-select: none;     /* IE / Edge */
+            user-select: none;         /* 標準語法 */
         }
 
         .story-body p {
@@ -343,9 +378,9 @@
 </head>
 <body>
 
-    <!-- 頂部官方導覽列 -->
+    <!-- [4. 導覽列與漢堡選單整體代碼] -->
     <header class="navbar">
-        <a href="/index.html" class="logo">Manvis 宇宙</a>
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
 
         <input type="checkbox" id="menu-toggle">
         
@@ -355,51 +390,50 @@
             <span></span>
         </label>
 
-        <!-- 最新整合的導覽功能選單 -->
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="/events.html" class="nav-link ">最新活動</a>
+                <a href="./events.html" class="nav-link ">最新活動</a>
             </li>
             <li class="nav-item">
                 <label for="sub-1" class="nav-link has-submenu ">關於 XXX</label>
                 <input type="checkbox" id="sub-1" class="sub-toggle">
-                <ul class="submenu" style="">
-                    <li><a href="./brand-story.html" class="">品牌故事</a></li>
-                    <li><a href="/about-me.html" class="">關於創辦人</a></li>
-                    <li><a href="/channels.html" class="">我們的頻道</a></li>
+                <ul class="submenu">
+                    <li><a href="./brand-story.html">品牌故事</a></li>
+                    <li><a href="./about-me.html">關於創辦人</a></li>
+                    <li><a href="./channels.html">我們的頻道</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <label for="sub-2" class="nav-link has-submenu ">核心產品</label>
                 <input type="checkbox" id="sub-2" class="sub-toggle">
-                <ul class="submenu" style="">
-                    <li><a href="/software-services.html" class="">客製化軟體服務</a></li>
-                    <li><a href="/shop.html" class="">周邊商品商城</a></li>
-                    <li><a href="/download.html" class="">軟體資源下載</a></li>
+                <ul class="submenu">
+                    <li><a href="./software-services.html">客製化軟體服務</a></li>
+                    <li><a href="./drink.html">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html">價格與購物</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <label for="sub-3" class="nav-link has-submenu ">開發日誌</label>
                 <input type="checkbox" id="sub-3" class="sub-toggle">
-                <ul class="submenu" style="">
-                    <li><a href="./gantt.html" class="">短期更新進度</a></li>
-                    <li><a href="/dev-tech.html" class="">中期技術日誌</a></li>
-                    <li><a href="/dev-milestones.html" class="">長期開發里程碑</a></li>
+                <ul class="submenu">
+                    <li><a href="./dev-updates.html">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="/resources.html" class="nav-link ">共享天堂</a>
+                <a href="./resources.html" class="nav-link ">共享天堂</a>
             </li>
             <li class="nav-item">
-                <a href="/fitness-log.html" class="nav-link ">體態紀錄</a>
+                <a href="./fitness-log.html" class="nav-link ">體態紀錄</a>
             </li>
             <li class="nav-item">
-                <a href="/faq.html" class="nav-link ">常見問題</a>
+                <a href="./faq.html" class="nav-link ">常見問題</a>
             </li>
         </ul>
     </header>
 
-    <!-- 文章內容區塊 -->
+    <!-- 文章內容區塊 (完整保留) -->
     <main class="story-container">
         
         <header class="story-header">
@@ -417,7 +451,7 @@
 
             <!-- 預設圖片區塊 -->
             <div class="story-img-wrapper" id="imgWrapper">
-<img src="brand-story-1.png"
+                <img src="brand-story-1.jpg" 
                      alt="黑燈加工廠與人機協作紀錄" 
                      class="story-img"
                      onerror="handleImgError(this)">
@@ -459,7 +493,27 @@
         2026 WELCOME TO MANVIS WORLD
     </footer>
 
+    <!-- [5. 漢堡選單互動修復 JS] -->
     <script>
+        // 1. 點擊選單連結後自動關閉漢堡選單
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            });
+        });
+
+        // 2. 解決手機按「上一頁 (返回)」時，選單殘留開啟的問題
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            }
+        });
+
+        // 頁面專屬：圖片載入失敗備用處理
         function handleImgError(img) {
             img.style.display = 'none';
             document.getElementById('placeholderText').style.display = 'flex';
