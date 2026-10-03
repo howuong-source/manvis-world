@@ -174,22 +174,24 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @media (max-width: 1024px) {
+@media (max-width: 1024px) {
             .hamburger-btn { display: flex; }
             .nav-menu {
                 position: fixed;
                 top: 0;
                 right: -100%;
                 width: 280px;
-                height: 100vh;
+                height: 100dvh; /* 1. 改用 100dvh 自動扣除手機瀏覽器工具列高度 */
                 background-color: #ffffff;
                 box-shadow: -10px 0 30px rgba(0,0,0,0.05);
                 flex-direction: column;
                 justify-content: flex-start;
                 padding-top: 90px;
+                padding-bottom: 80px; /* 2. 加上底部留白，確保滑到底部不會被切掉 */
                 transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 z-index: 1005;
                 overflow-y: auto;
+                -webkit-overflow-scrolling: touch; /* 3. 提升手機端滾動順暢度 */
             }
 
             .nav-item {
