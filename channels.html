@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我們的頻道 | Manvis 宇宙</title>
+
+    <!-- [SEO 多語系標籤] -->
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/channels.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/channels.html" />
+    <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/channels.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/channels.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/channels.html" />
+
+    <!-- [自動轉址腳本] -->
+    <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+      var targetPath = '/en/channels.html';
+      if (lang.startsWith('en')) { targetPath = '/en/channels.html'; }
+      else if (lang.startsWith('ja')) { targetPath = '/ja/channels.html'; }
+      else if (lang.startsWith('ko')) { targetPath = '/kr/channels.html'; }
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        html, body { height: 100%; }
+        body {
+            background-color: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.8;
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navbar 樣式 --- */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; height: 80px;
+            background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05); position: fixed; width: 100%; top: 0; left: 0; z-index: 1000;
+        }
+        .logo { font-size: 1.3rem; font-weight: 800; letter-spacing: 1.5px; color: #111; text-decoration: none; }
+        .nav-menu { display: flex; list-style: none; height: 100%; }
+        .nav-item { position: relative; height: 100%; display: flex; align-items: center; }
+        .nav-link { text-decoration: none; color: #555; font-size: 0.95rem; font-weight: 500; padding: 0 1.2rem; height: 100%; display: flex; align-items: center; transition: color 0.3s ease; cursor: pointer; }
+        .nav-link:hover, .nav-link.active { color: #111; font-weight: 600; }
+        .has-submenu::after { content: ' ▾'; font-size: 0.75rem; margin-left: 4px; opacity: 0.7; }
+        .submenu { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background-color: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-radius: 8px; list-style: none; min-width: 180px; padding: 0.5rem 0; opacity: 0; visibility: hidden; transition: all 0.2s ease; }
+        .submenu li a { display: block; padding: 0.6rem 1.2rem; text-decoration: none; color: #666; font-size: 0.9rem; transition: all 0.2s ease; }
+        .submenu li a:hover, .submenu li a.active { background-color: #f5f5f7; color: #111; font-weight: 600; }
+        .nav-item:hover .submenu { opacity: 1; visibility: visible; top: 75px; }
+        #menu-toggle, .sub-toggle { display: none; }
+        .hamburger-btn { display: none; flex-direction: column; justify-content: space-between; width: 22px; height: 16px; cursor: pointer; z-index: 1010; }
+        .hamburger-btn span { display: block; height: 2px; width: 100%; background-color: #111; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @media (max-width: 1024px) {
+            .hamburger-btn { display: flex; }
+            .nav-menu {
+                position: fixed; top: 0; right: -100%; width: 280px; height: 100dvh;
+                background-color: #ffffff; box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+                flex-direction: column; justify-content: flex-start; padding-top: 90px; padding-bottom: 80px;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1005; overflow-y: auto; -webkit-overflow-scrolling: touch;
+            }
+            .nav-item { flex-direction: column; align-items: flex-start; width: 100%; height: auto; }
+            .nav-link { width: 100%; height: 55px; padding: 0 2rem; justify-content: space-between; border-bottom: 1px solid #f0f0f0; }
+            .submenu { position: relative; top: 0 !important; left: 0 !important; transform: none !important; width: 100%; box-shadow: none; background-color: #fafafa; padding: 0; max-height: 0; overflow: hidden; opacity: 1; visibility: visible; transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+            .submenu li a { padding: 0.7rem 3rem; border-bottom: 1px solid #f0f0f0; }
+            #menu-toggle:checked ~ .nav-menu { right: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) { opacity: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            #sub-1:checked ~ .submenu, #sub-2:checked ~ .submenu, #sub-3:checked ~ .submenu { max-height: 300px; }
+        }
+
+        /* --- 頁面核心樣式 --- */
+        .container {
+            max-width: 1000px; width: 100%; margin: 0 auto; padding: 2.5rem 2rem 1rem; flex: 1 0 auto;
+        }
+        .header-section { text-align: center; margin-bottom: 2rem; }
+        .page-title { font-size: 1.8rem; font-weight: 800; color: #111; margin-bottom: 0.8rem; letter-spacing: -0.5px; }
+
+        /* --- 詩意黃圈引言區 --- */
+        .quote-banner {
+            background-color: #ffffff; border-left: 3px solid #111; padding: 1.5rem 1.8rem;
+            max-width: 750px; margin: 0 auto 2.5rem; border-radius: 0 12px 12px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03); color: #333; font-size: 0.95rem; text-align: left;
+            line-height: 1.9; position: relative;
+        }
+        .quote-banner p { margin-bottom: 1rem; }
+        .quote-banner p:last-child { margin-bottom: 0; }
+        .quote-banner strong { color: #111; font-weight: 700; }
+
+        /* --- 雙頻道選單切換區 --- */
+        .channel-selector {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+        .channel-card {
+            background: #ffffff; border: 2px solid #eaeaea; border-radius: 14px; padding: 1.2rem 1.5rem;
+            display: flex; align-items: center; gap: 1.2rem; cursor: pointer; transition: all 0.25s ease;
+            position: relative; overflow: hidden;
+        }
+        .channel-card:hover { border-color: #111; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.05); }
+        .channel-card.active { border-color: #111; background: #fafafa; box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+        .channel-avatar {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+            border: 1px solid #ddd; background-color: #eee;
+        }
+        .channel-info { flex-grow: 1; }
+        .channel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.2rem; }
+        .channel-name { font-size: 1.1rem; font-weight: 800; color: #111; }
+        .channel-handle { font-size: 0.8rem; color: #777; font-weight: 600; margin-bottom: 0.3rem; }
+        .channel-desc { font-size: 0.82rem; color: #555; line-height: 1.4; }
+        .badge { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+        .badge-main { background: #111; color: #fff; }
+        .badge-sub { background: #e0e0e0; color: #444; }
+
+        /* --- 分類按鈕 Filter --- */
+        .filter-nav {
+            display: flex; justify-content: center; gap: 10px; margin-bottom: 2.5rem; flex-wrap: wrap;
+        }
+        .filter-btn {
+            background-color: #ffffff; border: 1px solid #e5e5e5; padding: 0.5rem 1.2rem;
+            border-radius: 30px; font-size: 0.9rem; font-weight: 500; color: #555; cursor: pointer; transition: all 0.2s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #111; color: #fff; border-color: #111;
+        }
+
+        /* --- 影片網格 Grid --- */
+        .video-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem;
+        }
+        .video-card {
+            background: #ffffff; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; display: flex; flex-direction: column;
+        }
+        .video-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .card-thumb {
+            width: 100%; aspect-ratio: 16 / 9; background-color: #1a1a1a; position: relative;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .play-icon {
+            position: absolute; width: 45px; height: 45px; background: rgba(0,0,0,0.6);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem;
+            backdrop-filter: blur(4px); transition: transform 0.2s ease;
+        }
+        .video-card:hover .play-icon { transform: scale(1.1); background: rgba(0,0,0,0.8); }
+        .card-content { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-category { font-size: 0.75rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
+        .card-title { font-size: 1.05rem; font-weight: 700; color: #111; line-height: 1.4; margin-bottom: 0.5rem; }
+        .card-desc { font-size: 0.88rem; color: #666; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* --- 沉浸式 Modal 彈窗播放器 --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px); z-index: 2000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; padding: 1rem;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-container {
+            background: #111111; color: #fff; width: 100%; max-width: 900px; max-height: 90vh;
+            border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute; top: 15px; right: 20px; font-size: 1.8rem; color: #fff; cursor: pointer; z-index: 10; opacity: 0.7; transition: opacity 0.2s ease;
+        }
+        .modal-close:hover { opacity: 1; }
+        .modal-video-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #000; }
+        .modal-video-wrapper iframe { width: 100%; height: 100%; border: none; }
+        .modal-body { padding: 1.8rem; overflow-y: auto; flex-grow: 1; }
+        .modal-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+        .modal-desc { font-size: 0.95rem; color: #aaa; margin-bottom: 1.5rem; line-height: 1.6; }
+        .modal-lyrics-title { font-size: 0.85rem; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.8rem; border-top: 1px solid #222; padding-top: 1rem; }
+        .modal-lyrics { font-size: 1rem; color: #ddd; line-height: 2; white-space: pre-line; font-style: italic; font-weight: 300; }
+
+        .footer { text-align: center; padding: 2.5rem 0; background-color: #ffffff; border-top: 1px solid #eaeaea; color: #888; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <!-- [頂部官方導覽列] -->
+    <header class="navbar">
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="hamburger-btn" aria-label="Toggle Menu">
+            <span></span><span></span><span></span>
+        </label>
+
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="./events.html" class="nav-link">最新活動</a></li>
+            <li class="nav-item">
+                <label for="sub-1" class="nav-link has-submenu active">關於 Manvis</label>
+                <input type="checkbox" id="sub-1" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./brand-story.html">品牌故事</a></li>
+                    <li><a href="./about-me.html">關於創辦人</a></li>
+                    <li><a href="./channels.html" class="active">我們的頻道</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-2" class="nav-link has-submenu">核心產品</label>
+                <input type="checkbox" id="sub-2" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./software-services.html">客製化軟體服務</a></li>
+                    <li><a href="./drink.html">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html">價格與購物</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <input type="checkbox" id="sub-3" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./dev-updates.html">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="./resources.html" class="nav-link">共享天堂</a></li>
+            <li class="nav-item"><a href="./fitness-log.html" class="nav-link">體態紀錄</a></li>
+            <li class="nav-item"><a href="./faq.html" class="nav-link">常見問題</a></li>
+        </ul>
+    </header>
+
+    <main class="container">
+        
+        <div class="header-section">
+            <h1 class="page-title">🌌 我們的頻道：心靈與心魔的對話空間</h1>
+        </div>
+
+        <!-- 詩意黃圈引言區 -->
+        <div class="quote-banner">
+            <p>當世界用未知與質詢佈下迷宮，讓心魔生出膽怯；<br>開啟旋律與故事，讓深夜裡的對話成為勇氣的痕跡。</p>
+            <p>與守護靈深思後的通透，悉數編織成替未來預備的錦囊妙計。<br>在時光冉冉、與心魔回懟的頻率共振裡，<br>困惑漸漸不再是前行的阻礙，而是一次次望向月亮時，豁然開朗的會心一笑。</p>
+            <p><strong>人生沒有標準答案，而是一次次的抉擇。</strong><br>在地球旅程的沿途亮起燈火，無聲而優雅地，照亮並溫暖他人最需要的那個抉擇。</p>
+        </div>
+
+        <!-- 雙頻道選擇切換卡片 -->
+        <div class="channel-selector">
+            <!-- 主頻道：Ethan_Caspar -->
+            <div class="channel-card active" id="card-ethan" onclick="selectChannel('ethan')">
+                <img src="./images/avatar-ethan.png" alt="Ethan_Caspar" class="channel-avatar" onerror="this.onerror=null; this.src='https://via.placeholder.com/60/111111/ffffff?text=E';">
+                <div class="channel-info">
+                    <div class="channel-header">
+                        <span class="channel-name">Ethan_Caspar</span>
+                        <span class="badge badge-main">主頻道</span>
+                    </div>
+                    <div class="channel-handle">@Ethan_Caspar</div>
+                    <div class="channel-desc">宇宙總台・開發日誌／哲學心靈／創作故事</div>
+                </div>
+            </div>
+
+            <!-- 副頻道：Awakened -->
+            <div class="channel-card" id="card-awakened" onclick="selectChannel('awakened')">
+                <img src="./images/avatar-awakened.png" alt="Awakened" class="channel-avatar" onerror="this.onerror=null; this.src='https://via.placeholder.com/60/6a11cb/ffffff?text=A';">
+                <div class="channel-info">
+                    <div class="channel-header">
+                        <span class="channel-name">Awakened</span>
+                        <span class="badge badge-sub">副頻道</span>
+                    </div>
+                    <div class="channel-handle">@Ethan_Caspar_Music</div>
+                    <div class="channel-desc">純粹音樂・沉浸冥想・主題 MV 氛圍空間</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 動態主題分類 Filter Buttons (將由 JS 根據選中頻道自動生成) -->
+        <div class="filter-nav" id="filter-container"></div>
+
+        <!-- 影片網格 Grid -->
+        <div class="video-grid" id="video-grid"></div>
+
+    </main>
+
+    <!-- 沉浸式 Modal 彈窗播放器 -->
+    <div class="modal-overlay" id="video-modal">
+        <div class="modal-container">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <div class="modal-video-wrapper">
+                <iframe id="modal-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="modal-body">
+                <h3 class="modal-title" id="modal-title"></h3>
+                <p class="modal-desc" id="modal-desc"></p>
+                <div class="modal-lyrics-title">PHILOSOPHICAL LYRICS / 哲學歌詞</div>
+                <div class="modal-lyrics" id="modal-lyrics"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        2026 WELCOME TO MANVIS WORLD
+    </footer>
+
+    <script>
+        // --- 1. 頻道各自獨立的分類設定 ---
+        const channelCategories = {
+            "ethan": [
+                { id: "all", name: "主頻道全部" },
+                { id: "天堂日誌", name: "天堂日誌" },
+                { id: "與心魔對話", name: "與心魔對話" },
+                { id: "哲學心靈小品", name: "哲學心靈小品" }
+            ],
+            "awakened": [
+                { id: "all", name: "副頻道全部" },
+                { id: "純音樂", name: "純音樂 / BGM" },
+                { id: "主題MV", name: "主題 MV" },
+                { id: "沉浸冥想", name: "沉浸冥想" }
+            ]
+        };
+
+        // --- 2. 頻道影片 JSON 資料庫 ---
+        const channelData = [
+            {
+                "id": "mv-001",
+                "channel": "ethan",
+                "title": "天堂日誌：地球旅程的第一章",
+                "category": "天堂日誌",
+                "youtube_id": "dQw4w9WgXcQ", 
+                "thumb": "", 
+                "description": "記錄著我們在地球旅程與神同行的日子，面對繁瑣日常時的內心平靜。",
+                "lyrics": "當世界用未知與質詢佈下迷宮，讓心魔生出膽怯...\n能讓旋律與歌詞，成為深夜裡與另一個自己溫柔對話的痕跡。"
+            },
+            {
+                "id": "mv-002",
+                "channel": "awakened",
+                "title": "與心魔共處的溫柔解藥 (Awakened 官方 MV)",
+                "category": "主題MV",
+                "youtube_id": "dQw4w9WgXcQ",
+                "thumb": "",
+                "description": "精緻視覺與音樂結合，在夜色中尋求內心的解答。",
+                "lyrics": "困惑漸漸不再是前行的阻礙...\n而是一次次望向月亮時，豁然開朗的會心一笑。"
+            },
+            {
+                "id": "mv-003",
+                "channel": "ethan",
+                "title": "雲端指揮官的深夜哲思",
+                "category": "哲學心靈小品",
+                "youtube_id": "dQw4w9WgXcQ",
+                "thumb": "",
+                "description": "把繁雜交給自動化，把生命留給體驗。",
+                "lyrics": "人生沒有標準答案，而是一次次的抉擇。\n無聲而優雅地，照亮並溫暖他人最需要的那個抉擇。"
+            },
+            {
+                "id": "mv-004",
+                "channel": "awakened",
+                "title": "深夜專注與放鬆的流動音符",
+                "category": "純音樂",
+                "youtube_id": "dQw4w9WgXcQ",
+                "thumb": "",
+                "description": "無雜訊純粹音律，適合寫程式、閱讀與思考時收聽。",
+                "lyrics": "(純音樂曲目，無歌詞內文)"
+            }
+        ];
+
+        let currentChannel = 'ethan'; // 預設顯示主頻道
+        let currentCategory = 'all';  // 預設選擇該頻道的全部
+
+        // --- 動態生成分類按鈕 Filter ---
+        function renderFilterButtons() {
+            const filterContainer = document.getElementById('filter-container');
+            if (!filterContainer) return;
+            filterContainer.innerHTML = '';
+
+            const categories = channelCategories[currentChannel] || [];
+
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = `filter-btn ${cat.id === currentCategory ? 'active' : ''}`;
+                btn.innerText = cat.name;
+                btn.onclick = () => filterCategory(cat.id, btn);
+                filterContainer.appendChild(btn);
+            });
+        }
+
+        // --- 渲染影片卡片列表 ---
+        function renderVideos() {
+            const grid = document.getElementById('video-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const filtered = channelData.filter(item => {
+                const matchChannel = (item.channel === currentChannel);
+                const matchCategory = (currentCategory === 'all' || item.category === currentCategory);
+                return matchChannel && matchCategory;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #888; padding: 3rem 0;">該分類下尚無對應作品，敬請期待！</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const thumbUrl = item.thumb || `https://img.youtube.com/vi/${item.youtube_id}/hqdefault.jpg`;
+
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => openModal(item);
+
+                card.innerHTML = `
+                    <div class="card-thumb">
+                        <img src="${thumbUrl}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/400x225?text=MV+Thumbnail'">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">${item.category}</span>
+                        <h3 class="card-title">${item.title}</h3>
+                        <p class="card-desc">${item.description}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- 頻道切換控制 ---
+        function selectChannel(channelKey) {
+            currentChannel = channelKey;
+            currentCategory = 'all'; // 切換頻道時重置分類為該頻道的「全部」
+
+            document.querySelectorAll('.channel-card').forEach(card => card.classList.remove('active'));
+            document.getElementById(`card-${channelKey}`).classList.add('active');
+
+            renderFilterButtons();
+            renderVideos();
+        }
+
+        // --- 主題分類切換控制 ---
+        function filterCategory(catId, btn) {
+            currentCategory = catId;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderVideos();
+        }
+
+        // --- Modal 彈窗控制 ---
+        function openModal(item) {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('modal-iframe');
+            
+            iframe.src = `https://www.youtube.com/embed/${item.youtube_id}?autoplay=1`;
+            document.getElementById('modal-title').innerText = item.title || '';
+            document.getElementById('modal-desc').innerText = item.description || '';
+            document.getElementById('modal-lyrics').innerText = item.lyrics || '';
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('video-modal');
+            const iframe = document.getElementById('modal-iframe');
+            if (iframe) iframe.src = ''; 
+            if (modal) modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('video-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // 頁面初次載入
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFilterButtons();
+            renderVideos();
+        });
+
+        // 手機版選單點擊自動關閉
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
