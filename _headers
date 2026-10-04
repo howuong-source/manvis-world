@@ -1,0 +1,13 @@
+# 1. HTML 網頁檔：只快取 5 分鐘（確保你替換倉庫 HTML 時，訪客能第一時間看見更新）
+/*.html
+  Cache-Control: public, max-age=300, must-revalidate
+
+# 2. 圖片與靜態資源：快取 30 天（讓頭像與縮圖瞬間秒開，不重複下載）
+/*.png
+  Cache-Control: public, max-age=2592000
+/*.jpg
+  Cache-Control: public, max-age=2592000
+/*.jpeg
+  Cache-Control: public, max-age=2592000
+/*.webp
+  Cache-Control: public, max-age=2592000
