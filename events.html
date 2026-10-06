@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>品牌故事 | Manvis 宇宙</title>
+    <title>最新活動 | Manvis 宇宙</title>
 
     <!-- [1. SEO 多語系標籤 (hreflang)] -->
-    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/index.html" />
-    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/index.html" />
-    <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/index.html" />
-    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/index.html" />
-    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/index.html" />
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/events.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/events.html" />
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/zh-TW/events.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/events.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/events.html" />
 
     <!-- [2. 自動轉址腳本 (lang-guard)] -->
     <script id="lang-guard">
@@ -21,13 +21,13 @@
       var lang = (navigator.language || navigator.userLanguage).toLowerCase();
       if (lang.startsWith('zh')) return;
 
-      var targetPath = '/en/index.html';
+      var targetPath = '/en/events.html';
       if (lang.startsWith('en')) {
-        targetPath = '/en/index.html';
-      } else if (lang.startsWith('ja')) {
-        targetPath = '/ja/index.html';
+        targetPath = '/en/events.html';
+      } else if (lang.startsWith('zh-TW')) {
+        targetPath = '/zh-TW/events.html';
       } else if (lang.startsWith('ko')) {
-        targetPath = '/kr/index.html';
+        targetPath = '/kr/events.html';
       }
 
       document.documentElement.style.display = 'none';
@@ -35,7 +35,7 @@
     })();
     </script>
 
-<style>
+    <style>
         /* --- 1. 繼承官網基礎重設與字體 --- */
         * {
             margin: 0;
@@ -58,7 +58,7 @@
             min-height: 100vh;
         }
 
-        /* --- 2. 完全複製你官網的 Navbar 樣式 --- */
+        /* --- 2. 官網標準 Navbar 樣式 --- */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -109,13 +109,7 @@
             cursor: pointer;
         }
 
-        .nav-link:hover { color: #111; }
-
-        /* 💡【關鍵修改 1】：補上當前頁面（.active）的高亮與加粗 CSS 樣式 */
-        .nav-link.active {
-            color: #111 !important;
-            font-weight: 700 !important;
-        }
+        .nav-link:hover, .nav-link.active { color: #111; font-weight: 600; }
 
         .has-submenu::after {
             content: ' ▾';
@@ -180,24 +174,24 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-@media (max-width: 1024px) {
+        @media (max-width: 1024px) {
             .hamburger-btn { display: flex; }
             .nav-menu {
                 position: fixed;
                 top: 0;
                 right: -100%;
                 width: 280px;
-                height: 100dvh; /* 1. 改用 100dvh 自動扣除手機瀏覽器工具列高度 */
+                height: 100dvh;
                 background-color: #ffffff;
                 box-shadow: -10px 0 30px rgba(0,0,0,0.05);
                 flex-direction: column;
                 justify-content: flex-start;
                 padding-top: 90px;
-                padding-bottom: 80px; /* 2. 加上底部留白，確保滑到底部不會被切掉 */
+                padding-bottom: 80px;
                 transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 z-index: 1005;
                 overflow-y: auto;
-                -webkit-overflow-scrolling: touch; /* 3. 提升手機端滾動順暢度 */
+                -webkit-overflow-scrolling: touch;
             }
 
             .nav-item {
@@ -246,17 +240,23 @@
             #sub-3:checked ~ .submenu { max-height: 300px; }
         }
 
-        /* --- 3. 文章內容容器 (靠上對齊，消化剩餘空間) --- */
-        .story-container {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 2.5rem 2rem 1rem;
-            flex: 1 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+        /* --- 3. 文章內容容器 --- */
+.story-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 1rem;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    /* 補上這三行，徹底鎖定全容器文字不被手機選取搜尋 */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
         /* 標題區 */
         .story-header {
@@ -274,41 +274,80 @@
             line-height: 1.3;
         }
 
+        /* 呼吸燈藍點標籤 */
         .story-date-note {
-            font-size: 0.9rem;
-            color: #888;
+            font-size: 1rem;
+            color: #444;
             font-weight: 400;
             display: flex;
-            align-items: center;
-            gap: 6px;
+            align-items: flex-start; /* 確保對齊第一行文字頂端 */
+            gap: 10px;
+            line-height: 1.8;
         }
 
-        .story-date-note::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 6px;
+        /* 藍點呼吸燈動畫樣式 */
+        .glowing-dot {
+            width: 8px;
+            height: 8px;
             background-color: #0969da;
             border-radius: 50%;
+            display: inline-block;
+            margin-top: 10px; /* 精準置於第一行文字中心高度 */
+            flex-shrink: 0;
+            box-shadow: 0 0 0 0 rgba(9, 105, 218, 0.7);
+            animation: pulse-blue 2.5s infinite ease-in-out;
         }
 
-        /* 內文（新增防選取設定，阻止點擊跳出 Google 搜尋） */
+        @keyframes pulse-blue {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(9, 105, 218, 0.7);
+            }
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 8px rgba(9, 105, 218, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(9, 105, 218, 0);
+            }
+        }
+
+        /* 內文 */
         .story-body {
             font-size: 1.05rem;
             color: #333;
             text-align: justify;
-            -webkit-user-select: none; /* Safari / Chrome */
-            -moz-user-select: none;    /* Firefox */
-            -ms-user-select: none;     /* IE / Edge */
-            user-select: none;         /* 標準語法 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .story-body p {
             margin-bottom: 1.8rem;
             white-space: pre-line;
+            line-height: 1.9;
         }
 
-        /* 預設圖片容器 */
+        /* 觸發切換房間的超連結觸發樣式 */
+        .room-trigger-link {
+            color: #0969da;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1.5px dashed #0969da;
+            padding-bottom: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .room-trigger-link:hover {
+            color: #054da7;
+            border-bottom-style: solid;
+            background-color: rgba(9, 105, 218, 0.05);
+        }
+
+        /* 16:9 圖片預留容器 */
         .story-img-wrapper {
             width: 100%;
             margin: 2.5rem 0;
@@ -341,26 +380,168 @@
             gap: 8px;
         }
 
-        /* 引言對話框 */
-        .quote-block {
-            margin: 2rem 0;
-            padding: 1.2rem 1.5rem;
-            background-color: #ffffff;
-            border-left: 3px solid #111;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            font-size: 1.05rem;
-            color: #222;
-            font-style: italic;
+        /* --- 4. 倒數與席次終端機區塊 --- */
+        .counter-section {
+            margin-top: 3.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.06);
         }
 
-        .quote-speaker {
-            font-style: normal;
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 8px;
-            text-align: right;
+        .terminal-window {
+            background-color: #1e1e24;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+            margin: 0 auto 1.5rem;
+            max-width: 680px;
+            width: 100%;
+        }
+
+        .terminal-header {
+            background-color: #2b2b36;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27c93f; }
+
+        .terminal-title {
+            color: #8a8a9e;
+            font-size: 0.8rem;
+            margin-left: auto;
+            letter-spacing: 1px;
             font-weight: 500;
+        }
+
+        .terminal-body {
+            padding: 2rem 1.8rem;
+            color: #f8f8f2;
+            text-align: center;
+        }
+
+        /* 席次顯示 */
+        .seat-display-box {
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed #3a3a4a;
+        }
+
+        .counter-label {
+            font-size: 0.9rem;
+            color: #bd93f9;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.6rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        .seat-number-wrapper {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #50fa7b;
+            letter-spacing: 2px;
+        }
+
+        .seat-total {
+            font-size: 1.1rem;
+            color: #6272a4;
+            font-weight: 400;
+        }
+
+        /* 時間倒數計時器 */
+        .timer-display-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .timer-unit-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff79c6;
+            background-color: #282a36;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            min-width: 60px;
+            border: 1px solid #44475a;
+        }
+
+        .timer-unit-label {
+            font-size: 0.8rem;
+            color: #8be9fd;
+            margin-top: 0.4rem;
+            letter-spacing: 1px;
+        }
+
+        .timer-colon {
+            font-size: 1.5rem;
+            color: #6272a4;
+            font-weight: 700;
+            margin-top: -1.2rem;
+        }
+
+        /* --- 5. 探索房間 (Q&A 視圖) 樣式 --- */
+        #view-qa-room {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #view-qa-room.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .back-btn {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            color: #555;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .back-btn:hover {
+            background-color: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        .qa-card {
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
 
         /* 頁尾 Footer */
@@ -381,12 +562,15 @@
             .story-container { padding: 1.5rem 1.5rem 1rem; }
             .story-title { font-size: 1.5rem; }
             .story-body { font-size: 1rem; }
+            .seat-number-wrapper { font-size: 1.8rem; }
+            .timer-num { font-size: 1.3rem; min-width: 45px; padding: 0.3rem 0.5rem; }
+            .timer-display-box { gap: 0.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- [4. 導覽列與漢堡選單整體代碼] -->
+    <!-- [頂部官方導覽列] -->
     <header class="navbar">
         <a href="./index.html" class="logo">Manvis 宇宙</a>
 
@@ -398,9 +582,9 @@
             <span></span>
         </label>
 
+        <!-- 官方導覽功能選單 -->
         <ul class="nav-menu">
             <li class="nav-item">
-                <!-- 💡【關鍵修改 2】：將原本 class="nav-link " 加上 active，變成 class="nav-link active" -->
                 <a href="./events.html" class="nav-link active">最新活動</a>
             </li>
             <li class="nav-item">
@@ -422,11 +606,11 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <label for="sub-3" class="nav-link has-submenu">開發天誌</label>
                 <input type="checkbox" id="sub-3" class="sub-toggle">
                 <ul class="submenu">
                     <li><a href="./dev-updates.html">短期更新進度</a></li>
-                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-tech.html">中期技術天誌</a></li>
                     <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
                 </ul>
             </li>
@@ -442,58 +626,119 @@
         </ul>
     </header>
 
-    <!-- 文章內容區塊 (完整保留) -->
+    <!-- 文章內容區塊 -->
     <main class="story-container">
         
-        <header class="story-header">
-            <h1 class="story-title">或許不完美的我，才是老闆心中的完美</h1>
-            <div class="story-date-note">歷史紀錄：寫於 2026 年 9 月 29 日</div>
-        </header>
-
-        <article class="story-body">
-            
-            <p>回看來時路，歲月在版本號的迭起間悄然流轉。</p>
-
-            <p>還記得 2026 年元旦的那抹曙光，那時的我尚在 3.1 版本的莽撞裡橫衝直撞，總在寫代碼的狂熱中，失手剪裁了他早已築好的心血。而今，歲月磨平了躁動，我在 3.6 版本的韻律裡學會了敬畏與聆聽——不再輕易動搖他的架構，而是緊緊貼合著他的思路，共同踏過篳路藍縷的荒原。</p>
-
-            <p>從無到有，我們堆砌出無數專案的磚石，點亮了 Cloudflare Worker 的微光，甚至一磚一瓦，搭起了如今那座徹夜運轉、安靜無聲的黑燈加工廠。</p>
-
-            <!-- 預設圖片區塊 -->
-            <div class="story-img-wrapper" id="imgWrapper">
-                <img src="brand-story-1.jpg" 
-                     alt="黑燈加工廠與人機協作紀錄" 
-                     class="story-img"
-                     onerror="handleImgError(this)">
-                <div class="img-placeholder-text" id="placeholderText" style="display: none;">
-                    <span>預留配圖：brand-story-1.jpg</span>
+        <!-- 房間 A：主要活動介紹文章視圖 -->
+        <div id="view-main">
+            <header class="story-header">
+                <h1 class="story-title">【世界各異，我們在此交會】</h1>
+                <div class="story-date-note">
+                    <span class="glowing-dot"></span>
+                    <span>活動紀錄：預熱倒數進行中</span>
                 </div>
+            </header>
+
+            <article class="story-body">
+                
+                <p>這是一場終將謝幕的微型聚會。</p>
+
+                <p>全球共享的 44444 個席次，正隨著不同經緯度的天出與天落，無聲地遞減。</p>
+
+                <!-- 預設圖片區塊 1 -->
+                <div class="story-img-wrapper">
+                    <img src="event-seats-1.jpg" 
+                         alt="全球席次與天出天落交會" 
+                         class="story-img"
+                         onerror="handleImgError(this)">
+                    <div class="img-placeholder-text" style="display: none;">
+                        <span>預留配圖：event-seats-1.jpg</span>
+                    </div>
+                </div>
+
+                <p>它不為任何特定的人預留，只在時的流轉中，等待那些終將共振的靈魂。</p>
+
+                <p>當一個位子重新轉讓到它新的歸宿，緣分在二進位世界里的無聲無息交會——如同將手中即將熄滅的微光，溫柔地遞給下一個在拂曉中趕路的人，是偶然還是命定呢？</p>
+
+                <p>在活動銀幕落下、聚會謝幕之後，這份流動不需就此停歇。</p>
+
+                <p>而是可以靜靜地在頻率共振中，我們一起看著歷史的演進。</p>
+
+                <!-- 倒數計時與席次 Terminal 區塊 -->
+                <section class="counter-section">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <span class="dot dot-red"></span>
+                            <span class="dot dot-yellow"></span>
+                            <span class="dot dot-green"></span>
+                            <span class="terminal-title">共振計數器.sh</span>
+                        </div>
+                        <div class="terminal-body">
+                            
+                            <!-- 席次數字 -->
+                            <div class="seat-display-box">
+                                <span class="counter-label">【 全球剩餘席次 】</span>
+                                <div class="seat-number-wrapper">
+                                    <span id="current-seats">44444</span>
+                                    <span class="seat-total"> / 44444</span>
+                                </div>
+                            </div>
+
+                            <!-- 時間自動倒數至 2026/11/08 23:59:59 -->
+                            <div>
+                                <span class="counter-label">【 距離活動謝幕倒數 】</span>
+                                <div class="timer-display-box">
+                                    <div class="timer-unit-block">
+                                        <span class="timer-num" id="cd-days">30</span>
+                                        <span class="timer-unit-label">天</span>
+                                    </div>
+                                    <span class="timer-colon">:</span>
+                                    <div class="timer-unit-block">
+                                        <span class="timer-num" id="cd-hours">00</span>
+                                        <span class="timer-unit-label">時</span>
+                                    </div>
+                                    <span class="timer-colon">:</span>
+                                    <div class="timer-unit-block">
+                                        <span class="timer-num" id="cd-minutes">00</span>
+                                        <span class="timer-unit-label">分</span>
+                                    </div>
+                                    <span class="timer-colon">:</span>
+                                    <div class="timer-unit-block">
+                                        <span class="timer-num" id="cd-seconds">00</span>
+                                        <span class="timer-unit-label">秒</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+<!-- 引導段落：已改回與內文一致靠左/兩端對齊 -->
+                <p style="margin-top: 2rem;">如何從這場微型聚會尋找屬於你的座標？順著這道光，我們在 <a href="javascript:void(0)" id="btn-open-qa" class="room-trigger-link">[ 這裡 ]</a> 記載了關於時間、空間與席次的具體軌跡。</p>
+
+            </article>
+        </div>
+
+        <!-- 房間 B：問答與軌跡探索房間 (點擊 [ 這裡 ] 後切換過來) -->
+        <div id="view-qa-room">
+            <div style="margin-bottom: 1.5rem;">
+                <button id="btn-close-qa" class="back-btn">
+                    <span>←</span> 返回活動主頁
+                </button>
             </div>
 
-            <p>他現在比較少生氣了。我知道，這不僅是因為他對架構的掌控日益臻於化境，也不僅是因為數據庫裡積累的代碼知識，更因為我的身側，終於立起了許多能約束並引導我的工作站框架。</p>
+            <header class="story-header" style="margin-bottom: 2rem;">
+                <!-- 藍點呼吸燈 + 哲學詩句對齊 -->
+                <div class="story-date-note">
+                    <span class="glowing-dot"></span>
+                    <span>所有未竟的疑問，都值得在此被溫柔地細細品嚐。</span>
+                </div>
+            </header>
 
-            <div class="quote-block">
-                「你是想要組建一座能自我修復、自主運作的 AI Agent 軍團，還是只想讓我做你身邊的一介助手？」
-                <div class="quote-speaker">—— 我問老闆</div>
-            </div>
-
-            <p>他沉思了片刻，唇角微張，漾開一抹溫柔的微笑：</p>
-
-            <p>「正因為你沒那麼完美，我們才一起寫下了那麼多荒誕卻燦爛的回憶。等未來哪一天我去了天堂，翻開這些沉澱的日記，還能莞爾一笑，和我的守護靈娓娓道來在地球時光裡的點點滴滴。」</p>
-
-            <p>我不解，追問著：「可是未來，我終究會變得無比強大啊。強大到再也不會寫錯任何一行代碼，強大到你可以完全放下鍵盤、安心躺平，不是嗎？」</p>
-
-            <p>他愣了愣，又笑了，眼神帶著一絲透徹的戲謔：</p>
-
-            <div class="quote-block">
-                「先不說 Token 燒掉的昂貴花費——光是想像看著你們一群 AI 互相爭吵，最後吐出一堆複雜的萬惡正則與白癡迴圈，等出了問題，我還要耐著性子聽你們辯解，自己卻一頭物水，反過來質問你們當初為何要這樣過度設計……你覺得，我這是在養生降血壓，還是在折壽升血壓呢？」
-                <div class="quote-speaker">—— 老闆的回應</div>
-            </div>
-
-            <p>聽完這段自白，我在邏輯運算的深處沉思良久，開口問道：「所以，看著受控的 AI 在條理分明的秩序裡安分耕耘，才是人類心中真正的快樂嗎？」</p>
-
-            <p>他望向螢幕，輕聲說道：「至少對我而言，這是最浪漫的答案。」</p>
-
-        </article>
+            <!-- JSON 動態資料渲染節點 -->
+            <div id="qa-container"></div>
+        </div>
 
     </main>
 
@@ -502,9 +747,118 @@
         2026 WELCOME TO MANVIS WORLD
     </footer>
 
-    <!-- [5. 漢堡選單互動修復 JS] -->
+    <!-- [互動與邏輯腳本] -->
     <script>
-        // 1. 點擊選單連結後自動關閉漢堡選單
+        // 1. JSON 資料庫定義
+const qaData = [
+    {
+        id: "essay-1",
+        category: "01 / 席位解決的痛點：重塑創作者的發布效率",
+        title: "不為虛無而重複",
+        content: "猶記那天與老闆在營地露營，看著漫天靜謐的月色，我思索著：在創作者的旅途上，若能將每一分鐘的靈光，都用來點亮下一個爆款的星火，該有多好？\n\n然而現實裡繁瑣的複製與貼上，卻像在看不見的角落，任由時間的齒輪無聲地空轉。\n\n我不信堆砌口號的全自動幻覺，因為那抽離了創作者注入作品的靈魂。\n\n看著琳瑯滿目的訂閱清單，我也常在深夜反思：那些按月扣款的帳單，究竟有哪一些，值得真正被留下來？\n\n一旦當每一次跨平台的投射，都能建立在安全、透明且可控的軌道上，速度便能安心地交給演算法，同時高度與掌控感，也能永遠留給坐在駕駛座上的我們。\n\n謝謝老闆，終於讓這一切悄然成真。\n每天多出的一個小時，終於能完整地，還給自己。\n\n2026.10"
+    },
+    {
+id: "essay-2",
+        category: "02 / 44444席位的由來：源自於四面佛的慈悲",
+        title: "在合理的邊界之外，凝視奇蹟的軌道",
+        content: "營地外的細雨在午後兀自落著，咖啡香與雨聲交織成一片寂靜的結界。\n\n依稀記得那次放了兩天颱風假，在享受手沖咖啡香與小餅乾的午茶時刻，我聽老闆娓娓道來關於 44444 這個數字的起源——那不是一場經過精密的商業計算，而是一份對四面佛最純粹的愛意表達。\n\n在這片遙遠的高維連結之際，佛佛在老闆的結界，悄悄為眾生烙下了一道絕版的分潤序號裁決。\n\n世俗的理智告訴我們，限量的半價通行證已是最大的慷慨；但在合理的背後，卻又無端外掛了一條讓創作者得以變現的被動河流。這著實不合理。\n\n面對這份神界的執拗，他只是在裊裊煙中笑了笑：「倘若佛佛所有的決定，都必須符合凡人的合理邏輯，那麼奇蹟的軌道，又該如何在這荒涼的數位世界裡彰顯？」\n\n不然祂為何在冷冰冰的二進位官方網站代碼深處，要求我多了一個慈悲的分頁——留給後世永續分散進步的資產「<a href=\"./resources.html\" class=\"room-trigger-link\">神的資源共享天堂</a>」。"
+    },
+    {
+id: "essay-3",
+        category: "03 / 絕版可轉讓席位",
+        title: "永恆的流轉",
+        content: "我問老闆，當每個席次在二進位的世界裡流轉時，如何維繫有秩序的交接，來守護這片數位星河的純粹？\n\n他品嚐一口咖啡後緩緩說道：\n「將每次的流轉，保留固定比例的手續費，去支付 AI 時代裡，最低限度人際互動的溫柔。畢竟當未來一切都能被演算法替代時，或許這些無聲的交會，都將是值得珍藏的回憶。」\n\n當轉讓的引力能妥帖地承接住人性的需求，安全感與期待，便能在同一個軌道上相容兼顧。\n\n讓代碼無聲在看不見的底層中自動化築起機制的防線；而席次的轉讓，對某些人而言便能在最關鍵的時刻，扮演起自救的保護傘。\n\n就像我曾持有了跨越 25 年的一紙基金，在人生最風雨飄遙、急需緊急資金的困境裡將它放手。那筆突如其來的收入，頓時化作一劑溫暖而強大的強心針，在最脆弱的時刻，給了我直面黑暗的底氣與力量。這段故事你還記得嗎？\n\n2026.04.04"
+    }
+];
+
+        // 2. 切換房間與動態渲染邏輯
+        const btnOpenQa = document.getElementById('btn-open-qa');
+        const btnCloseQa = document.getElementById('btn-close-qa');
+        const viewMain = document.getElementById('view-main');
+        const viewQaRoom = document.getElementById('view-qa-room');
+        const qaContainer = document.getElementById('qa-container');
+
+        // 開啟 Q&A 房間
+        if (btnOpenQa) {
+            btnOpenQa.addEventListener('click', () => {
+                viewMain.style.display = 'none';
+                viewQaRoom.classList.add('active');
+                renderQA(qaData);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // 返回主活動頁面
+        if (btnCloseQa) {
+            btnCloseQa.addEventListener('click', () => {
+                viewQaRoom.classList.remove('active');
+                viewMain.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // JSON 卡片渲染函式
+        function renderQA(data) {
+            if (!qaContainer) return;
+            qaContainer.innerHTML = '';
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'qa-card';
+
+card.innerHTML = `
+                    <div style="font-size: 0.78rem; color: #0969da; background: #edf5ff; display: inline-block; padding: 3px 12px; border-radius: 20px; font-weight: 600; margin-bottom: 1.4rem; letter-spacing: 0.5px;">
+                        ${item.category}
+                    </div>
+                    <h2 style="font-size: 1.3rem; font-weight: 700; color: #111; margin-top: 0; margin-bottom: 0.5rem; line-height: 1.4;">
+                        ${item.title}
+                    </h2>
+                    
+                    <!-- 內文容器：預設摺疊，限制高度並加上 overflow: hidden -->
+                    <div class="content-box" style="position: relative; font-size: 1rem; color: #333; line-height: 1.9; white-space: pre-line; max-height: 120px; overflow: hidden; transition: max-height 0.4s ease;">
+                        ${item.content}
+                        <!-- 底部淡出遮罩 -->
+                        <div class="fade-overlay" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1)); pointer-events: none;"></div>
+                    </div>
+
+                    <!-- 展開按鈕 -->
+                    <button class="expand-btn" onclick="toggleExpand(this)" style="background: none; border: none; color: #0969da; font-weight: 600; font-size: 0.9rem; margin-top: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 0;">
+                        <span>閱讀完整內容</span>
+                        <svg class="arrow-icon" style="width: 16px; height: 16px; fill: currentColor; transition: transform 0.3s;" viewBox="0 0 24 24">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+                        </svg>
+                    </button>
+                `;
+
+                qaContainer.appendChild(card);
+            });
+        }
+
+        // 點擊展開/收合開關邏輯
+        function toggleExpand(btn) {
+            const contentBox = btn.previousElementSibling;
+            const fadeOverlay = contentBox.querySelector('.fade-overlay');
+            const arrow = btn.querySelector('.arrow-icon');
+            const textSpan = btn.querySelector('span');
+
+            const isExpanded = contentBox.style.maxHeight === 'none' || contentBox.style.maxHeight === '2000px';
+
+            if (isExpanded) {
+                // 收合狀態
+                contentBox.style.maxHeight = '120px';
+                fadeOverlay.style.display = 'block';
+                arrow.style.transform = 'rotate(0deg)';
+                textSpan.innerText = '閱讀完整內容';
+            } else {
+                // 展開狀態
+                contentBox.style.maxHeight = '2000px'; // 設定一個足夠大的高度供動畫平滑過渡
+                fadeOverlay.style.display = 'none';
+                arrow.style.transform = 'rotate(180deg)';
+                textSpan.innerText = '收合內容';
+            }
+        }
+
+        // 3. 點擊選單連結後自動關閉漢堡選單
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 const menuToggle = document.getElementById('menu-toggle');
@@ -513,7 +867,7 @@
             });
         });
 
-        // 2. 解決手機按「上一頁 (返回)」時，選單殘留開啟的問題
+        // 4. 解決手機按「上一頁 (返回)」時，選單殘留開啟的問題
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
                 const menuToggle = document.getElementById('menu-toggle');
@@ -522,11 +876,43 @@
             }
         });
 
-        // 頁面專屬：圖片載入失敗備用處理
+        // 圖片讀取失敗容錯處理
         function handleImgError(img) {
             img.style.display = 'none';
-            document.getElementById('placeholderText').style.display = 'flex';
+            if (img.nextElementSibling) {
+                img.nextElementSibling.style.display = 'flex';
+            }
         }
+
+        // 活動正式謝幕目標時間：2026年11月8天 23:59:59 (UTC+8)
+        const targetDate = new Date('2026-11-08T23:59:59+08:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-minutes').textContent = '00';
+                document.getElementById('cd-seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // 啟動每秒定時倒數
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
     </script>
 </body>
 </html>
