@@ -35,7 +35,7 @@
     })();
     </script>
 
-    <style>
+<style>
         /* --- 1. 繼承官網基礎重設與字體 --- */
         * {
             margin: 0;
@@ -110,6 +110,12 @@
         }
 
         .nav-link:hover { color: #111; }
+
+        /* 💡【關鍵修改 1】：補上當前頁面（.active）的高亮與加粗 CSS 樣式 */
+        .nav-link.active {
+            color: #111 !important;
+            font-weight: 700 !important;
+        }
 
         .has-submenu::after {
             content: ' ▾';
@@ -394,10 +400,11 @@
 
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="./events.html" class="nav-link ">最新活動</a>
+                <!-- 💡【關鍵修改 2】：將原本 class="nav-link " 加上 active，變成 class="nav-link active" -->
+                <a href="./events.html" class="nav-link active">最新活動</a>
             </li>
             <li class="nav-item">
-                <label for="sub-1" class="nav-link has-submenu ">關於 XXX</label>
+                <label for="sub-1" class="nav-link has-submenu">關於 XXX</label>
                 <input type="checkbox" id="sub-1" class="sub-toggle">
                 <ul class="submenu">
                     <li><a href="./brand-story.html">品牌故事</a></li>
@@ -406,7 +413,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <label for="sub-2" class="nav-link has-submenu ">核心產品</label>
+                <label for="sub-2" class="nav-link has-submenu">核心產品</label>
                 <input type="checkbox" id="sub-2" class="sub-toggle">
                 <ul class="submenu">
                     <li><a href="./software-services.html">客製化軟體服務</a></li>
@@ -415,7 +422,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <label for="sub-3" class="nav-link has-submenu ">開發日誌</label>
+                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
                 <input type="checkbox" id="sub-3" class="sub-toggle">
                 <ul class="submenu">
                     <li><a href="./dev-updates.html">短期更新進度</a></li>
@@ -424,13 +431,13 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="./resources.html" class="nav-link ">共享天堂</a>
+                <a href="./resources.html" class="nav-link">共享天堂</a>
             </li>
             <li class="nav-item">
-                <a href="./fitness-log.html" class="nav-link ">體態紀錄</a>
+                <a href="./fitness-log.html" class="nav-link">體態紀錄</a>
             </li>
             <li class="nav-item">
-                <a href="./faq.html" class="nav-link ">常見問題</a>
+                <a href="./faq.html" class="nav-link">常見問題</a>
             </li>
         </ul>
     </header>
