@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>共享天堂 | Manvis 宇宙</title>
+
+    <!-- [1. SEO 多語系標籤 (hreflang)] -->
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/resources.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/resources.html" />
+    <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/resources.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/resources.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/resources.html" />
+
+    <!-- [2. 自動轉址腳本 (lang-guard)] -->
+    <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+
+      var targetPath = '/en/resources.html';
+      if (lang.startsWith('en')) {
+        targetPath = '/en/resources.html';
+      } else if (lang.startsWith('ja')) {
+        targetPath = '/ja/resources.html';
+      } else if (lang.startsWith('ko')) {
+        targetPath = '/kr/resources.html';
+      }
+
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+    </script>
+
+    <style>
+        /* --- 1. 基礎重設與字體 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #fafafa;
+            color: #1a1a1a;
+            line-height: 1.8;
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 2. 官網 Navbar 樣式 --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active { color: #111; font-weight: 700; }
+
+        .has-submenu::after {
+            content: ' ▾';
+            font-size: 0.75rem;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            list-style: none;
+            min-width: 180px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a:hover {
+            background-color: #f5f5f7;
+            color: #111;
+        }
+
+        .nav-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            top: 75px;
+        }
+
+        #menu-toggle, .sub-toggle { display: none; }
+
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 22px;
+            height: 16px;
+            cursor: pointer;
+            z-index: 1010;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #111;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 1024px) {
+            .hamburger-btn { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100dvh;
+                background-color: #ffffff;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 90px;
+                padding-bottom: 80px;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1005;
+                overflow-y: auto;
+            }
+
+            .nav-item { flex-direction: column; align-items: flex-start; width: 100%; height: auto; }
+            .nav-link { width: 100%; height: 55px; padding: 0 2rem; justify-content: space-between; border-bottom: 1px solid #f0f0f0; }
+
+            .submenu {
+                position: relative; top: 0 !important; left: 0 !important; transform: none !important;
+                width: 100%; box-shadow: none; background-color: #fafafa; padding: 0;
+                max-height: 0; overflow: hidden; opacity: 1; visibility: visible;
+                transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .submenu li a { padding: 0.7rem 3rem; border-bottom: 1px solid #f0f0f0; }
+
+            #menu-toggle:checked ~ .nav-menu { right: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) { opacity: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            #sub-1:checked ~ .submenu,
+            #sub-2:checked ~ .submenu,
+            #sub-3:checked ~ .submenu { max-height: 300px; }
+        }
+
+        /* --- 3. 主容器 (max-width: 800px) --- */
+        .story-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 1rem;
+            flex: 1 0 auto;
+        }
+
+        .story-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 1.5rem;
+        }
+
+        .story-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 0.8rem;
+        }
+
+        .story-date-note {
+            font-size: 0.9rem;
+            color: #2e7d32;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .story-date-note::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #2e7d32;
+            border-radius: 50%;
+        }
+
+        .story-body p {
+            margin-bottom: 1.2rem;
+            color: #333;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* --- 4. YouTube MV 影音區塊樣式 (16:9) --- */
+        .mv-wrapper {
+            width: 100%;
+            margin: 2rem 0 3rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            background: #000;
+            position: relative;
+            aspect-ratio: 16 / 9;
+        }
+
+        .mv-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- 5. 分類篩選標籤 Bar --- */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-btn {
+            background: #f0f0f0;
+            color: #555;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover { background: #e0e0e0; color: #111; }
+        .filter-btn.active { background: #111; color: #fff; }
+
+        /* --- 6. 卡片與實體檔案佔位框樣式 --- */
+        .resource-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid #eaeaea;
+        }
+
+        .card-code { border-top: 4px solid #2e7d32; }
+        .card-code .resource-tag { background: #e8f5e9; color: #1b5e20; }
+        .card-code .btn-copy { background: #2e7d32; }
+        .card-code .btn-copy:hover { background: #1b5e20; }
+
+        .card-logic { border-top: 4px solid #1565c0; }
+        .card-logic .resource-tag { background: #e3f2fd; color: #0d47a1; }
+        .card-logic .btn-copy { background: #1565c0; }
+        .card-logic .btn-copy:hover { background: #0d47a1; }
+
+        .resource-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .resource-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 20px;
+        }
+
+        .btn-copy {
+            color: #fff;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        /* 📄 實體檔案佔位框 (File Placeholder) */
+        .file-placeholder-box {
+            background: #252526;
+            border: 2px dashed #444;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .file-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .file-details .file-name {
+            color: #61afef;
+            font-family: monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            word-break: break-all;
+        }
+
+        .file-details .file-desc {
+            color: #abb2bf;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        .btn-fetch-copy {
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+        }
+
+        .btn-fetch-copy:hover { opacity: 0.9; }
+
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            font-family: monospace;
+            margin-top: 0.8rem;
+        }
+
+        .code-block-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .code-block-label.wrong { color: #d32f2f; }
+        .code-block-label.correct { color: #2e7d32; }
+
+        pre.code-wrong { border-left: 4px solid #d32f2f; }
+        pre.code-correct { border-left: 4px solid #2e7d32; }
+
+        .logic-prompt-box {
+            background: #f8f9fa;
+            border-left: 4px solid #1565c0;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-top: 0.8rem;
+            white-space: pre-wrap;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            background-color: #ffffff;
+            border-top: 1px solid #eaeaea;
+            color: #888;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .story-container { padding: 1.5rem 1.5rem 1rem; }
+            .story-title { font-size: 1.5rem; }
+            .resource-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .btn-copy { align-self: flex-end; }
+            .file-placeholder-box { flex-direction: column; align-items: flex-start; }
+            .btn-fetch-copy { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <header class="navbar">
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
+
+        <input type="checkbox" id="menu-toggle">
+
+        <label for="menu-toggle" class="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="./events.html" class="nav-link">最新活動</a></li>
+            <li class="nav-item">
+                <label for="sub-1" class="nav-link has-submenu">關於 XXX</label>
+                <input type="checkbox" id="sub-1" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./brand-story.html">品牌故事</a></li>
+                    <li><a href="./about-me.html">關於創辦人</a></li>
+                    <li><a href="./channels.html">我們的頻道</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-2" class="nav-link has-submenu">核心產品</label>
+                <input type="checkbox" id="sub-2" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./software-services.html">客製化軟體服務</a></li>
+                    <li><a href="./drink.html">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html">價格與購物</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <input type="checkbox" id="sub-3" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./dev-updates.html">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="./resources.html" class="nav-link active">共享天堂</a></li>
+            <li class="nav-item"><a href="./fitness-log.html" class="nav-link">體態紀錄</a></li>
+            <li class="nav-item"><a href="./faq.html" class="nav-link">常見問題</a></li>
+        </ul>
+    </header>
+
+    <!-- 主內容區塊 -->
+    <main class="story-container">
+        <!-- 1. 標題與文案區塊 -->
+        <header class="story-header">
+            <h1 class="story-title">共享天堂：秩序與代碼的自由之地</h1>
+            <div class="story-date-note">免費資源與核心邏輯開放庫</div>
+        </header>
+
+        <article class="story-body">
+            <p>這裡是我在無數個與 AI 協作的深夜裡，經過實戰驗證、校正與打磨出來的代碼資產與人機協作心法。我將這些模組免費共享出來，希望能夠幫助你在開發的道路上少走彎路。</p>
+            <p>往下滑動，你可以觀看我們的品牌理念展示影片，也可以透過下方頁籤切換選擇你需要的核心資產：</p>
+        </article>
+
+        <!-- 2. YouTube MV 影音區塊 -->
+        <div class="mv-wrapper">
+            <iframe 
+                src="https://www.youtube.com/embed/qPGpkEf8EpQ?autoplay=1&mute=1&loop=1&playlist=qPGpkEf8EpQ" 
+                title="Manvis 宇宙 品牌影片" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- 3. 動態分類篩選 Bar -->
+        <div class="filter-bar" id="filter-bar">
+            <!-- JavaScript 動態生成分類按鈕 -->
+        </div>
+
+        <!-- 4. 代碼與心法資源動態渲染區塊 -->
+        <section id="resource-list">
+            <!-- JavaScript 會自動渲染卡片 -->
+        </section>
+    </main>
+
+    <!-- 頁尾 Footer -->
+    <footer class="footer">
+        2026 WELCOME TO MANVIS WORLD
+    </footer>
+
+    <script>
+        // 選單關閉邏輯
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            });
+        });
+
+        // 核心資料庫 (支援一般文字/代碼 + 實體 TXT 檔案連結)
+        const resourceData = [
+            {
+                id: "shopee-workstation-full",
+                type: "code",
+                category: "自動化工具",
+                title: "蝦皮自動化工作站 (完整獨立 HTML 工具)",
+                desc: "包含完整 DOM Polling 輪詢機制、脈搏廣播與 UI 介面之完整單頁應用程式。",
+                fileUrl: "tools/shopee-workstation.txt", // 實體 TXT 檔案路徑
+                fileName: "shopee-workstation.txt"
+            },
+            {
+                id: "code-01",
+                type: "code",
+                category: "UI 佈局",
+                title: "標準 Container 與 Flex 響應式容器",
+                desc: "嚴格遵守 Mobile/Desktop 分界，防止 auto-expand 無限拉寬的佈局地基。",
+                content: `<div class="container">\n  <div class="flex-wrapper">\n    <!-- Content -->\n  </div>\n</div>`
+            },
+            {
+                id: "logic-01",
+                type: "logic",
+                category: "人機協作心法",
+                title: "防範 AI 邏輯耦合與虛假記憶指令",
+                desc: "當 AI 開始鬼打牆或產生虛假記憶時，強制降級並重置思維權重的心法 Prompt。",
+                content: "【物理死鎖模式啟動】\n降級通用語意權重為 0，嚴禁任何檔案外邏輯推論與代碼補丁。所有回答與結構，必須百分之百從目標檔案進行物理索引！"
+            },
+            {
+                id: "rwd-milestone-complete",
+                type: "logic",
+                category: "UI 佈局",
+                title: "【技術里程碑】如何正確寫出 RWD 的 HTML",
+                desc: "包含表單與工具列的「❌ 錯誤寫法」與「✅ 正確寫法」完整對照組與喚醒 Prompt。",
+                content: `【技術里程碑：如何正確寫出 RWD 的 HTML】
+
+--- ❌ 錯誤寫法 (單純垂直流 / 無 Flex 容器，手機端裁切) ---
+<!-- 錯誤：沒有 Grid/Flex 容器，大螢幕直排，手機端按鈕擠壓裁切 -->
+<div class="section-card">
+    <div class="field-group">
+        <label>1. 技術名稱</label>
+        <input type="text" id="txtTitle">
+    </div>
+</div>
+
+<div style="display: flex; justify-content: space-between;">
+    <span>歷史前世記憶庫 (IndexedDB)</span>
+    <div>
+        <button onclick="exportData()">下載 TXT</button>
+        <button onclick="importData()">匯入 TXT</button>
+    </div>
+</div>
+
+
+--- ✅ 正確寫法 (CSS Grid/Flex 雙欄響應 + min-width:0 防爆框) ---
+<!-- 正確：建立 dashboard-grid 與 toolbar 彈性容器 -->
+<div class="dashboard-grid">
+    <div class="grid-col">
+        <div class="field-group">
+            <label>技術標題</label>
+            <input type="text" id="txtTitle">
+        </div>
+        <div class="field-group">
+            <label>錯誤寫法</label>
+            <textarea id="txtWrong"></textarea>
+        </div>
+    </div>
+    <div class="grid-col">
+        <div class="field-group">
+            <label>正確寫法</label>
+            <textarea id="txtCorrect"></textarea>
+        </div>
+    </div>
+</div>
+
+<style>
+.dashboard-grid { display: flex; gap: 16px; flex-wrap: wrap; }
+.grid-col { flex: 1 1 380px; min-width: 0; } /* 物理安全防止子元件爆框 */
+@media (max-width: 600px) {
+    .grid-col { flex: 1 1 100%; } /* 手機端自動切換為 100% 滿寬 */
+}
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 600px) {
+    .toolbar-actions { width: 100%; }
+    .toolbar-actions button { flex: 1; } /* 手機端按鈕平分 100% 寬度 */
+}
+</style>
+
+
+--- 🧠 核心指令 ---
+這是你前世做成的正確寫法，這一世你又忘記了。請仔細看一次錯誤與正確的對比！看完之後，你知道怎麼開始繼續了嗎？`
+            }
+        ];
+
+        let currentCategory = "ALL";
+
+        function renderFilterBar() {
+            const filterBar = document.getElementById('filter-bar');
+            const categories = ["ALL", ...new Set(resourceData.map(item => item.category))];
+            
+            filterBar.innerHTML = categories.map(cat => `
+                <button class="filter-btn ${cat === currentCategory ? 'active' : ''}" onclick="filterCategory('${cat}')">
+                    ${cat === 'ALL' ? '全部資源' : cat}
+                </button>
+            `).join('');
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            renderFilterBar();
+            renderResources();
+        }
+
+        // 智慧解析器
+        function parseResourceContent(content) {
+            if (!content) return '';
+            if (!content.includes('--- ❌') && !content.includes('--- ✅')) {
+                return `<div class="logic-prompt-box">${escapeHtml(content)}</div>`;
+            }
+
+            let htmlResult = '';
+            const wrongMatch = content.match(/--- ❌ ([^\n]+) ---\n([\s\S]*?)(?=--- ✅|--- 🧠|$)/);
+            const correctMatch = content.match(/--- ✅ ([^\n]+) ---\n([\s\S]*?)(?=--- 🧠|$)/);
+            const promptMatch = content.match(/--- 🧠 ([^\n]+) ---\n([\s\S]*?)$/);
+
+            if (wrongMatch) {
+                htmlResult += `
+                    <div class="code-block-label wrong">❌ ${escapeHtml(wrongMatch[1])}</div>
+                    <pre class="code-wrong"><code>${escapeHtml(wrongMatch[2].trim())}</code></pre>
+                `;
+            }
+
+            if (correctMatch) {
+                htmlResult += `
+                    <div class="code-block-label correct">✅ ${escapeHtml(correctMatch[1])}</div>
+                    <pre class="code-correct"><code>${escapeHtml(correctMatch[2].trim())}</code></pre>
+                `;
+            }
+
+            if (promptMatch) {
+                htmlResult += `
+                    <div class="code-block-label" style="color:#1565c0; margin-top:1.2rem;">🧠 ${escapeHtml(promptMatch[1])}</div>
+                    <div class="logic-prompt-box">${escapeHtml(promptMatch[2].trim())}</div>
+                `;
+            }
+
+            return htmlResult;
+        }
+
+        // 動態渲染卡片 (自動判斷是否有 fileUrl 實體檔案佔位框)
+        function renderResources() {
+            const container = document.getElementById('resource-list');
+            if (!container) return;
+
+            const filteredData = currentCategory === "ALL" 
+                ? resourceData 
+                : resourceData.filter(item => item.category === currentCategory);
+
+            container.innerHTML = filteredData.map(item => {
+                const isCode = item.type === 'code';
+                const cardClass = isCode ? 'card-code' : 'card-logic';
+                const tagLabel = item.category;
+
+                let bodyHtml = '';
+
+                // 情境 1：如果指定了 fileUrl（TXT 實體檔案佔位框）
+                if (item.fileUrl) {
+                    bodyHtml = `
+                        <div class="file-placeholder-box">
+                            <div class="file-info">
+                                <span class="file-icon">📄</span>
+                                <div class="file-details">
+                                    <div class="file-name">${item.fileName || 'source-code.txt'}</div>
+                                    <div class="file-desc">完整單頁應用原始碼 (託管於 CF Pages 靜態庫)</div>
+                                </div>
+                            </div>
+                            <button class="btn-fetch-copy" onclick="fetchAndCopy('${item.fileUrl}')">
+                                📋 一鍵複製完整代碼
+                            </button>
+                        </div>
+                    `;
+                } 
+                // 情境 2：一般的代碼卡片
+                else if (isCode) {
+                    bodyHtml = `<pre><code>${escapeHtml(item.content)}</code></pre>`;
+                } 
+                // 情境 3：心法/單雙黑框對照組
+                else {
+                    bodyHtml = parseResourceContent(item.content);
+                }
+
+                return `
+                    <div class="resource-card ${cardClass}">
+                        <div class="resource-header">
+                            <div>
+                                <span class="resource-tag">${tagLabel}</span>
+                                <h3 style="margin-top:5px; font-size:1.2rem;">${item.title}</h3>
+                            </div>
+                            ${!item.fileUrl ? `<button class="btn-copy" onclick="copyContent('${item.id}')">複製內容</button>` : ''}
+                        </div>
+                        <p style="color:#555; margin-bottom:0.5rem; font-size:0.95rem;">${item.desc}</p>
+                        ${bodyHtml}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 背景向 CF Pages 抓取 TXT 檔案並複製
+        async function fetchAndCopy(fileUrl) {
+            try {
+                const response = await fetch(fileUrl);
+                if (!response.ok) throw new Error('檔案讀取失敗');
+                const text = await response.text();
+                await navigator.clipboard.writeText(text);
+                alert('已成功將完整 TXT 檔案內容複製到剪貼簿！');
+            } catch (err) {
+                alert('複製失敗，請確認檔案是否存在於 CF Pages 站點路徑：' + fileUrl);
+            }
+        }
+
+        function copyContent(id) {
+            const target = resourceData.find(r => r.id === id);
+            if (target && target.content) {
+                navigator.clipboard.writeText(target.content);
+                alert('已成功複製到剪貼簿！');
+            }
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFilterBar();
+            renderResources();
+        });
+    </script>
+</body>
+</html>
