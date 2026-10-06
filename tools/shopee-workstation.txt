@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 賣家定價與物流規格精算機</title>
+    <style>
+        :root {
+            --primary-shopee: #ee4d2d;
+            --primary-family: #008142;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 650px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+        .input-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .input-wrapper span {
+            position: absolute;
+            left: 15px;
+            font-size: 18px;
+            color: #666;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 15px 15px 15px 40px;
+            font-size: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+            font-weight: bold;
+        }
+        input[type="number"]:focus {
+            border-color: #007bff;
+        }
+        .result-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .card {
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 6px solid #ccc;
+        }
+        .card.shopee-normal {
+            border-color: var(--primary-shopee);
+            background-color: rgba(238, 77, 45, 0.03);
+        }
+        .card.shopee-promo {
+            border-color: #b7321a;
+            background-color: rgba(183, 50, 26, 0.04);
+        }
+        .card.family {
+            border-color: var(--primary-family);
+            background-color: rgba(0, 129, 66, 0.03);
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card.shopee-normal .card-title { color: var(--primary-shopee); }
+        .card.shopee-promo .card-title { color: #b7321a; }
+        .card.family .card-title { color: var(--primary-family); }
+        
+        .price-display {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .formula-box {
+            background: rgba(0,0,0,0.04);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #555;
+            font-family: monospace;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .shipping-info {
+            background: #fff;
+            border: 1px dashed #bbb;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.5;
+        }
+        .shipping-info strong {
+            color: #000;
+        }
+        .badge {
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: normal;
+        }
+        .card.shopee-normal .badge { background-color: var(--primary-shopee); }
+        .card.shopee-promo .badge { background-color: #b7321a; }
+        .card.family .badge { background-color: var(--primary-family); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>2026 賣家利潤與物流規格精算機</h1>
+    
+    <div class="input-group">
+        <label for="targetProfit">請輸入您想要「實拿（淨賺）」的金額：</label>
+        <div class="input-wrapper">
+            <span>$</span>
+            <input type="number" id="targetProfit" value="100" min="1" oninput="calculatePrices()">
+        </div>
+    </div>
+
+    <div class="result-section">
+        <!-- 蝦皮平常日 -->
+        <div class="card shopee-normal">
+            <div class="card-title">
+                蝦皮購物：免運方案一（平常日）
+                <span class="badge">總抽成 14%</span>
+            </div>
+            <div class="price-display" id="shopeeNormalPrice">改賣 120 元</div>
+            <div class="formula-box" id="shopeeNormalFormula">
+                精確算式：(100 + 2.5) ÷ 0.86 = 119.19 元
+            </div>
+            <div class="shipping-info">
+                📦 <strong>蝦皮店到店規格：</strong><br>
+                • 重量上限：<strong>5 公斤 (KG)</strong> 以內<br>
+                • 尺寸限制：長+寬+高 ≦ 105cm，最長邊 ≦ 45cm，其餘兩邊 ≦ 30cm
+            </div>
+        </div>
+
+        <!-- 蝦皮大促日 -->
+        <div class="card shopee-promo">
+            <div class="card-title">
+                蝦皮購物：免運方案一（大促銷檔期日）
+                <span class="badge">總抽成 16%</span>
+            </div>
+            <div class="price-display" id="shopeePromoPrice">改賣 123 元</div>
+            <div class="formula-box" id="shopeePromoFormula">
+                精確算式：(100 + 2.5) ÷ 0.84 = 122.02 元
+            </div>
+            <div class="shipping-info">
+                ⚠️ <strong>大促日特別提醒：</strong><br>
+                • 費率已加計當日強制加抽的 2% 促銷手續費。<br>
+                • 物流規格、重量同平常日常規標準（限重 5 公斤）。
+            </div>
+        </div>
+
+        <!-- 全家好賣+ -->
+        <div class="card family">
+            <div class="card-title">
+                全家好賣+ 平台（常溫特惠價）
+                <span class="badge">免抽成 0%</span>
+            </div>
+            <div class="price-display" id="familyPrice">定價 100 元</div>
+            <div class="formula-box" id="familyFormula">
+                直接設定 100 元即可（不抽成，買家取貨付款自付 35 元運費）
+            </div>
+            <div class="shipping-info">
+                🏪 <strong>全家常溫標準店到店規格：</strong><br>
+                • 重量上限：<strong>5 公斤 (KG)</strong> 以內（大包糖果約可塞 30-40 包）<br>
+                • 尺寸限制：長+寬+高 ≦ 105cm，單邊最長 ≦ 45cm<br>
+                • 包材自由：可用任意自備紙箱或破壞袋，不需購買專用袋
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculatePrices() {
+        const target = parseFloat(document.getElementById('targetProfit').value);
+        
+        if (isNaN(target) || target <= 0) {
+            document.getElementById('shopeeNormalPrice').innerText = '請輸入有效金額';
+            document.getElementById('shopeePromoPrice').innerText = '請輸入有效金額';
+            document.getElementById('familyPrice').innerText = '請輸入有效金額';
+            return;
+        }
+
+        const invoiceFee = 2.5; 
+
+        // 1. 蝦皮平常日
+        const shopeeNormalRaw = (target + invoiceFee) / 0.86;
+        const shopeeNormalFinal = Math.ceil(shopeeNormalRaw); 
+
+        // 2. 蝦皮大促日
+        const shopeePromoRaw = (target + invoiceFee) / 0.84;
+        const shopeePromoFinal = Math.ceil(shopeePromoRaw); 
+
+        // 3. 全家好賣+
+        const familyFinal = target;
+
+        document.getElementById('shopeeNormalPrice').innerText = `改賣 ${shopeeNormalFinal} 元`;
+        document.getElementById('shopeeNormalFormula').innerText = `精確算式：(${target} + 2.5) ÷ 0.86 = ${shopeeNormalRaw.toFixed(2)} 元 (採無條件進位)`;
+
+        document.getElementById('shopeePromoPrice').innerText = `改賣 ${shopeePromoFinal} 元`;
+        document.getElementById('shopeePromoFormula').innerText = `精確算式：(${target} + 2.5) ÷ 0.84 = ${shopeePromoRaw.toFixed(2)} 元 (採無條件進位)`;
+
+        document.getElementById('familyPrice').innerText = `定價 ${familyFinal} 元`;
+        document.getElementById('familyFormula').innerText = `精確算式：直接設定 ${familyFinal} 元（不抽成，買家自付 35 元運費）`;
+    }
+
+    calculatePrices();
+</script>
+
+</body>
+</html>
