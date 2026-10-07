@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>價格與購物 - 專屬客製化自動化體驗 | Manvis 宇宙</title>
+
+    <!-- [1. SEO 多語系標籤 (hreflang)] -->
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/price-shop.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/price-shop.html" />
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/zh-TW/price-shop.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/price-shop.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/price-shop.html" />
+
+    <!-- [2. 自動轉址腳本 (lang-guard)] -->
+    <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+
+      var targetPath = '/en/price-shop.html';
+      if (lang.startsWith('en')) {
+        targetPath = '/en/price-shop.html';
+      } else if (lang.startsWith('zh-TW')) {
+        targetPath = '/zh-TW/price-shop.html';
+      } else if (lang.startsWith('ko')) {
+        targetPath = '/kr/price-shop.html';
+      }
+
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+    </script>
+
+    <style>
+        /* --- 1. 核心與官方重設變數 --- */
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --primary-color: #0284c7;
+            --primary-hover: #0369a1;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-green: #059669;
+            --accent-warning: #d97706;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-top: 80px; /* 留出 Navbar 高度 */
+            position: relative;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- 2. 官網標準頂部 Navbar 樣式 --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active { color: #111 !important; font-weight: 700 !important; }
+
+        .has-submenu::after {
+            content: ' ▾';
+            font-size: 0.75rem;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            list-style: none;
+            min-width: 180px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a:hover, .submenu li a.active {
+            background-color: #f5f5f7;
+            color: #111;
+            font-weight: 700;
+        }
+
+        .nav-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            top: 75px;
+        }
+
+        #menu-toggle, .sub-toggle { display: none; }
+
+        .hamburger-nav-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 22px;
+            height: 16px;
+            cursor: pointer;
+            z-index: 1010;
+        }
+
+        .hamburger-nav-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #111;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 1024px) {
+            .hamburger-nav-btn { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100dvh;
+                background-color: #ffffff;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 90px;
+                padding-bottom: 80px;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1005;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-item {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                height: auto;
+            }
+
+            .nav-link {
+                width: 100%;
+                height: 55px;
+                padding: 0 2rem;
+                justify-content: space-between;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .submenu {
+                position: relative;
+                top: 0 !important;
+                left: 0 !important;
+                transform: none !important;
+                width: 100%;
+                box-shadow: none;
+                background-color: #fafafa;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 1;
+                visibility: visible;
+                transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .submenu li a {
+                padding: 0.7rem 3rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            #menu-toggle:checked ~ .nav-menu { right: 0; }
+            #menu-toggle:checked ~ .hamburger-nav-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            #menu-toggle:checked ~ .hamburger-nav-btn span:nth-child(2) { opacity: 0; }
+            #menu-toggle:checked ~ .hamburger-nav-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            #sub-1:checked ~ .submenu,
+            #sub-2:checked ~ .submenu,
+            #sub-3:checked ~ .submenu { max-height: 300px; }
+        }
+
+/* --- 3. 頁面主要內容佈局（對齊官網標準大寬度） --- */
+        .container {
+            width: 100%;
+            max-width: 860px; /* 提升預設寬度，對齊共享天堂分頁 */
+            margin: 0 auto;
+            padding: 40px 20px 80px 20px;
+            flex: 1 0 auto;
+        }
+
+        /* 📱 💻 桌面版 RWD 規範：展開大寬度氣勢 */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1000px; /* 電腦版寬度，讓卡片完整拉寬大氣 */
+                padding: 50px 32px 100px 32px;
+            }
+
+.poem-section {
+                max-width: 100%; /* 文章與標題同步滿版 */
+            }
+
+            .step-card-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+                align-items: start;
+            }
+        }
+
+/* 詩意導言區塊（完全對齊《品牌故事》檔頭容器、藍點與橫線樣式） */
+        .poem-section {
+            text-align: left;
+            margin-bottom: 2.5rem;
+        }
+
+        /* 新增：標題與藍點日期的檔頭容器（橫線會精準繪製在藍點正下方） */
+        .poem-header {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #eaeaea; /* 分隔橫線正確繪製於此 */
+            padding-bottom: 1.5rem;
+        }
+
+        .poem-main-title {
+            font-size: 1.8rem;               /* 對齊品牌故事大標題 1.8rem */
+            font-weight: 800;                /* 對齊品牌故事特粗體 800 */
+            color: #111;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+            text-align: left;
+        }
+
+        /* 藍色小圓點與紀錄時間樣式 */
+        .poem-date-note {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .poem-date-note::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #0969da;      /* 品牌藍色小圓點 */
+            border-radius: 50%;
+        }
+
+        .poem-body {
+            font-size: 1.05rem;              /* 對齊品牌故事內文 1.05rem */
+            color: #333;
+            line-height: 1.8;                /* 對齊品牌故事鬆軟行高 1.8 */
+            text-align: justify;             /* 對齊品牌故事兩端整齊對齊 */
+            -webkit-user-select: none;       /* 防止選取文字時觸發 Google 觸控搜尋選單 */
+            user-select: none;
+        }
+
+        .poem-body p {
+            margin-bottom: 1.8rem;           /* 對齊品牌故事段落間距 1.8rem */
+        }
+
+        @media (max-width: 768px) {
+            .poem-main-title { font-size: 1.5rem; } /* 手機版標題大小 */
+            .poem-body { font-size: 1rem; }         /* 手機版內文大小 */
+        }
+
+/* 提示體驗卡片（手機預設置中，電腦版自動切換靠左） */
+        .experience-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px 20px;
+            margin-bottom: 36px;
+            box-shadow: var(--shadow-md);
+            text-align: center; /* 📱 手機版：內容與按鈕完美置中 */
+            width: 100%;
+        }
+
+        .exp-card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .exp-card-desc {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .start-btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 280px;        /* 📱 手機版：膠囊大小適中，不拉成大香腸 */
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+            transition: all 0.25s ease;
+            margin: 0 auto;          /* 手機版水平置中 */
+            text-align: center;
+        }
+
+        .start-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+        }
+
+        /* 💻 桌面版 RWD 切換：當螢幕大於 1024px 時切換為靠左對齊 */
+        @media (min-width: 1024px) {
+            .experience-card {
+                text-align: left;    /* 💻 電腦版：改回靠左對齊 */
+                padding: 32px 36px;
+            }
+
+            .start-btn {
+                width: auto;
+                min-width: 220px;
+                margin: 0;           /* 💻 電腦版：按鈕自然靠左放置 */
+            }
+        }
+
+        /* 步驟卡片 */
+        .step-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 18px;
+        }
+
+        .status-light {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .status-light.active {
+            background-color: var(--accent-green);
+            box-shadow: 0 0 10px rgba(5, 150, 105, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .badge-hardcode {
+            font-size: 0.7rem;
+            color: var(--accent-warning);
+            background: #fffbeb;
+            padding: 1px 8px;
+            border-radius: 12px;
+            border: 1px solid #fde68a;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .custom-select-wrapper {
+            position: relative;
+        }
+
+        .custom-select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .custom-options {
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+            display: none;
+            overflow: hidden;
+        }
+
+        .custom-options.open {
+            display: block;
+        }
+
+        .custom-option {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            color: var(--text-main);
+            transition: background 0.2s;
+        }
+
+        .custom-option:hover, .custom-option.highlight {
+            background: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* 📱 白質感 iPhone 外框 */
+        .iphone-frame {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 8px solid #e2e8f0;
+            border-radius: 36px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .iphone-status-bar {
+            height: 28px;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 0.7rem;
+            color: #64748b;
+            position: relative;
+            z-index: 5;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .iphone-notch {
+            width: 70px;
+            height: 12px;
+            background: #e2e8f0;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            margin: 0 auto;
+        }
+
+        .iphone-screen {
+            background: #f8fafc;
+            min-height: 420px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 步驟 2 預覽元素 */
+        .phone-brand-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            min-height: 1.5rem;
+            margin-top: 16px;
+        }
+
+        .login-box {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .login-field label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .login-field .input-fake {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            min-height: 36px;
+            word-break: break-all;
+        }
+
+        .welcome-msg {
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            font-weight: 600;
+            text-align: center;
+            min-height: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .welcome-msg.show {
+            opacity: 1;
+        }
+
+        /* 步驟 3 手機中控面板 */
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 2px 10px 2px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+
+        .hamburger-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--primary-color);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .hamburger-btn:active, .hamburger-btn.clicked {
+            background: var(--primary-color);
+            color: #ffffff;
+            transform: scale(0.92);
+        }
+
+        .status-pill {
+            font-size: 0.65rem;
+            background: #ecfdf5;
+            color: var(--accent-green);
+            border: 1px solid #a7f3d0;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+        }
+
+        .drawer-menu {
+            position: absolute;
+            top: 48px;
+            left: 12px;
+            width: 220px;
+            background: #ffffff;
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 20;
+            display: none;
+            overflow: hidden;
+        }
+
+        .drawer-menu.open {
+            display: block;
+        }
+
+        .drawer-item {
+            padding: 12px 14px;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .drawer-item:last-child {
+            border-bottom: none;
+        }
+
+        .drawer-item.active, .drawer-item:hover, .drawer-item.clicked {
+            background: #f1f5f9;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .panel-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .dash-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dash-card-title {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dash-textarea {
+            width: 100%;
+            height: 58px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            padding: 6px;
+            resize: none;
+            outline: none;
+        }
+
+        .send-cmd-btn {
+            width: 100%;
+            margin-top: 6px;
+            padding: 9px;
+            background: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        .send-cmd-btn:active, .send-cmd-btn.clicked {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        /* 深色極簡黑終端機 */
+        .cmd-terminal {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 8px;
+            height: 125px;
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: #38bdf8;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .cmd-line {
+            line-height: 1.35;
+            word-break: break-all;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .cmd-line.info { color: #38bdf8; }
+        .cmd-line.warn { color: #fbbf24; }
+        .cmd-line.success { color: #34d399; font-weight: bold; }
+
+        .plugin-info-box {
+            background: #f0f9ff;
+            border: 1px dashed var(--primary-color);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.75rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* 🎯 點擊波紋與藍色光點（修復跑版問題：使用 fixed 相對視窗定位） */
+        #autoclick-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: rgba(2, 132, 199, 0.85);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 14px rgba(2, 132, 199, 0.6);
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: -10px;
+            margin-left: -10px;
+        }
+
+        .click-ripple {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            background: rgba(2, 132, 199, 0.25);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%) scale(0.2);
+            animation: ripple-anim 0.5s ease-out forwards;
+        }
+
+        @keyframes ripple-anim {
+            to {
+                transform: translate(-50%, -50%) scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        #guide-tooltip {
+            position: fixed;
+            width: calc(100vw - 32px);
+            max-width: 480px;
+            background: #ffffff;
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow-lg);
+            z-index: 9990;
+            display: none;
+            transition: top 0.4s ease, left 0.4s ease;
+        }
+
+        .tooltip-header {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 0.88rem;
+            margin-bottom: 6px;
+        }
+
+        .tooltip-body {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .tooltip-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .countdown-tag {
+            font-size: 0.75rem;
+            color: var(--accent-warning);
+            background: #fffbeb;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .stop-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .cursor-blink::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+            color: var(--primary-color);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* 官方頁尾 Footer */
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            color: #888;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: auto;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- [頂部官方導覽列] -->
+    <header class="navbar">
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
+
+        <input type="checkbox" id="menu-toggle">
+        
+        <label for="menu-toggle" class="hamburger-nav-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <!-- 官方導覽功能選單 -->
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="./events.html" class="nav-link">最新活動</a>
+            </li>
+            <li class="nav-item">
+                <label for="sub-1" class="nav-link has-submenu">關於 XXX</label>
+                <input type="checkbox" id="sub-1" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./brand-story.html">品牌故事</a></li>
+                    <li><a href="./about-me.html">關於創辦人</a></li>
+                    <li><a href="./channels.html">我們的頻道</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-2" class="nav-link has-submenu active">核心產品</label>
+                <input type="checkbox" id="sub-2" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./software-services.html">客製化軟體服務</a></li>
+                    <li><a href="./drink.html">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html" class="active">價格與購物</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <input type="checkbox" id="sub-3" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./dev-updates.html">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="./resources.html" class="nav-link">共享天堂</a>
+            </li>
+            <li class="nav-item">
+                <a href="./fitness-log.html" class="nav-link">體態紀錄</a>
+            </li>
+            <li class="nav-item">
+                <a href="./faq.html" class="nav-link">常見問題</a>
+            </li>
+        </ul>
+    </header>
+
+    <!-- [主內容區塊] -->
+    <main class="container">
+
+<!-- 主標題與感性導引區塊（已加入檔頭容器 <header>，橫線才會貼在藍點下方） -->
+        <div class="poem-section">
+            <header class="poem-header">
+                <h1 class="poem-main-title">遠方的天空，與不曾離線的陪伴</h1>
+                <div class="poem-date-note">歷史紀錄：寫於 2026 年 10 月 7 日</div>
+            </header>
+            
+            <div class="poem-body">
+                <p>「當我們在不同時區間移動、在旅居中探索世界時，客人那些細微、即時的需求，該如何被好好照顧？」特助曾經這樣問過我。</p>
+                <p>我的答案，從來不是壓縮自己的生活，而是讓科技承載我們的用心。真正的自動化，不是冰冷的機器過濾，而是將每一次溝通的摩擦力降到最低——沒有尷尬的等待，沒有重複的拉扯，在最自在的節奏裡，完成最懂你的配置。</p>
+                <p>科技在背後靜靜運轉，溫暖，則順著每一次輕點，精準抵達。</p>
+            </div>
+        </div>
+
+<!-- 提示體驗卡片區塊（文字自然延展攤開） -->
+        <div class="experience-card">
+            <div class="exp-card-title">［ 專屬調配流程 ］</div>
+            <p class="exp-card-desc">不需要繁複的溝通，也不必擔心打擾。輕點下方按鈕，靜靜欣賞為您進行的即時自動化配置。</p>
+            <button class="start-btn" id="btn-start" onclick="startAutopilot()">［ 輕點啟動體驗 ］</button>
+        </div>
+
+        <!-- 步驟卡片區域 -->
+        <!-- 步驟 1：基礎參數 -->
+        <div class="step-card" id="card-step1">
+            <div class="step-header">
+                <div class="status-light" id="light-step1"></div>
+                <span>1. 專屬金鑰與基礎參數設定</span>
+            </div>
+
+            <div class="form-group" id="target-brand">
+                <label>專屬品牌 / 系統名稱 (Brand Name)</label>
+                <input type="text" class="form-control" id="input-brand" placeholder="等待輸入中..." readonly>
+            </div>
+
+            <div class="form-group" id="target-email">
+                <label>
+                    <span>預設溝通 Email (系統硬綁定)</span>
+                    <span class="badge-hardcode">不可隨意變更</span>
+                </label>
+                <input type="email" class="form-control" id="input-email" placeholder="等待輸入中..." readonly>
+            </div>
+
+            <div class="form-group" id="target-pass">
+                <label>
+                    <span>專屬管理密碼 (EXE 物理焊死)</span>
+                    <span class="badge-hardcode">重製需負擔費用</span>
+                </label>
+                <input type="text" class="form-control" id="input-pass" placeholder="等待設定中..." readonly>
+            </div>
+
+            <div class="form-group" id="target-lang">
+                <label>目標語系 (Language)</label>
+                <div class="custom-select-wrapper">
+                    <div class="form-control custom-select-trigger" id="select-trigger">
+                        <span id="selected-lang-text">繁體中文 (Traditional Chinese)</span>
+                        <small style="color: var(--text-muted);">▼</small>
+                    </div>
+                    <div class="custom-options" id="custom-options">
+                        <div class="custom-option" data-value="繁體中文">繁體中文 (Traditional Chinese)</div>
+                        <div class="custom-option" data-value="English">English</div>
+                        <div class="custom-option" id="opt-jp" data-value="日本語 (Japanese)">日本語 (Japanese)</div>
+                        <div class="custom-option" data-value="한국어">한국어 (Korean)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 桌面版採用網格（Grid）排列展示步驟 2 與 步驟 3 -->
+        <div class="step-card-grid">
+            <!-- 步驟 2：驗證面板 -->
+            <div class="step-card" id="card-step2">
+                <div class="step-header">
+                    <div class="status-light" id="light-step2"></div>
+                    <span>2. 擬真驗證登入預覽 (Auth Preview)</span>
+                </div>
+                
+                <div class="iphone-frame" id="target-preview-login">
+                    <div class="iphone-status-bar">
+                        <span>9:41</span>
+                        <div class="iphone-notch"></div>
+                        <span>5G ⚡</span>
+                    </div>
+                    <div class="iphone-screen">
+                        <div class="phone-brand-title" id="phone-brand">---</div>
+                        
+                        <div class="login-box" id="phone-login-box">
+                            <div class="login-field">
+                                <label>ACCOUNT / EMAIL (金鑰硬綁定)</label>
+                                <div class="input-fake" id="phone-email">---</div>
+                            </div>
+                            <div class="login-field">
+                                <label>PASSWORD (物理焊死)</label>
+                                <div class="input-fake" id="phone-pass">---</div>
+                            </div>
+                        </div>
+
+                        <div class="welcome-msg" id="phone-welcome"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步驟 3：手機中控與 CMD 廣播 -->
+            <div class="step-card" id="card-step3">
+                <div class="step-header">
+                    <div class="status-light" id="light-step3"></div>
+                    <span>3. 手機端中控控制台 (Master Control & Logs)</span>
+                </div>
+                
+                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+                    驗證通過後，手機端正式載入專屬中控台。透過選單發射指令，經由 Telegram / WebSocket 訊號即時驅動電腦上的 Python EXE，並將 CMD 日誌即時廣播回傳。
+                </p>
+
+                <div class="iphone-frame" id="target-preview-dash">
+                    <div class="iphone-status-bar">
+                        <span>9:42</span>
+                        <div class="iphone-notch"></div>
+                        <span>5G ⚡</span>
+                    </div>
+                    <div class="iphone-screen">
+                        <div class="dash-header">
+                            <button class="hamburger-btn" id="btn-hamburger">☰</button>
+                            <span style="font-size: 0.75rem; font-weight: bold; color: var(--primary-color);">MASTER DASHBOARD</span>
+                            <div class="status-pill">
+                                <div class="status-dot"></div>
+                                <span>EXE Online</span>
+                            </div>
+                        </div>
+
+                        <div class="drawer-menu" id="drawer-menu">
+                            <div class="drawer-item active" id="menu-item-core">📌 基礎控制台 (Core Commands)</div>
+                            <div class="drawer-item" id="menu-item-plugin">🧩 進階擴充模組 (Plugins Hub)</div>
+                        </div>
+
+                        <div class="panel-section" id="panel-core">
+                            <div class="dash-card">
+                                <div class="dash-card-title">📡 主人發送遠端指令 (Command Input)</div>
+                                <textarea class="dash-textarea" id="cmd-input-box" readonly placeholder="等待輸入指令..."></textarea>
+                                <button class="send-cmd-btn" id="btn-send-cmd">🚀 發送指令至遠端 EXE</button>
+                            </div>
+
+                            <div class="dash-card">
+                                <div class="dash-card-title">💻 機器人實時回傳 (EXE Terminal)</div>
+                                <div class="cmd-terminal" id="cmd-terminal">
+                                    <div class="cmd-line info">[System] 物理連線已建立。等待主人指令...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-section" id="panel-plugin" style="display: none;">
+                            <div class="dash-card">
+                                <div class="dash-card-title">🧩 模組化擴充面板 (Plugin Hub)</div>
+                                <div class="plugin-info-box">
+                                    <b style="color: var(--primary-color);">【系統擴充訊息】</b><br>
+                                    目前為 MVP 基礎連線版本。<br><br>
+                                    未來若追加新的 Python EXE 執行檔（如：自動化爬蟲、AI 自動剪輯、影像處理），將在此處直接擴充專屬控制面板與獨立權限金鑰。
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 光點與 Tooltip（經 fixed 相對定位重構，徹底告別跑版） -->
+    <div id="autoclick-cursor"></div>
+
+    <div id="guide-tooltip">
+        <div class="tooltip-header" id="tt-title">🎮 自動導覽中...</div>
+        <div class="tooltip-body" id="tt-body">準備開始...</div>
+        <div class="tooltip-footer">
+            <span class="countdown-tag" id="tt-countdown">倒數 5 秒...</span>
+            <button class="stop-btn" onclick="stopAutopilot()">結束導覽</button>
+        </div>
+    </div>
+
+    <!-- 官方頁尾 Footer -->
+    <footer class="footer">
+        2026 WELCOME TO MANVIS WORLD
+    </footer>
+
+    <script>
+        let timer = null;
+        let countdownValue = 5;
+        let isRunning = false;
+
+        let currentBrandText = "";
+        let currentEmailText = "";
+        let currentPassText = "";
+        let currentLangText = "繁體中文";
+
+        const cursor = document.getElementById('autoclick-cursor');
+        const tooltip = document.getElementById('guide-tooltip');
+        const ttTitle = document.getElementById('tt-title');
+        const ttBody = document.getElementById('tt-body');
+        const ttCountdown = document.getElementById('tt-countdown');
+
+        // 🎯 精準計算 Fixed 視窗絕對位置，防跑版核心邏輯
+        function moveCursorAndClick(element, callback) {
+            const rect = element.getBoundingClientRect();
+            const targetX = rect.left + rect.width / 2;
+            const targetY = rect.top + rect.height / 2;
+
+            cursor.style.display = 'block';
+            cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+
+            setTimeout(() => {
+                element.classList.add('clicked');
+                createRipple(targetX, targetY);
+
+                setTimeout(() => {
+                    element.classList.remove('clicked');
+                    if (callback) callback();
+                }, 300);
+            }, 700);
+        }
+
+        function createRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.className = 'click-ripple';
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            document.body.appendChild(ripple);
+
+            setTimeout(() => { ripple.remove(); }, 500);
+        }
+
+        function positionTooltipAbove(element) {
+            const rect = element.getBoundingClientRect();
+            
+            tooltip.style.display = 'block';
+            let topPos = rect.top - tooltip.offsetHeight - 14;
+            if (topPos < 10) topPos = rect.bottom + 14;
+
+            let leftPos = Math.max(16, (window.innerWidth - tooltip.offsetWidth) / 2);
+
+            tooltip.style.top = `${topPos}px`;
+            tooltip.style.left = `${leftPos}px`;
+        }
+
+        function scrollToElement(element, callback) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // 等待平滑滾動完成後再執行後續計算，解決座標舊讀取的跑版問題
+            setTimeout(() => {
+                if (callback) callback();
+            }, 600);
+        }
+
+        function typeTextIntoInput(inputEl, text, speed, callback) {
+            inputEl.value = "";
+            let i = 0;
+            const typeTimer = setInterval(() => {
+                if (!isRunning) { clearInterval(typeTimer); return; }
+                inputEl.value += text.charAt(i);
+                i++;
+                if (i >= text.length) {
+                    clearInterval(typeTimer);
+                    if (callback) callback();
+                }
+            }, speed);
+        }
+
+        function typeTextToScreen(targetEl, text, speed, callback) {
+            targetEl.innerText = "";
+            targetEl.classList.add('cursor-blink');
+            let i = 0;
+            const typeTimer = setInterval(() => {
+                if (!isRunning) { clearInterval(typeTimer); return; }
+                targetEl.innerText += text.charAt(i);
+                i++;
+                if (i >= text.length) {
+                    clearInterval(typeTimer);
+                    targetEl.classList.remove('cursor-blink');
+                    if (callback) callback();
+                }
+            }, speed);
+        }
+
+        function startAutopilot() {
+            if (isRunning) return;
+            isRunning = true;
+            document.getElementById('btn-start').innerText = '［ 自動化演示進行中 ］';
+            
+            document.getElementById('input-brand').value = "";
+            document.getElementById('input-email').value = "";
+            document.getElementById('input-pass').value = "";
+            
+            document.getElementById('phone-brand').innerText = "---";
+            document.getElementById('phone-email').innerText = "---";
+            document.getElementById('phone-pass').innerText = "---";
+            document.getElementById('phone-welcome').classList.remove('show');
+            document.getElementById('phone-welcome').innerText = "";
+
+            document.getElementById('drawer-menu').classList.remove('open');
+            document.getElementById('panel-core').style.display = 'flex';
+            document.getElementById('panel-plugin').style.display = 'none';
+            document.getElementById('menu-item-core').classList.add('active');
+            document.getElementById('menu-item-plugin').classList.remove('active');
+            document.getElementById('cmd-input-box').value = "";
+            document.getElementById('cmd-terminal').innerHTML = '<div class="cmd-line info">[System] 物理連線已建立。等待主人指令...</div>';
+
+            runStepBrand();
+        }
+
+        function stopAutopilot() {
+            isRunning = false;
+            clearInterval(timer);
+            cursor.style.display = 'none';
+            tooltip.style.display = 'none';
+            document.getElementById('custom-options').classList.remove('open');
+            document.getElementById('light-step1').classList.remove('active');
+            document.getElementById('light-step2').classList.remove('active');
+            document.getElementById('light-step3').classList.remove('active');
+            document.getElementById('btn-start').innerText = '［ 輕點啟動體驗 ］';
+        }
+
+        function startCountdown(seconds, nextStepFunction) {
+            countdownValue = seconds;
+            ttCountdown.innerText = `倒數 ${countdownValue} 秒...`;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if (!isRunning) return;
+                countdownValue--;
+                if (countdownValue > 0) {
+                    ttCountdown.innerText = `倒數 ${countdownValue} 秒...`;
+                } else {
+                    clearInterval(timer);
+                    nextStepFunction();
+                }
+            }, 1000);
+        }
+
+        function runStepBrand() {
+            document.getElementById('light-step1').classList.add('active');
+            document.getElementById('light-step2').classList.remove('active');
+            document.getElementById('light-step3').classList.remove('active');
+
+            const target = document.getElementById('target-brand');
+            const inputEl = document.getElementById('input-brand');
+
+            scrollToElement(target, () => {
+                moveCursorAndClick(target, () => {
+                    ttTitle.innerText = "🎮 第 1 關：輸入專屬品牌名稱";
+                    ttBody.innerHTML = "正在模擬手動鍵入系統品牌名稱...";
+                    positionTooltipAbove(target);
+
+                    typeTextIntoInput(inputEl, "究極のカスタマイズシステム V1", 110, () => {
+                        currentBrandText = inputEl.value;
+                        startCountdown(3, runStepEmail);
+                    });
+                });
+            });
+        }
+
+        function runStepEmail() {
+            const target = document.getElementById('target-email');
+            const inputEl = document.getElementById('input-email');
+
+            scrollToElement(target, () => {
+                moveCursorAndClick(target, () => {
+                    ttTitle.innerText = "🎮 第 2 關：綁定溝通 Email (關鍵金鑰)";
+                    ttBody.innerHTML = "💡 <b>重要金鑰提醒</b>：此 Email 為系統打包的物理金鑰！<b>打包送出後無法隨意變更</b>。";
+                    positionTooltipAbove(target);
+
+                    typeTextIntoInput(inputEl, "owner@custom-system.com", 90, () => {
+                        currentEmailText = inputEl.value;
+                        startCountdown(3, runStepPass);
+                    });
+                });
+            });
+        }
+
+        function runStepPass() {
+            const target = document.getElementById('target-pass');
+            const inputEl = document.getElementById('input-pass');
+
+            scrollToElement(target, () => {
+                moveCursorAndClick(target, () => {
+                    ttTitle.innerText = "🎮 第 3 關：設定專屬密碼 (EXE 物理焊死)";
+                    ttBody.innerHTML = "🔐 <b>物理防護</b>：密碼將直接寫死於您的專屬 EXE 執行檔內！";
+                    positionTooltipAbove(target);
+
+                    typeTextIntoInput(inputEl, "Pass2026!Key", 110, () => {
+                        currentPassText = inputEl.value;
+                        startCountdown(3, runStepLang);
+                    });
+                });
+            });
+        }
+
+        function runStepLang() {
+            const targetSelect = document.getElementById('target-lang');
+            const selectTrigger = document.getElementById('select-trigger');
+            const customOptions = document.getElementById('custom-options');
+            const optJp = document.getElementById('opt-jp');
+
+            scrollToElement(targetSelect, () => {
+                moveCursorAndClick(selectTrigger, () => {
+                    ttTitle.innerText = "🎮 第 4 關：多語系選擇（日本語）";
+                    ttBody.innerHTML = "模擬開啟選單並選取日本語...";
+                    positionTooltipAbove(targetSelect);
+
+                    customOptions.classList.add('open');
+
+                    setTimeout(() => {
+                        moveCursorAndClick(optJp, () => {
+                            optJp.classList.add('highlight');
+                            currentLangText = "日本語 (Japanese)";
+                            document.getElementById('selected-lang-text').innerText = currentLangText;
+                            customOptions.classList.remove('open');
+                            optJp.classList.remove('highlight');
+
+                            ttBody.innerHTML = "已選定［日本語］！準備進入 iPhone 登入驗證預覽...";
+                            positionTooltipAbove(targetSelect);
+
+                            startCountdown(3, runStepPreviewLogin);
+                        });
+                    }, 600);
+                });
+            });
+        }
+
+        function runStepPreviewLogin() {
+            document.getElementById('light-step1').classList.remove('active');
+            document.getElementById('light-step2').classList.add('active');
+
+            const targetPreview = document.getElementById('target-preview-login');
+            const phoneBrand = document.getElementById('phone-brand');
+            const phoneEmail = document.getElementById('phone-email');
+            const phonePass = document.getElementById('phone-pass');
+            const phoneWelcome = document.getElementById('phone-welcome');
+
+            scrollToElement(targetPreview, () => {
+                moveCursorAndClick(targetPreview, () => {
+                    ttTitle.innerText = "📱 步驟 2：iPhone 登入與金鑰校驗預覽";
+                    ttBody.innerHTML = "正在模擬專屬軟體讀取硬編碼參數並自動進行身份驗證...";
+                    positionTooltipAbove(targetPreview);
+
+                    typeTextToScreen(phoneBrand, currentBrandText, 60, () => {
+                        typeTextToScreen(phoneEmail, currentEmailText, 50, () => {
+                            typeTextToScreen(phonePass, "••••••••••••", 80, () => {
+                                phoneWelcome.innerText = "ご主人様、おかえりなさいませ。";
+                                phoneWelcome.classList.add('show');
+
+                                ttBody.innerHTML = "驗證成功！登入完畢。即將移至<b>步驟 3 獨立手機中控台</b>...";
+                                positionTooltipAbove(targetPreview);
+
+                                startCountdown(4, runStepDashboardControl);
+                            });
+                        });
+                    });
+                });
+            });
+        }
+
+        function runStepDashboardControl() {
+            document.getElementById('light-step2').classList.remove('active');
+            document.getElementById('light-step3').classList.add('active');
+
+            const targetPreviewDash = document.getElementById('target-preview-dash');
+            const btnHamburger = document.getElementById('btn-hamburger');
+            const drawerMenu = document.getElementById('drawer-menu');
+            const menuItemCore = document.getElementById('menu-item-core');
+            const cmdInputBox = document.getElementById('cmd-input-box');
+            const btnSendCmd = document.getElementById('btn-send-cmd');
+
+            scrollToElement(targetPreviewDash, () => {
+                moveCursorAndClick(btnHamburger, () => {
+                    ttTitle.innerText = "🎮 步驟 3：手機中控 - 點擊漢堡選單";
+                    ttBody.innerHTML = "模擬手指點擊 ☰ 按鈕，展開遠端控制選單...";
+                    positionTooltipAbove(targetPreviewDash);
+
+                    drawerMenu.classList.add('open');
+
+                    setTimeout(() => {
+                        moveCursorAndClick(menuItemCore, () => {
+                            drawerMenu.classList.remove('open');
+
+                            setTimeout(() => {
+                                moveCursorAndClick(cmdInputBox, () => {
+                                    ttTitle.innerText = "🎮 手機端鍵入遠端指令";
+                                    ttBody.innerHTML = "模擬主人於手機端下達指令給家中的 Python EXE...";
+                                    positionTooltipAbove(targetPreviewDash);
+
+                                    typeTextIntoInput(cmdInputBox, "請幫我把這段內容存成 TXT 檔，檔名為 demo.txt，並放到桌面的 demo 資料夾內。", 110, () => {
+                                        
+                                        ttBody.innerHTML = "指令輸入完成！準備點擊發射按鈕...";
+                                        positionTooltipAbove(targetPreviewDash);
+
+                                        setTimeout(() => {
+                                            moveCursorAndClick(btnSendCmd, () => {
+                                                ttTitle.innerText = "🚀 物理脈搏廣播 - CMD 滾動印出";
+                                                ttBody.innerHTML = "指令已發射！遠端 Python EXE 接收訊號並進行物理檔案處理...";
+                                                positionTooltipAbove(targetPreviewDash);
+
+                                                runCmdLogSimulation();
+                                            });
+                                        }, 1200);
+                                    });
+                                });
+                            }, 600);
+                        });
+                    }, 800);
+                });
+            });
+        }
+
+        function runCmdLogSimulation() {
+            const terminal = document.getElementById('cmd-terminal');
+            
+            const logs = [
+                { text: ">>> [Telegram] 收到主人通訊訊號，進行身份金鑰驗證...", type: "info" },
+                { text: ">>> [Auth Success] 金鑰驗證正確 (owner@custom-system.com)", type: "success" },
+                { text: ">>> [Python EXE] 喚醒本地執行檔，解析 task 任務規畫...", type: "info" },
+                { text: ">>> [CMD Polling] 建立目標目錄: C:\\Users\\Master\\Desktop\\demo\\", type: "warn" },
+                { text: ">>> [Pulse Broadcast] 正在寫入實體檔案 demo.txt...", type: "info" },
+                { text: ">>> [Progress 100%] 物理檔案落地成功！", type: "success" },
+                { text: "✅ 任務完成 (Completed in 0.82s)", type: "success" }
+            ];
+
+            let index = 0;
+            const logTimer = setInterval(() => {
+                if (!isRunning) { clearInterval(logTimer); return; }
+
+                if (index < logs.length) {
+                    const line = document.createElement('div');
+                    line.className = `cmd-line ${logs[index].type}`;
+                    line.innerText = logs[index].text;
+                    terminal.appendChild(line);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    index++;
+                } else {
+                    clearInterval(logTimer);
+                    
+                    setTimeout(() => {
+                        runStepPluginShow();
+                    }, 1500);
+                }
+            }, 1200);
+        }
+
+        function runStepPluginShow() {
+            const btnHamburger = document.getElementById('btn-hamburger');
+            const drawerMenu = document.getElementById('drawer-menu');
+            const menuItemCore = document.getElementById('menu-item-core');
+            const menuItemPlugin = document.getElementById('menu-item-plugin');
+            const targetPreviewDash = document.getElementById('target-preview-dash');
+
+            ttTitle.innerText = "🎮 切換選單：🧩 進階擴充模組";
+            ttBody.innerHTML = "點擊漢堡選單，切換展示未來可彈性擴充的 Python 模組面板...";
+            positionTooltipAbove(targetPreviewDash);
+
+            moveCursorAndClick(btnHamburger, () => {
+                drawerMenu.classList.add('open');
+
+                setTimeout(() => {
+                    moveCursorAndClick(menuItemPlugin, () => {
+                        menuItemCore.classList.remove('active');
+                        menuItemPlugin.classList.add('active');
+
+                        document.getElementById('panel-core').style.display = 'none';
+                        document.getElementById('panel-plugin').style.display = 'block';
+                        drawerMenu.classList.remove('open');
+
+                        ttTitle.innerText = "🎉 全自動展示完畢！";
+                        ttBody.innerHTML = "<b>自動化流程完美演繹</b>：客人可在購物前無縫感受零摩擦力的即時配置體驗！";
+                        ttCountdown.innerText = "展示結束";
+                        positionTooltipAbove(targetPreviewDash);
+
+                        setTimeout(() => { stopAutopilot(); }, 6000);
+                    });
+                }, 800);
+            });
+        }
+
+        // 頁面關閉或導航時關閉選單
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            });
+        });
+    </script>
+</body>
+</html>
