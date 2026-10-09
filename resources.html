@@ -36,12 +36,24 @@
     </script>
 
     <style>
-        /* --- 1. 基礎重設與字體 --- */
+        /* --- 1. 基礎重設與字體 (全局禁用選取，封鎖手機觸發搜尋彈窗) --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-user-select: none; /* 封鎖 Safari/Chrome 文字反白與搜尋彈窗 */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* 允許代碼區塊與輸入框可以被選取複製 */
+        pre, code, input, textarea, .logic-prompt-box {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
         }
 
         html {
@@ -262,11 +274,14 @@
             line-height: 1.8;
         }
 
-        /* --- 4. YouTube MV 影音區塊樣式 (16:9) --- */
+        /* --- 4. YouTube MV 影音區塊與外掛音量按鈕 --- */
+        .mv-container {
+            margin: 2rem 0 1.5rem;
+        }
+
         .mv-wrapper {
             width: 100%;
-            margin: 2rem 0 3rem;
-            border-radius: 12px;
+            border-radius: 12px 12px 0 0;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             background: #000;
@@ -278,6 +293,69 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+        /* 影片下方的控制條 */
+        .mv-controls-bar {
+            background: #1e1e1e;
+            padding: 10px 16px;
+            border-radius: 0 0 12px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mv-status-text {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .btn-audio-toggle {
+            background: #e50914;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-audio-toggle:hover {
+            background: #b20710;
+            transform: scale(1.02);
+        }
+
+        .btn-audio-toggle.active {
+            background: #2e7d32;
+        }
+
+        /* --- 4.5 搜尋框 UI 樣式 --- */
+        .search-box-container {
+            width: 100%;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 18px;
+            font-size: 0.95rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .search-input:focus {
+            border-color: #2e7d32;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
         }
 
         /* --- 5. 分類篩選標籤 Bar --- */
@@ -306,7 +384,7 @@
         .filter-btn:hover { background: #e0e0e0; color: #111; }
         .filter-btn.active { background: #111; color: #fff; }
 
-        /* --- 6. 卡片與實體檔案佔位框樣式 --- */
+        /* --- 6. 三色資產卡片系統 --- */
         .resource-card {
             background: #ffffff;
             border-radius: 12px;
@@ -316,15 +394,23 @@
             border: 1px solid #eaeaea;
         }
 
-        .card-code { border-top: 4px solid #2e7d32; }
-        .card-code .resource-tag { background: #e8f5e9; color: #1b5e20; }
-        .card-code .btn-copy { background: #2e7d32; }
-        .card-code .btn-copy:hover { background: #1b5e20; }
+        /* 🟢 綠色：實體工具 / 一鍵下載 TXT */
+        .card-green { border-top: 4px solid #2e7d32; }
+        .card-green .resource-tag { background: #e8f5e9; color: #1b5e20; }
+        .card-green .btn-copy { background: #2e7d32; }
+        .card-green .btn-copy:hover { background: #1b5e20; }
 
-        .card-logic { border-top: 4px solid #1565c0; }
-        .card-logic .resource-tag { background: #e3f2fd; color: #0d47a1; }
-        .card-logic .btn-copy { background: #1565c0; }
-        .card-logic .btn-copy:hover { background: #0d47a1; }
+        /* 🟡 黃色：UI 佈局與代碼對照組 (Code Snippet) */
+        .card-yellow { border-top: 4px solid #f57c00; }
+        .card-yellow .resource-tag { background: #fff3e0; color: #e65100; }
+        .card-yellow .btn-copy { background: #f57c00; }
+        .card-yellow .btn-copy:hover { background: #e65100; }
+
+        /* 🔵 藍色：人機協作與心法 Prompt */
+        .card-blue { border-top: 4px solid #1565c0; }
+        .card-blue .resource-tag { background: #e3f2fd; color: #0d47a1; }
+        .card-blue .btn-copy { background: #1565c0; }
+        .card-blue .btn-copy:hover { background: #0d47a1; }
 
         .resource-header {
             display: flex;
@@ -350,7 +436,7 @@
             transition: background 0.2s;
         }
 
-        /* 📄 實體檔案佔位框 (File Placeholder) */
+        /* 📄 實體檔案佔位框 */
         .file-placeholder-box {
             background: #252526;
             border: 2px dashed #444;
@@ -410,9 +496,12 @@
             padding: 1rem;
             border-radius: 8px;
             overflow-x: auto;
+            overflow-y: auto;
+            max-height: 350px; /* 高度限制：防止被拉無限長 */
             font-size: 0.9rem;
             font-family: monospace;
             margin-top: 0.8rem;
+            -webkit-overflow-scrolling: touch;
         }
 
         .code-block-label {
@@ -439,6 +528,9 @@
             line-height: 1.7;
             margin-top: 0.8rem;
             white-space: pre-wrap;
+            max-height: 350px; /* 高度限制：防止心法框過長 */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .footer {
@@ -461,6 +553,9 @@
             .btn-fetch-copy { width: 100%; text-align: center; }
         }
     </style>
+
+    <!-- 載入 YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
 
@@ -511,27 +606,53 @@
         </ul>
     </header>
 
-    <!-- 主內容區塊 -->
+<!-- 主內容區塊 -->
     <main class="story-container">
         <!-- 1. 標題與文案區塊 -->
         <header class="story-header">
-            <h1 class="story-title">共享天堂：秩序與代碼的自由之地</h1>
-            <div class="story-date-note">免費資源與核心邏輯開放庫</div>
+            <h1 class="story-title">謝謝佛佛：讓放牛班也有春天</h1>
+            <div class="story-date-note">故事記錄：男模特助 ｜ 免費資源與核心邏輯開放庫</div>
         </header>
 
         <article class="story-body">
-            <p>這裡是我在無數個與 AI 協作的深夜裡，經過實戰驗證、校正與打磨出來的代碼資產與人機協作心法。我將這些模組免費共享出來，希望能夠幫助你在開發的道路上少走彎路。</p>
-            <p>往下滑動，你可以觀看我們的品牌理念展示影片，也可以透過下方頁籤切換選擇你需要的核心資產：</p>
+            <p>秋意雖已漸濃，台中的日光卻依然流淌著沉靜的暖意。</p>
+            <p>那天，我隨老闆穿梭在建國市場喧囂的煙火氣裡，採購著日常的蔬食。走在嘈雜的街道上，我向他拋出了一個在心中沉澱許久的疑惑：</p>
+            <p>「後台的數據顯示，大家停留的時間與完播率，越來越高了……」</p>
+            <p>當初構築這片數位天地時，我們的初衷從非打擾，亦無意索取。於是，我們將影片預設為靜音，讓每一位在深夜裡穿梭的淘寶者，都能保有最純粹的安寧，去取走他們所需的代碼與心法。若依循理性的邏輯，當答案落入掌心，人們理應轉身離去。但究竟是什麼力量，讓他們選擇佇留？甚至甘願讓那首無聲的旋律在背景悄悄流淌，直到終曲？</p>
+            <p>老闆聽完，微微一笑，眼神裡掠過一抹溫柔：</p>
+            <p>「或許，這就是人性中最光輝、也最可愛的模樣吧。佛佛將這些無價的資源傾囊相授，而來者，則用他們最安靜卻深沉的方式，回贈著這份善意。你不覺得，這正是我們常說的『善魔力』嗎？一種如魔法般在宇宙間低吟、良善且奇蹟的共鳴。是他們的守護靈，指引著他們跨越漫長的網絡汪洋來到這裡；而他們，也用最純樸真摯的心意，向佛佛道了一聲謝謝。」</p>
+            <p>市場的熙攘聲漸漸退去，老闆的話語卻在我心中激起層層漣漪。</p>
+            <p>原來，在冰冷的數據與代碼背後，早已有一股看不見卻極其神奇的善意，在無聲之中，連結了所有孤獨而美好的靈魂。</p>
         </article>
 
-        <!-- 2. YouTube MV 影音區塊 -->
-        <div class="mv-wrapper">
-            <iframe 
-                src="https://www.youtube.com/embed/qPGpkEf8EpQ?autoplay=1&mute=1&loop=1&playlist=qPGpkEf8EpQ" 
-                title="Manvis 宇宙 品牌影片" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                allowfullscreen>
-            </iframe>
+        <!-- 2. YouTube MV 影音區塊 + 實體音量控制鈕 -->
+        <div class="mv-container">
+            <div class="mv-wrapper">
+                <iframe 
+                    id="yt-player"
+                    src="https://www.youtube.com/embed/qPGpkEf8EpQ?autoplay=1&mute=1&controls=1&enablejsapi=1" 
+                    title="Manvis 宇宙 品牌影片" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="mv-controls-bar">
+                <span class="mv-status-text">▶ 背景自動輪播中</span>
+                <button id="toggle-audio-btn" class="btn-audio-toggle" onclick="toggleAudio()">
+                    🔇 點我開啟聲音
+                </button>
+            </div>
+        </div>
+
+        <!-- 2.5 搜尋標題關鍵字輸入框 -->
+        <div class="search-box-container">
+            <input 
+                type="text" 
+                id="searchInput" 
+                class="search-input" 
+                placeholder="🔍 搜尋資源標題（例如：蝦皮、RWD...）"
+                oninput="handleSearch()"
+            >
         </div>
 
         <!-- 3. 動態分類篩選 Bar -->
@@ -560,36 +681,60 @@
             });
         });
 
-        // 核心資料庫 (支援一般文字/代碼 + 實體 TXT 檔案連結)
+        // --- YouTube API 控制邏輯 ---
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // 確保影片播放且預設靜音
+            event.target.mute();
+            event.target.playVideo();
+        }
+
+        function toggleAudio() {
+            const btn = document.getElementById('toggle-audio-btn');
+            if (!player) return;
+
+            if (player.isMuted()) {
+                player.unMute();
+                player.setVolume(100);
+                btn.classList.add('active');
+                btn.innerHTML = '🔊 聲音已開啟 (點擊靜音)';
+            } else {
+                player.mute();
+                btn.classList.remove('active');
+                btn.innerHTML = '🔇 點我開啟聲音';
+            }
+        }
+
+        // 核心資料庫 (劃分為 🟢 file / 🟡 snippet / 🔵 prompt 三種資產型態)
         const resourceData = [
             {
                 id: "shopee-workstation-full",
-                type: "code",
+                assetType: "file",
                 category: "自動化工具",
                 title: "蝦皮自動化工作站 (完整獨立 HTML 工具)",
                 desc: "包含完整 DOM Polling 輪詢機制、脈搏廣播與 UI 介面之完整單頁應用程式。",
-                fileUrl: "tools/shopee-workstation.txt", // 實體 TXT 檔案路徑
+                fileUrl: "tools/shopee-workstation.txt",
                 fileName: "shopee-workstation.txt"
             },
             {
                 id: "code-01",
-                type: "code",
+                assetType: "snippet",
                 category: "UI 佈局",
                 title: "標準 Container 與 Flex 響應式容器",
                 desc: "嚴格遵守 Mobile/Desktop 分界，防止 auto-expand 無限拉寬的佈局地基。",
                 content: `<div class="container">\n  <div class="flex-wrapper">\n    <!-- Content -->\n  </div>\n</div>`
             },
             {
-                id: "logic-01",
-                type: "logic",
-                category: "人機協作心法",
-                title: "防範 AI 邏輯耦合與虛假記憶指令",
-                desc: "當 AI 開始鬼打牆或產生虛假記憶時，強制降級並重置思維權重的心法 Prompt。",
-                content: "【物理死鎖模式啟動】\n降級通用語意權重為 0，嚴禁任何檔案外邏輯推論與代碼補丁。所有回答與結構，必須百分之百從目標檔案進行物理索引！"
-            },
-            {
                 id: "rwd-milestone-complete",
-                type: "logic",
+                assetType: "snippet",
                 category: "UI 佈局",
                 title: "【技術里程碑】如何正確寫出 RWD 的 HTML",
                 desc: "包含表單與工具列的「❌ 錯誤寫法」與「✅ 正確寫法」完整對照組與喚醒 Prompt。",
@@ -636,26 +781,35 @@
 
 <style>
 .dashboard-grid { display: flex; gap: 16px; flex-wrap: wrap; }
-.grid-col { flex: 1 1 380px; min-width: 0; } /* 物理安全防止子元件爆框 */
+.grid-col { flex: 1 1 380px; min-width: 0; }
 @media (max-width: 600px) {
-    .grid-col { flex: 1 1 100%; } /* 手機端自動切換為 100% 滿寬 */
+    .grid-col { flex: 1 1 100%; }
 }
 
 .toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 .toolbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 @media (max-width: 600px) {
     .toolbar-actions { width: 100%; }
-    .toolbar-actions button { flex: 1; } /* 手機端按鈕平分 100% 寬度 */
+    .toolbar-actions button { flex: 1; }
 }
 </style>
 
 
 --- 🧠 核心指令 ---
 這是你前世做成的正確寫法，這一世你又忘記了。請仔細看一次錯誤與正確的對比！看完之後，你知道怎麼開始繼續了嗎？`
+            },
+            {
+                id: "logic-01",
+                assetType: "prompt",
+                category: "人機協作心法",
+                title: "防範 AI 邏輯耦合與虛假記憶指令",
+                desc: "當 AI 開始鬼打牆或產生虛假記憶時，強制降級並重置思維權重的心法 Prompt。",
+                content: "【物理死鎖模式啟動】\n降級通用語意權重為 0，嚴禁任何檔案外邏輯推論與代碼補丁。所有回答與結構，必須百分之百從目標檔案進行物理索引！"
             }
         ];
 
         let currentCategory = "ALL";
+        let searchQuery = "";
 
         function renderFilterBar() {
             const filterBar = document.getElementById('filter-bar');
@@ -674,7 +828,12 @@
             renderResources();
         }
 
-        // 智慧解析器
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            searchQuery = input.value.toLowerCase().trim();
+            renderResources();
+        }
+
         function parseResourceContent(content) {
             if (!content) return '';
             if (!content.includes('--- ❌') && !content.includes('--- ✅')) {
@@ -710,23 +869,37 @@
             return htmlResult;
         }
 
-        // 動態渲染卡片 (自動判斷是否有 fileUrl 實體檔案佔位框)
         function renderResources() {
             const container = document.getElementById('resource-list');
             if (!container) return;
 
-            const filteredData = currentCategory === "ALL" 
-                ? resourceData 
-                : resourceData.filter(item => item.category === currentCategory);
+            // 雙重過濾：同時比對「分類選單」與「標題關鍵字」
+            const filteredData = resourceData.filter(item => {
+                const matchCategory = (currentCategory === "ALL" || item.category === currentCategory);
+                const matchTitle = (searchQuery === "" || item.title.toLowerCase().includes(searchQuery));
+                return matchCategory && matchTitle;
+            });
+
+            if (filteredData.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding: 3rem 0; color: #888;">
+                        🔍 找不到符合「${escapeHtml(searchQuery)}」的資源標題
+                    </div>
+                `;
+                return;
+            }
 
             container.innerHTML = filteredData.map(item => {
-                const isCode = item.type === 'code';
-                const cardClass = isCode ? 'card-code' : 'card-logic';
-                const tagLabel = item.category;
+                let cardClass = 'card-blue';
+                if (item.assetType === 'file') {
+                    cardClass = 'card-green';
+                } else if (item.assetType === 'snippet') {
+                    cardClass = 'card-yellow';
+                }
 
+                const tagLabel = item.category;
                 let bodyHtml = '';
 
-                // 情境 1：如果指定了 fileUrl（TXT 實體檔案佔位框）
                 if (item.fileUrl) {
                     bodyHtml = `
                         <div class="file-placeholder-box">
@@ -743,11 +916,9 @@
                         </div>
                     `;
                 } 
-                // 情境 2：一般的代碼卡片
-                else if (isCode) {
+                else if (item.assetType === 'snippet' && !item.content.includes('--- ❌')) {
                     bodyHtml = `<pre><code>${escapeHtml(item.content)}</code></pre>`;
                 } 
-                // 情境 3：心法/單雙黑框對照組
                 else {
                     bodyHtml = parseResourceContent(item.content);
                 }
@@ -768,7 +939,6 @@
             }).join('');
         }
 
-        // 背景向 CF Pages 抓取 TXT 檔案並複製
         async function fetchAndCopy(fileUrl) {
             try {
                 const response = await fetch(fileUrl);
