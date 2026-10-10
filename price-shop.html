@@ -63,7 +63,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            padding-top: 80px; /* 留出 Navbar 高度 */
+            padding-top: 80px;
             position: relative;
             min-height: 100vh;
             overflow-x: hidden;
@@ -254,24 +254,23 @@
             #sub-3:checked ~ .submenu { max-height: 300px; }
         }
 
-/* --- 3. 頁面主要內容佈局（對齊官網標準大寬度） --- */
+        /* --- 3. 頁面主要內容佈局 --- */
         .container {
             width: 100%;
-            max-width: 860px; /* 提升預設寬度，對齊共享天堂分頁 */
+            max-width: 860px;
             margin: 0 auto;
             padding: 40px 20px 80px 20px;
             flex: 1 0 auto;
         }
 
-        /* 📱 💻 桌面版 RWD 規範：展開大寬度氣勢 */
         @media (min-width: 1024px) {
             .container {
-                max-width: 1000px; /* 電腦版寬度，讓卡片完整拉寬大氣 */
+                max-width: 1000px;
                 padding: 50px 32px 100px 32px;
             }
 
-.poem-section {
-                max-width: 100%; /* 文章與標題同步滿版 */
+            .poem-section {
+                max-width: 100%;
             }
 
             .step-card-grid {
@@ -282,22 +281,20 @@
             }
         }
 
-/* 詩意導言區塊（完全對齊《品牌故事》檔頭容器、藍點與橫線樣式） */
         .poem-section {
             text-align: left;
             margin-bottom: 2.5rem;
         }
 
-        /* 新增：標題與藍點日期的檔頭容器（橫線會精準繪製在藍點正下方） */
         .poem-header {
             margin-bottom: 2.5rem;
-            border-bottom: 1px solid #eaeaea; /* 分隔橫線正確繪製於此 */
+            border-bottom: 1px solid #eaeaea;
             padding-bottom: 1.5rem;
         }
 
         .poem-main-title {
-            font-size: 1.8rem;               /* 對齊品牌故事大標題 1.8rem */
-            font-weight: 800;                /* 對齊品牌故事特粗體 800 */
+            font-size: 1.8rem;
+            font-weight: 800;
             color: #111;
             letter-spacing: -0.5px;
             margin-bottom: 0.8rem;
@@ -305,7 +302,6 @@
             text-align: left;
         }
 
-        /* 藍色小圓點與紀錄時間樣式 */
         .poem-date-note {
             font-size: 0.9rem;
             color: #888;
@@ -320,29 +316,28 @@
             display: inline-block;
             width: 6px;
             height: 6px;
-            background-color: #0969da;      /* 品牌藍色小圓點 */
+            background-color: #0969da;
             border-radius: 50%;
         }
 
         .poem-body {
-            font-size: 1.05rem;              /* 對齊品牌故事內文 1.05rem */
+            font-size: 1.05rem;
             color: #333;
-            line-height: 1.8;                /* 對齊品牌故事鬆軟行高 1.8 */
-            text-align: justify;             /* 對齊品牌故事兩端整齊對齊 */
-            -webkit-user-select: none;       /* 防止選取文字時觸發 Google 觸控搜尋選單 */
+            line-height: 1.8;
+            text-align: justify;
+            -webkit-user-select: none;
             user-select: none;
         }
 
         .poem-body p {
-            margin-bottom: 1.8rem;           /* 對齊品牌故事段落間距 1.8rem */
+            margin-bottom: 1.8rem;
         }
 
         @media (max-width: 768px) {
-            .poem-main-title { font-size: 1.5rem; } /* 手機版標題大小 */
-            .poem-body { font-size: 1rem; }         /* 手機版內文大小 */
+            .poem-main-title { font-size: 1.5rem; }
+            .poem-body { font-size: 1rem; }
         }
 
-/* 提示體驗卡片（手機預設置中，電腦版自動切換靠左） */
         .experience-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -350,7 +345,7 @@
             padding: 28px 20px;
             margin-bottom: 36px;
             box-shadow: var(--shadow-md);
-            text-align: center; /* 📱 手機版：內容與按鈕完美置中 */
+            text-align: center;
             width: 100%;
         }
 
@@ -372,7 +367,7 @@
         .start-btn {
             display: inline-block;
             width: 100%;
-            max-width: 280px;        /* 📱 手機版：膠囊大小適中，不拉成大香腸 */
+            max-width: 280px;
             padding: 12px 24px;
             background: var(--primary-color);
             color: #ffffff;
@@ -384,7 +379,7 @@
             cursor: pointer;
             box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
             transition: all 0.25s ease;
-            margin: 0 auto;          /* 手機版水平置中 */
+            margin: 0 auto;
             text-align: center;
         }
 
@@ -394,21 +389,19 @@
             box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
         }
 
-        /* 💻 桌面版 RWD 切換：當螢幕大於 1024px 時切換為靠左對齊 */
         @media (min-width: 1024px) {
             .experience-card {
-                text-align: left;    /* 💻 電腦版：改回靠左對齊 */
+                text-align: left;
                 padding: 32px 36px;
             }
 
             .start-btn {
                 width: auto;
                 min-width: 220px;
-                margin: 0;           /* 💻 電腦版：按鈕自然靠左放置 */
+                margin: 0;
             }
         }
 
-        /* 步驟卡片 */
         .step-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -520,7 +513,6 @@
             font-weight: 600;
         }
 
-        /* 📱 白質感 iPhone 外框 */
         .iphone-frame {
             width: 100%;
             max-width: 320px;
@@ -565,7 +557,6 @@
             position: relative;
         }
 
-        /* 步驟 2 預覽元素 */
         .phone-brand-title {
             font-size: 1.05rem;
             font-weight: 700;
@@ -622,7 +613,6 @@
             opacity: 1;
         }
 
-        /* 步驟 3 手機中控面板 */
         .dash-header {
             display: flex;
             justify-content: space-between;
@@ -770,7 +760,6 @@
             opacity: 0.9;
         }
 
-        /* 深色極簡黑終端機 */
         .cmd-terminal {
             background: #0f172a;
             border: 1px solid #1e293b;
@@ -811,7 +800,6 @@
             line-height: 1.5;
         }
 
-        /* 🎯 點擊波紋與藍色光點（修復跑版問題：使用 fixed 相對視窗定位） */
         #autoclick-cursor {
             position: fixed;
             top: 0;
@@ -913,7 +901,6 @@
             50% { opacity: 0; }
         }
 
-        /* 官方頁尾 Footer */
         .footer {
             text-align: center;
             padding: 2.5rem 0;
@@ -925,6 +912,189 @@
             text-transform: uppercase;
             margin-top: auto;
             width: 100%;
+        }
+
+        .checkout-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 40px;
+        }
+
+        .checkout-title {
+            color: var(--text-main);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .checkout-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .checkout-btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn-paddle {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+            transition: all 0.25s ease;
+        }
+
+        .btn-paddle:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-usdt {
+            background: var(--accent-green);
+            color: #ffffff;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+            transition: all 0.25s ease;
+        }
+
+        .btn-usdt:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-restart {
+            background: #f1f5f9;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        /* --- USDT 抽屜與網路切換膠囊樣式 --- */
+        .usdt-drawer {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
+
+        .drawer-title {
+            color: var(--accent-green);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .drawer-close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .net-selector-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .net-btn {
+            flex: 1;
+            min-width: 90px;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .net-btn.active {
+            background: #ecfdf5;
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .input-with-btn {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-copy, .btn-submit {
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-submit {
+            background: var(--accent-green);
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .verification-box {
+            background: #ffffff;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 12px;
+        }
+
+        .network-warning-note {
+            font-size: 0.75rem;
+            color: var(--accent-warning);
+            margin-top: 6px;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -942,7 +1112,6 @@
             <span></span>
         </label>
 
-        <!-- 官方導覽功能選單 -->
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="./events.html" class="nav-link">最新活動</a>
@@ -989,7 +1158,6 @@
     <!-- [主內容區塊] -->
     <main class="container">
 
-<!-- 主標題與感性導引區塊（已加入檔頭容器 <header>，橫線才會貼在藍點下方） -->
         <div class="poem-section">
             <header class="poem-header">
                 <h1 class="poem-main-title">遠方的天空，與不曾離線的陪伴</h1>
@@ -1003,14 +1171,12 @@
             </div>
         </div>
 
-<!-- 提示體驗卡片區塊（文字自然延展攤開） -->
         <div class="experience-card">
-            <div class="exp-card-title">［ 專屬調配流程 ］</div>
-            <p class="exp-card-desc">不需要繁複的溝通，也不必擔心打擾。輕點下方按鈕，靜靜欣賞為您進行的即時自動化配置。</p>
+            <div class="exp-card-title">［ 專屬客製化配置流程 ］</div>
+            <p class="exp-card-desc">不需要繁複的溝通，也不必擔心打擾。輕點下方按鈕，您可以靜靜欣賞工程師大概會怎麼幫您客製化配置的整個流程。</p>
             <button class="start-btn" id="btn-start" onclick="startAutopilot()">［ 輕點啟動體驗 ］</button>
         </div>
 
-        <!-- 步驟卡片區域 -->
         <!-- 步驟 1：基礎參數 -->
         <div class="step-card" id="card-step1">
             <div class="step-header">
@@ -1026,7 +1192,7 @@
             <div class="form-group" id="target-email">
                 <label>
                     <span>預設溝通 Email (系統硬綁定)</span>
-                    <span class="badge-hardcode">不可隨意變更</span>
+                    <span class="badge-hardcode">變更視同轉讓</span>
                 </label>
                 <input type="email" class="form-control" id="input-email" placeholder="等待輸入中..." readonly>
             </div>
@@ -1056,13 +1222,12 @@
             </div>
         </div>
 
-        <!-- 桌面版採用網格（Grid）排列展示步驟 2 與 步驟 3 -->
         <div class="step-card-grid">
             <!-- 步驟 2：驗證面板 -->
             <div class="step-card" id="card-step2">
                 <div class="step-header">
                     <div class="status-light" id="light-step2"></div>
-                    <span>2. 擬真驗證登入預覽 (Auth Preview)</span>
+                    <span>2. 驗證登入預覽 (Auth Preview)</span>
                 </div>
                 
                 <div class="iphone-frame" id="target-preview-login">
@@ -1076,11 +1241,11 @@
                         
                         <div class="login-box" id="phone-login-box">
                             <div class="login-field">
-                                <label>ACCOUNT / EMAIL (金鑰硬綁定)</label>
+                                <label>アカウント / メールアドレス（ハードウェアキーへの紐付け）</label>
                                 <div class="input-fake" id="phone-email">---</div>
                             </div>
                             <div class="login-field">
-                                <label>PASSWORD (物理焊死)</label>
+                                <label>パスワード（物理的に溶接・固定）</label>
                                 <div class="input-fake" id="phone-pass">---</div>
                             </div>
                         </div>
@@ -1110,40 +1275,40 @@
                     <div class="iphone-screen">
                         <div class="dash-header">
                             <button class="hamburger-btn" id="btn-hamburger">☰</button>
-                            <span style="font-size: 0.75rem; font-weight: bold; color: var(--primary-color);">MASTER DASHBOARD</span>
+                            <span style="font-size: 0.75rem; font-weight: bold; color: var(--primary-color);">マスターダッシュボード</span>
                             <div class="status-pill">
                                 <div class="status-dot"></div>
-                                <span>EXE Online</span>
+                                <span>エグゼオンライン</span>
                             </div>
                         </div>
 
                         <div class="drawer-menu" id="drawer-menu">
-                            <div class="drawer-item active" id="menu-item-core">📌 基礎控制台 (Core Commands)</div>
-                            <div class="drawer-item" id="menu-item-plugin">🧩 進階擴充模組 (Plugins Hub)</div>
+                            <div class="drawer-item active" id="menu-item-core">📌 基本コンソール</div>
+                            <div class="drawer-item" id="menu-item-plugin">🧩 上級拡張モジュール</div>
                         </div>
 
                         <div class="panel-section" id="panel-core">
                             <div class="dash-card">
-                                <div class="dash-card-title">📡 主人發送遠端指令 (Command Input)</div>
-                                <textarea class="dash-textarea" id="cmd-input-box" readonly placeholder="等待輸入指令..."></textarea>
-                                <button class="send-cmd-btn" id="btn-send-cmd">🚀 發送指令至遠端 EXE</button>
+                                <div class="dash-card-title">📡 マスターがコマンドを送信</div>
+                                <textarea class="dash-textarea" id="cmd-input-box" readonly placeholder="コマンドの入力を待機中..."></textarea>
+                                <button class="send-cmd-btn" id="btn-send-cmd">🚀 EXEにコマンドを送信</button>
                             </div>
 
                             <div class="dash-card">
-                                <div class="dash-card-title">💻 機器人實時回傳 (EXE Terminal)</div>
+                                <div class="dash-card-title">💻 EXEリアルタイム送信</div>
                                 <div class="cmd-terminal" id="cmd-terminal">
-                                    <div class="cmd-line info">[System] 物理連線已建立。等待主人指令...</div>
+                                    <div class="cmd-line info">[システム] 物理接続が確立されました。マスターの指令を待機中……</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="panel-section" id="panel-plugin" style="display: none;">
                             <div class="dash-card">
-                                <div class="dash-card-title">🧩 模組化擴充面板 (Plugin Hub)</div>
+                                <div class="dash-card-title">🧩 上級拡張モジュール</div>
                                 <div class="plugin-info-box">
-                                    <b style="color: var(--primary-color);">【系統擴充訊息】</b><br>
-                                    目前為 MVP 基礎連線版本。<br><br>
-                                    未來若追加新的 Python EXE 執行檔（如：自動化爬蟲、AI 自動剪輯、影像處理），將在此處直接擴充專屬控制面板與獨立權限金鑰。
+                                    <b style="color: var(--primary-color);">【システム拡張のお知らせ】</b><br>
+                                    以上が、基本的な管理画面構築のデモンストレーションです。<br><br>
+                                    今後、新たなPython EXE（自動化クローラー、AI自動編集、画像処理など）を追加する際には、専用のコントロールパネルと個別の権限キーをここに直接追加・拡張します。
                                 </div>
                             </div>
                         </div>
@@ -1154,55 +1319,203 @@
             </div>
         </div>
 
+        <div class="poem-section">
+            <header class="poem-header">
+                <h2 class="poem-main-title">第一段：【關於特權】遠比軟體更具價值的，是那張絕版的通行證</h2>
+                <div class="poem-date-note">創始成員特權與生態經營權</div>
+            </header>
+            
+            <div class="poem-body">
+                <p>「特助在整理最後的授權邏輯時，看著後台的代碼停了很久。」</p>
+                <p>『老闆，這每一套系統隨附的「獨家分潤序號」，價值可能早就超過了軟體本身。這項權限如果保留在我們自己手裡，商業利潤會高出很多，為什麼要直接送給第一批客戶？甚至還開放讓他們未來可以自由轉讓？』特助疑惑地問。</p>
+                <p>我笑了笑，想起當初在佛佛面前擲筊裁決時的靈光。</p>
+                <p>「這不是單純的買賣，而是資源的共享。購買這套軟體，解決的是他當前的效率痛點；但拿到這張絕版序號，代表他擁有了這套系統的『數位生態經營權』。他不需要去向任何人低頭，將這份順手的自動化體驗分享出去，這張序號就能持續為他帶回實質的回饋。哪怕有一天他轉換了事業跑道，這張帶有特權的序號依然是可以完整轉讓的數位資產——因為真正的慈悲，是給予他人創造價值的工具，而不是綁架他的訂閱。」</p>
+            </div>
+        </div>
+
+        <div class="poem-section">
+            <header class="poem-header">
+                <h2 class="poem-main-title">第二段：【關於陪伴】早期信任者的地基，永遠享有免費擴建的特權</h2>
+                <div class="poem-date-note">創始成員特權與物理擴建</div>
+            </header>
+            
+            <div class="poem-body">
+                <p>『那……未來如果我們推出了新的 Python EXE 自動化擴充模組（EX1、EX2），後續加入的客戶費用肯定會翻倍，早期買的人真的不需要再多花一毛錢嗎？』特助接著問。</p>
+                <p>「要蓋橋樑，先打地基。」我點了一根煙，看著螢幕上穩健運行的物理脈搏。</p>
+                <p>「早期願意選擇我們的客人，就是陪我們一起打下地基的創始夥伴。後續不管我們的 AI 模組怎麼升級、自動化腳本怎麼擴充，這些模組在後台對他們永遠都是『直接物理掛載、一鍵免費下載』。客製化的核心是專屬，而擴充模組的免費，是我們對早期信任者最硬核的回報。後來的路再寬，第一批看見微光的人，永遠坐在首席。」</p>
+            </div>
+        </div>
+
+<!-- 雙軌結帳區塊 -->
+        <div class="checkout-card">
+            <h3 class="checkout-title">立即卡位創始版特權</h3>
+            <p class="checkout-subtitle">解鎖無限次運算授權 ＋ 附贈絕版可轉讓分潤序號 ＋ EXE模組未來免費掛載</p>
+
+            <div class="checkout-btn-group">
+                <button class="btn-paddle" onclick="handlePaddlePay()">
+                    💳 Paddle 官方信用卡結帳
+                </button>
+
+                <button class="btn-usdt" onclick="toggleUsdtPay()">
+                    ⚡ USDT 鏈上極速支付
+                </button>
+
+                <button class="btn-restart" onclick="restartWorkflow()">
+                    🔄 重新體驗操作流程
+                </button>
+            </div>
+
+            <!-- 1. USDT 三路線彈框面板 (獨立閉合) -->
+            <div id="usdt-pay-drawer" class="usdt-drawer">
+                <div class="drawer-header">
+                    <span class="drawer-title">⚡ USDT 鏈上極速支付 (請選擇網路)</span>
+                    <button class="drawer-close-btn" onclick="toggleUsdtPay()">✕</button>
+                </div>
+
+                <div class="drawer-body">
+                    <!-- 三條路線切換膠囊按鈕 -->
+                    <div class="net-selector-group">
+                        <button class="net-btn active" id="net-btn-tron" onclick="switchNetwork('Tron (TRC20)', 'TNQDVhvr4smj4pkDKEwqyN7D9NGEuwtZsz', this)">
+                            Tron (TRC20)
+                        </button>
+                        <button class="net-btn" id="net-btn-polygon" onclick="switchNetwork('Polygon (POS)', '0xA5a7f0B862a5850A581Ff724778152D87de2d92c', this)">
+                            Polygon (POS)
+                        </button>
+                        <button class="net-btn" id="net-btn-avax" onclick="switchNetwork('Avalanche (C-Chain)', '0xA5a7f0B862a5850A581Ff724778152D87de2d92c', this)">
+                            Avalanche
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>USDT 收款地址 (<span id="current-net-label">Tron (TRC20)</span>)</label>
+                        <div class="input-with-btn">
+                            <input type="text" id="usdt-address" class="form-control" value="TNQDVhvr4smj4pkDKEwqyN7D9NGEuwtZsz" readonly>
+                            <button class="btn-copy" onclick="copyUsdtAddr()">複製</button>
+                        </div>
+                        <div class="network-warning-note" id="net-warning-text">
+                            ⚠️ 只能將 Tron (TRC20) 網路資產發送至此地址，其他資產將無法退還。
+                        </div>
+                    </div>
+
+                    <div class="verification-box">
+                        <label style="font-weight:700; font-size:0.85rem; color:var(--text-main); margin-bottom:6px; display:block;">
+                            TXID 交易哈希與開通信件觸發
+                        </label>
+                        <p class="exp-card-desc" style="font-size:0.8rem; margin-bottom:10px;">
+                            轉帳完成後，請輸入您要接收授權的 Email 與 TXID 哈希值。點擊按鈕將自動開啟預設 Mail 並帶入所有開通參數。
+                        </p>
+
+                        <!-- 指定開通 Email 欄位 -->
+                        <div style="margin-bottom:8px;">
+                            <input type="email" id="usdt-user-email" class="form-control" placeholder="請輸入您要開通授權的 Email">
+                        </div>
+                        
+                        <!-- TXID 輸入欄位 -->
+                        <div style="margin-bottom:8px;">
+                            <input type="text" id="txid-input" class="form-control" placeholder="請在此貼上轉帳 TXID 交易哈希值">
+                        </div>
+
+                        <button class="btn-submit" onclick="submitTxid()">
+                            🚀 自動發信件給官方
+                        </button>
+                    </div>
+                </div>
+            </div> <!-- 👈【這裡補上了關鍵的 </div>】把 USDT 面板正確關閉！ -->
+
+            <!-- 2. Paddle 信用卡/跨國支付 抽屜面板 (與 USDT 平級獨立) -->
+            <div id="paddle-pay-drawer" class="usdt-drawer" style="display: none;">
+                <div class="drawer-header">
+                    <span class="drawer-title" style="color: var(--primary-color);">💳 Paddle 官方信用卡極速開通</span>
+                    <button class="drawer-close-btn" onclick="togglePaddlePay()">✕</button>
+                </div>
+
+                <div class="drawer-body">
+                    <!-- 說明區塊 -->
+                    <div style="background: #f0f9ff; border: 1px dashed var(--primary-color); border-radius: 8px; padding: 12px; margin-bottom: 14px; font-size: 0.8rem; color: var(--text-main); line-height: 1.5;">
+                        <b style="color: var(--primary-color);">💡 信用卡結帳與交付流程：</b><br>
+                        1. 點擊下方按鈕前往刷卡完成交易。<br>
+                        2. 付款成功後，Paddle 將寄送「電子收據與訂單號 (Order ID)」至您的信箱。<br>
+                        3. 請將 Order ID 貼於下方發送驗證信，團隊將立即為您解鎖！
+                    </div>
+
+                    <!-- 刷卡外連按鈕 -->
+                    <button class="btn-paddle" style="width: 100%; border-radius: 8px; padding: 12px; font-size: 0.95rem; margin-bottom: 16px;" onclick="window.open('https://manvis-sale.pages.dev/', '_blank')">
+                        🌐 前往 Paddle 官方頁面安全刷卡付款
+                    </button>
+
+                    <!-- 驗證與開通區塊 -->
+                    <div class="verification-box">
+                        <label style="font-weight:700; font-size:0.85rem; color:var(--text-main); margin-bottom:6px; display:block;">
+                            🧾 刷卡完成！回傳訂單號即刻獲取權限
+                        </label>
+                        <p class="exp-card-desc" style="font-size:0.8rem; margin-bottom:10px;">
+                            請輸入您的開通 Email 與 Paddle 收據上的 Order ID：
+                        </p>
+
+                        <div style="margin-bottom:8px;">
+                            <input type="email" id="paddle-user-email" class="form-control" placeholder="請輸入您要接收授權的 Email">
+                        </div>
+                        
+                        <div style="margin-bottom:8px;">
+                            <input type="text" id="paddle-order-id" class="form-control" placeholder="請在此貼上 Paddle 訂單編號 (Order ID)">
+                        </div>
+
+                        <button class="btn-submit" style="background: var(--primary-color); margin-top: 4px;" onclick="submitPaddleOrder()">
+                            🚀 自動發信件給官方
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- checkout-card 結束 -->
+
     </main>
 
-    <!-- 光點與 Tooltip（經 fixed 相對定位重構，徹底告別跑版） -->
     <div id="autoclick-cursor"></div>
 
     <div id="guide-tooltip">
         <div class="tooltip-header" id="tt-title">🎮 自動導覽中...</div>
         <div class="tooltip-body" id="tt-body">準備開始...</div>
         <div class="tooltip-footer">
-            <span class="countdown-tag" id="tt-countdown">倒數 5 秒...</span>
+            <span class="countdown-tag" id="tt-countdown">倒數 5 5秒..</span>
             <button class="stop-btn" onclick="stopAutopilot()">結束導覽</button>
         </div>
     </div>
 
-    <!-- 官方頁尾 Footer -->
     <footer class="footer">
         2026 WELCOME TO MANVIS WORLD
     </footer>
 
     <script>
-        let timer = null;
-        let countdownValue = 5;
-        let isRunning = false;
+        var timer = null;
+        var countdownValue = 5;
+        var isRunning = false;
 
-        let currentBrandText = "";
-        let currentEmailText = "";
-        let currentPassText = "";
-        let currentLangText = "繁體中文";
+        var currentBrandText = "";
+        var currentEmailText = "";
+        var currentPassText = "";
+        var currentLangText = "繁體中文";
+        var currentUsdtNetwork = "Tron (TRC20)";
 
-        const cursor = document.getElementById('autoclick-cursor');
-        const tooltip = document.getElementById('guide-tooltip');
-        const ttTitle = document.getElementById('tt-title');
-        const ttBody = document.getElementById('tt-body');
-        const ttCountdown = document.getElementById('tt-countdown');
+        var cursor = document.getElementById('autoclick-cursor');
+        var tooltip = document.getElementById('guide-tooltip');
+        var ttTitle = document.getElementById('tt-title');
+        var ttBody = document.getElementById('tt-body');
+        var ttCountdown = document.getElementById('tt-countdown');
 
-        // 🎯 精準計算 Fixed 視窗絕對位置，防跑版核心邏輯
         function moveCursorAndClick(element, callback) {
-            const rect = element.getBoundingClientRect();
-            const targetX = rect.left + rect.width / 2;
-            const targetY = rect.top + rect.height / 2;
+            var rect = element.getBoundingClientRect();
+            var targetX = rect.left + rect.width / 2;
+            var targetY = rect.top + rect.height / 2;
 
             cursor.style.display = 'block';
-            cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+            cursor.style.transform = 'translate3d(' + targetX + 'px, ' + targetY + 'px, 0)';
 
-            setTimeout(() => {
+            setTimeout(function() {
                 element.classList.add('clicked');
                 createRipple(targetX, targetY);
 
-                setTimeout(() => {
+                setTimeout(function() {
                     element.classList.remove('clicked');
                     if (callback) callback();
                 }, 300);
@@ -1210,40 +1523,39 @@
         }
 
         function createRipple(x, y) {
-            const ripple = document.createElement('div');
+            var ripple = document.createElement('div');
             ripple.className = 'click-ripple';
-            ripple.style.left = `${x}px`;
-            ripple.style.top = `${y}px`;
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
             document.body.appendChild(ripple);
 
-            setTimeout(() => { ripple.remove(); }, 500);
+            setTimeout(function() { ripple.remove(); }, 500);
         }
 
         function positionTooltipAbove(element) {
-            const rect = element.getBoundingClientRect();
+            var rect = element.getBoundingClientRect();
             
             tooltip.style.display = 'block';
-            let topPos = rect.top - tooltip.offsetHeight - 14;
+            var topPos = rect.top - tooltip.offsetHeight - 14;
             if (topPos < 10) topPos = rect.bottom + 14;
 
-            let leftPos = Math.max(16, (window.innerWidth - tooltip.offsetWidth) / 2);
+            var leftPos = Math.max(16, (window.innerWidth - tooltip.offsetWidth) / 2);
 
-            tooltip.style.top = `${topPos}px`;
-            tooltip.style.left = `${leftPos}px`;
+            tooltip.style.top = topPos + 'px';
+            tooltip.style.left = leftPos + 'px';
         }
 
         function scrollToElement(element, callback) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // 等待平滑滾動完成後再執行後續計算，解決座標舊讀取的跑版問題
-            setTimeout(() => {
+            setTimeout(function() {
                 if (callback) callback();
             }, 600);
         }
 
         function typeTextIntoInput(inputEl, text, speed, callback) {
             inputEl.value = "";
-            let i = 0;
-            const typeTimer = setInterval(() => {
+            var i = 0;
+            var typeTimer = setInterval(function() {
                 if (!isRunning) { clearInterval(typeTimer); return; }
                 inputEl.value += text.charAt(i);
                 i++;
@@ -1257,8 +1569,8 @@
         function typeTextToScreen(targetEl, text, speed, callback) {
             targetEl.innerText = "";
             targetEl.classList.add('cursor-blink');
-            let i = 0;
-            const typeTimer = setInterval(() => {
+            var i = 0;
+            var typeTimer = setInterval(function() {
                 if (!isRunning) { clearInterval(typeTimer); return; }
                 targetEl.innerText += text.charAt(i);
                 i++;
@@ -1291,7 +1603,7 @@
             document.getElementById('menu-item-core').classList.add('active');
             document.getElementById('menu-item-plugin').classList.remove('active');
             document.getElementById('cmd-input-box').value = "";
-            document.getElementById('cmd-terminal').innerHTML = '<div class="cmd-line info">[System] 物理連線已建立。等待主人指令...</div>';
+            document.getElementById('cmd-terminal').innerHTML = '<div class="cmd-line info">[システム] 物理接続が確立されました。マスターの指令を待機中……</div>';
 
             runStepBrand();
         }
@@ -1310,13 +1622,13 @@
 
         function startCountdown(seconds, nextStepFunction) {
             countdownValue = seconds;
-            ttCountdown.innerText = `倒數 ${countdownValue} 秒...`;
+            ttCountdown.innerText = '倒數 ' + countdownValue + ' 5秒..';
             clearInterval(timer);
-            timer = setInterval(() => {
+            timer = setInterval(function() {
                 if (!isRunning) return;
                 countdownValue--;
                 if (countdownValue > 0) {
-                    ttCountdown.innerText = `倒數 ${countdownValue} 秒...`;
+                    ttCountdown.innerText = '倒數 ' + countdownValue + ' 5秒..';
                 } else {
                     clearInterval(timer);
                     nextStepFunction();
@@ -1329,16 +1641,16 @@
             document.getElementById('light-step2').classList.remove('active');
             document.getElementById('light-step3').classList.remove('active');
 
-            const target = document.getElementById('target-brand');
-            const inputEl = document.getElementById('input-brand');
+            var target = document.getElementById('target-brand');
+            var inputEl = document.getElementById('input-brand');
 
-            scrollToElement(target, () => {
-                moveCursorAndClick(target, () => {
+            scrollToElement(target, function() {
+                moveCursorAndClick(target, function() {
                     ttTitle.innerText = "🎮 第 1 關：輸入專屬品牌名稱";
-                    ttBody.innerHTML = "正在模擬手動鍵入系統品牌名稱...";
+                    ttBody.innerHTML = "輸入自己獨有的系統品牌名稱...";
                     positionTooltipAbove(target);
 
-                    typeTextIntoInput(inputEl, "究極のカスタマイズシステム V1", 110, () => {
+                    typeTextIntoInput(inputEl, "究極のカスタマイズシステム V1", 110, function() {
                         currentBrandText = inputEl.value;
                         startCountdown(3, runStepEmail);
                     });
@@ -1347,16 +1659,16 @@
         }
 
         function runStepEmail() {
-            const target = document.getElementById('target-email');
-            const inputEl = document.getElementById('input-email');
+            var target = document.getElementById('target-email');
+            var inputEl = document.getElementById('input-email');
 
-            scrollToElement(target, () => {
-                moveCursorAndClick(target, () => {
+            scrollToElement(target, function() {
+                moveCursorAndClick(target, function() {
                     ttTitle.innerText = "🎮 第 2 關：綁定溝通 Email (關鍵金鑰)";
                     ttBody.innerHTML = "💡 <b>重要金鑰提醒</b>：此 Email 為系統打包的物理金鑰！<b>打包送出後無法隨意變更</b>。";
                     positionTooltipAbove(target);
 
-                    typeTextIntoInput(inputEl, "owner@custom-system.com", 90, () => {
+                    typeTextIntoInput(inputEl, "owner@custom-system.com", 90, function() {
                         currentEmailText = inputEl.value;
                         startCountdown(3, runStepPass);
                     });
@@ -1365,16 +1677,16 @@
         }
 
         function runStepPass() {
-            const target = document.getElementById('target-pass');
-            const inputEl = document.getElementById('input-pass');
+            var target = document.getElementById('target-pass');
+            var inputEl = document.getElementById('input-pass');
 
-            scrollToElement(target, () => {
-                moveCursorAndClick(target, () => {
+            scrollToElement(target, function() {
+                moveCursorAndClick(target, function() {
                     ttTitle.innerText = "🎮 第 3 關：設定專屬密碼 (EXE 物理焊死)";
                     ttBody.innerHTML = "🔐 <b>物理防護</b>：密碼將直接寫死於您的專屬 EXE 執行檔內！";
                     positionTooltipAbove(target);
 
-                    typeTextIntoInput(inputEl, "Pass2026!Key", 110, () => {
+                    typeTextIntoInput(inputEl, "Pass2026!Key", 110, function() {
                         currentPassText = inputEl.value;
                         startCountdown(3, runStepLang);
                     });
@@ -1383,28 +1695,28 @@
         }
 
         function runStepLang() {
-            const targetSelect = document.getElementById('target-lang');
-            const selectTrigger = document.getElementById('select-trigger');
-            const customOptions = document.getElementById('custom-options');
-            const optJp = document.getElementById('opt-jp');
+            var targetSelect = document.getElementById('target-lang');
+            var selectTrigger = document.getElementById('select-trigger');
+            var customOptions = document.getElementById('custom-options');
+            var optJp = document.getElementById('opt-jp');
 
-            scrollToElement(targetSelect, () => {
-                moveCursorAndClick(selectTrigger, () => {
+            scrollToElement(targetSelect, function() {
+                moveCursorAndClick(selectTrigger, function() {
                     ttTitle.innerText = "🎮 第 4 關：多語系選擇（日本語）";
                     ttBody.innerHTML = "模擬開啟選單並選取日本語...";
                     positionTooltipAbove(targetSelect);
 
                     customOptions.classList.add('open');
 
-                    setTimeout(() => {
-                        moveCursorAndClick(optJp, () => {
+                    setTimeout(function() {
+                        moveCursorAndClick(optJp, function() {
                             optJp.classList.add('highlight');
                             currentLangText = "日本語 (Japanese)";
                             document.getElementById('selected-lang-text').innerText = currentLangText;
                             customOptions.classList.remove('open');
                             optJp.classList.remove('highlight');
 
-                            ttBody.innerHTML = "已選定［日本語］！準備進入 iPhone 登入驗證預覽...";
+                            ttBody.innerHTML = "已選定［日本語］！準備進入 登入驗證預覽...";
                             positionTooltipAbove(targetSelect);
 
                             startCountdown(3, runStepPreviewLogin);
@@ -1418,21 +1730,21 @@
             document.getElementById('light-step1').classList.remove('active');
             document.getElementById('light-step2').classList.add('active');
 
-            const targetPreview = document.getElementById('target-preview-login');
-            const phoneBrand = document.getElementById('phone-brand');
-            const phoneEmail = document.getElementById('phone-email');
-            const phonePass = document.getElementById('phone-pass');
-            const phoneWelcome = document.getElementById('phone-welcome');
+            var targetPreview = document.getElementById('target-preview-login');
+            var phoneBrand = document.getElementById('phone-brand');
+            var phoneEmail = document.getElementById('phone-email');
+            var phonePass = document.getElementById('phone-pass');
+            var phoneWelcome = document.getElementById('phone-welcome');
 
-            scrollToElement(targetPreview, () => {
-                moveCursorAndClick(targetPreview, () => {
-                    ttTitle.innerText = "📱 步驟 2：iPhone 登入與金鑰校驗預覽";
-                    ttBody.innerHTML = "正在模擬專屬軟體讀取硬編碼參數並自動進行身份驗證...";
+            scrollToElement(targetPreview, function() {
+                moveCursorAndClick(targetPreview, function() {
+                    ttTitle.innerText = "📱 步驟 2：登入與金鑰校驗預覽";
+                    ttBody.innerHTML = "您的專屬軟體會讀取硬編碼參數並自動進行身份驗證...";
                     positionTooltipAbove(targetPreview);
 
-                    typeTextToScreen(phoneBrand, currentBrandText, 60, () => {
-                        typeTextToScreen(phoneEmail, currentEmailText, 50, () => {
-                            typeTextToScreen(phonePass, "••••••••••••", 80, () => {
+                    typeTextToScreen(phoneBrand, currentBrandText, 60, function() {
+                        typeTextToScreen(phoneEmail, currentEmailText, 50, function() {
+                            typeTextToScreen(phonePass, "••••••••••••", 80, function() {
                                 phoneWelcome.innerText = "ご主人様、おかえりなさいませ。";
                                 phoneWelcome.classList.add('show');
 
@@ -1451,39 +1763,38 @@
             document.getElementById('light-step2').classList.remove('active');
             document.getElementById('light-step3').classList.add('active');
 
-            const targetPreviewDash = document.getElementById('target-preview-dash');
-            const btnHamburger = document.getElementById('btn-hamburger');
-            const drawerMenu = document.getElementById('drawer-menu');
-            const menuItemCore = document.getElementById('menu-item-core');
-            const cmdInputBox = document.getElementById('cmd-input-box');
-            const btnSendCmd = document.getElementById('btn-send-cmd');
+            var targetPreviewDash = document.getElementById('target-preview-dash');
+            var btnHamburger = document.getElementById('btn-hamburger');
+            var drawerMenu = document.getElementById('drawer-menu');
+            var menuItemCore = document.getElementById('menu-item-core');
+            var cmdInputBox = document.getElementById('cmd-input-box');
+            var btnSendCmd = document.getElementById('btn-send-cmd');
 
-            scrollToElement(targetPreviewDash, () => {
-                moveCursorAndClick(btnHamburger, () => {
+            scrollToElement(targetPreviewDash, function() {
+                moveCursorAndClick(btnHamburger, function() {
                     ttTitle.innerText = "🎮 步驟 3：手機中控 - 點擊漢堡選單";
                     ttBody.innerHTML = "模擬手指點擊 ☰ 按鈕，展開遠端控制選單...";
                     positionTooltipAbove(targetPreviewDash);
 
                     drawerMenu.classList.add('open');
 
-                    setTimeout(() => {
-                        moveCursorAndClick(menuItemCore, () => {
+                    setTimeout(function() {
+                        moveCursorAndClick(menuItemCore, function() {
                             drawerMenu.classList.remove('open');
 
-                            setTimeout(() => {
-                                moveCursorAndClick(cmdInputBox, () => {
-                                    ttTitle.innerText = "🎮 手機端鍵入遠端指令";
-                                    ttBody.innerHTML = "模擬主人於手機端下達指令給家中的 Python EXE...";
+                            setTimeout(function() {
+                                moveCursorAndClick(cmdInputBox, function() {
+                                    ttTitle.innerText = "🎮 步驟 3：手機端下達遠端指令";
+                                    ttBody.innerHTML = "模擬主人於手機中控端輸入指令給家中的 Python EXE...";
                                     positionTooltipAbove(targetPreviewDash);
 
-                                    typeTextIntoInput(cmdInputBox, "請幫我把這段內容存成 TXT 檔，檔名為 demo.txt，並放到桌面的 demo 資料夾內。", 110, () => {
-                                        
-                                        ttBody.innerHTML = "指令輸入完成！準備點擊發射按鈕...";
+                                    typeTextIntoInput(cmdInputBox, 'この内容を「demo.txt」というファイル名でTXT形式として保存し、デスクトップの「demo」フォルダに置いてください。', 110, function() {
+                                        ttBody.innerHTML = "指令輸入完成！準備按下發射按鈕……";
                                         positionTooltipAbove(targetPreviewDash);
 
-                                        setTimeout(() => {
-                                            moveCursorAndClick(btnSendCmd, () => {
-                                                ttTitle.innerText = "🚀 物理脈搏廣播 - CMD 滾動印出";
+                                        setTimeout(function() {
+                                            moveCursorAndClick(btnSendCmd, function() {
+                                                ttTitle.innerText = "🚀 物理脈搏廣播 - CMD 滾動輸出";
                                                 ttBody.innerHTML = "指令已發射！遠端 Python EXE 接收訊號並進行物理檔案處理...";
                                                 positionTooltipAbove(targetPreviewDash);
 
@@ -1500,33 +1811,31 @@
         }
 
         function runCmdLogSimulation() {
-            const terminal = document.getElementById('cmd-terminal');
-            
-            const logs = [
-                { text: ">>> [Telegram] 收到主人通訊訊號，進行身份金鑰驗證...", type: "info" },
-                { text: ">>> [Auth Success] 金鑰驗證正確 (owner@custom-system.com)", type: "success" },
-                { text: ">>> [Python EXE] 喚醒本地執行檔，解析 task 任務規畫...", type: "info" },
-                { text: ">>> [CMD Polling] 建立目標目錄: C:\\Users\\Master\\Desktop\\demo\\", type: "warn" },
-                { text: ">>> [Pulse Broadcast] 正在寫入實體檔案 demo.txt...", type: "info" },
-                { text: ">>> [Progress 100%] 物理檔案落地成功！", type: "success" },
-                { text: "✅ 任務完成 (Completed in 0.82s)", type: "success" }
+            var terminal = document.getElementById('cmd-terminal');
+            var logs = [
+                { text: ">>> [Telegram] 主人からの通信信号を受信、本人確認用キーの検証を実行中……", type: "info" },
+                { text: ">>> [Auth Success] キーの検証に成功しました (owner@custom-system.com)", type: "success" },
+                { text: ">>> [Python EXE] ローカルの実行ファイルを起動し、タスクのスケジュールを解析する...", type: "info" },
+                { text: ">>> [CMD Polling] ターゲットディレクトリを作成中: C:\\Users\\Master\\Desktop\\demo\\", type: "warn" },
+                { text: ">>> [パルスブロードキャスト] 実体ファイル demo.txt を書き込み中...", type: "info" },
+                { text: ">>> [進捗 100%] 物理アーカイブの展開に成功！", type: "success" },
+                { text: "✅ タスク完了 (0.82秒で完了)", type: "success" }
             ];
 
-            let index = 0;
-            const logTimer = setInterval(() => {
+            var index = 0;
+            var logTimer = setInterval(function() {
                 if (!isRunning) { clearInterval(logTimer); return; }
 
                 if (index < logs.length) {
-                    const line = document.createElement('div');
-                    line.className = `cmd-line ${logs[index].type}`;
+                    var line = document.createElement('div');
+                    line.className = 'cmd-line ' + logs[index].type;
                     line.innerText = logs[index].text;
                     terminal.appendChild(line);
                     terminal.scrollTop = terminal.scrollHeight;
                     index++;
                 } else {
                     clearInterval(logTimer);
-                    
-                    setTimeout(() => {
+                    setTimeout(function() {
                         runStepPluginShow();
                     }, 1500);
                 }
@@ -1534,21 +1843,21 @@
         }
 
         function runStepPluginShow() {
-            const btnHamburger = document.getElementById('btn-hamburger');
-            const drawerMenu = document.getElementById('drawer-menu');
-            const menuItemCore = document.getElementById('menu-item-core');
-            const menuItemPlugin = document.getElementById('menu-item-plugin');
-            const targetPreviewDash = document.getElementById('target-preview-dash');
+            var btnHamburger = document.getElementById('btn-hamburger');
+            var drawerMenu = document.getElementById('drawer-menu');
+            var menuItemCore = document.getElementById('menu-item-core');
+            var menuItemPlugin = document.getElementById('menu-item-plugin');
+            var targetPreviewDash = document.getElementById('target-preview-dash');
 
             ttTitle.innerText = "🎮 切換選單：🧩 進階擴充模組";
             ttBody.innerHTML = "點擊漢堡選單，切換展示未來可彈性擴充的 Python 模組面板...";
             positionTooltipAbove(targetPreviewDash);
 
-            moveCursorAndClick(btnHamburger, () => {
+            moveCursorAndClick(btnHamburger, function() {
                 drawerMenu.classList.add('open');
 
-                setTimeout(() => {
-                    moveCursorAndClick(menuItemPlugin, () => {
+                setTimeout(function() {
+                    moveCursorAndClick(menuItemPlugin, function() {
                         menuItemCore.classList.remove('active');
                         menuItemPlugin.classList.add('active');
 
@@ -1557,22 +1866,196 @@
                         drawerMenu.classList.remove('open');
 
                         ttTitle.innerText = "🎉 全自動展示完畢！";
-                        ttBody.innerHTML = "<b>自動化流程完美演繹</b>：客人可在購物前無縫感受零摩擦力的即時配置體驗！";
+                        ttBody.innerHTML = "<b>自動化流程完美演繹</b>：您可在購物前無縫感受零摩擦力的即時配置體驗！";
                         ttCountdown.innerText = "展示結束";
                         positionTooltipAbove(targetPreviewDash);
 
-                        setTimeout(() => { stopAutopilot(); }, 6000);
+                        setTimeout(function() { stopAutopilot(); }, 6000);
                     });
                 }, 800);
             });
         }
 
-        // 頁面關閉或導航時關閉選單
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                const menuToggle = document.getElementById('menu-toggle');
+        /* --- 按鈕互動功能區 --- */
+        function restartWorkflow() {
+            stopAutopilot();
+            var expCard = document.querySelector('.experience-card');
+            if (expCard) {
+                expCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(function() {
+                    startAutopilot();
+                }, 800);
+            }
+        }
+
+// 切換 USDT 抽屜顯隱（具備互斥邏輯）
+function toggleUsdtPay() {
+    var usdtDrawer = document.getElementById('usdt-pay-drawer');
+    var paddleDrawer = document.getElementById('paddle-pay-drawer');
+    
+    // 互斥：若 Paddle 開著，先關閉它
+    if (paddleDrawer) {
+        paddleDrawer.style.display = 'none';
+    }
+
+    if (!usdtDrawer) return;
+
+    // 取得當前實際計算後的 display 狀態，避免內聯樣式空白問題
+    var currentDisplay = window.getComputedStyle(usdtDrawer).display;
+
+    if (currentDisplay !== 'none') {
+        usdtDrawer.style.display = 'none';
+    } else {
+        usdtDrawer.style.display = 'block';
+        usdtDrawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+// 切換 Paddle 抽屜顯隱（具備互斥邏輯）
+function togglePaddlePay() {
+    var paddleDrawer = document.getElementById('paddle-pay-drawer');
+    var usdtDrawer = document.getElementById('usdt-pay-drawer');
+    
+    // 互斥：若 USDT 開著，先關閉它
+    if (usdtDrawer) {
+        usdtDrawer.style.display = 'none';
+    }
+
+    if (!paddleDrawer) return;
+
+    // 取得當前實際計算後的 display 狀態
+    var currentDisplay = window.getComputedStyle(paddleDrawer).display;
+
+    if (currentDisplay !== 'none') {
+        paddleDrawer.style.display = 'none';
+    } else {
+        paddleDrawer.style.display = 'block';
+        paddleDrawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+// 網路切換
+function switchNetwork(networkName, address, btnElement) {
+    currentUsdtNetwork = networkName;
+    var addrInput = document.getElementById('usdt-address');
+    var netLabel = document.getElementById('current-net-label');
+    var warningText = document.getElementById('net-warning-text');
+
+    if (addrInput) addrInput.value = address;
+    if (netLabel) netLabel.innerText = networkName;
+    if (warningText) warningText.innerText = '⚠️ 只能將 ' + networkName + ' 網路資產發送至此地址，其他資產將無法退還。';
+
+    var buttons = document.querySelectorAll('.net-btn');
+    buttons.forEach(function(btn) { btn.classList.remove('active'); });
+    if (btnElement) btnElement.classList.add('active');
+}
+
+// 按鈕點擊事件：喚起 Paddle 抽屜
+function handlePaddlePay() {
+    togglePaddlePay();
+}
+
+// 提交 Paddle 訂單驗證信件
+function submitPaddleOrder() {
+    var targetAdminEmail = "liupigteam@gmail.com";
+    
+    var customEmailInput = document.getElementById("paddle-user-email");
+    var step1EmailInput = document.getElementById("input-email");
+
+    var userEmail = "";
+    if (customEmailInput && customEmailInput.value.trim() !== "") {
+        userEmail = customEmailInput.value.trim();
+    } else if (step1EmailInput && step1EmailInput.value.trim() !== "") {
+        userEmail = step1EmailInput.value.trim();
+    }
+
+    var orderIdInput = document.getElementById("paddle-order-id");
+    var orderId = orderIdInput ? orderIdInput.value.trim() : "";
+
+    if (!userEmail) {
+        alert("請先輸入您要接收授權的 Email！");
+        return;
+    }
+
+    if (!orderId) {
+        alert("請先貼上您的 Paddle 訂單編號 (Order ID)！");
+        return;
+    }
+
+    var subject = encodeURIComponent("【Paddle 付款驗證】申請開通: " + userEmail);
+    var bodyText = "親愛的 Manvis 團隊：\n\n" +
+                   "我已完成 Paddle 官方信用卡/跨國付款，以下是我的交易憑證資訊：\n\n" +
+                   "- 支付方式：Paddle 官方授權結帳 (信用卡/Overseas)\n" +
+                   "- 訂單編號 (Order ID)：" + orderId + "\n" +
+                   "- 指定開通 Email：" + userEmail + "\n\n" +
+                   "請幫我核對核對款項並將「創始版特權」授權序號與中繼聯繫平台密碼發送至上述指定之 Email，已迫不及待想要趕緊體驗分散式AGI😅😆，請協助我盡快完成客製化設置服務。👍👍👍💯";
+
+    window.location.href = "mailto:" + targetAdminEmail + "?subject=" + subject + "&body=" + encodeURIComponent(bodyText);
+}
+
+        function copyUsdtAddr() {
+            var addressInput = document.getElementById('usdt-address');
+            if (!addressInput) return;
+            addressInput.select();
+            navigator.clipboard.writeText(addressInput.value).then(function() {
+                alert("已成功複製 " + currentUsdtNetwork + " 收款地址！");
+            }).catch(function() {
+                document.execCommand('copy');
+                alert("已成功複製 " + currentUsdtNetwork + " 收款地址！");
+            });
+        }
+
+        function submitTxid() {
+            var targetAdminEmail = "liupigteam@gmail.com";
+            
+            // 1. 優先抓取 USDT 面板中專屬的 Email 輸入框
+            var customEmailInput = document.getElementById("usdt-user-email");
+            // 2. 備用抓取步驟 1 預設的 Email 輸入框
+            var step1EmailInput = document.getElementById("input-email");
+
+            // 判斷邏輯：若 USDT 面板有填寫則優先採用，否則自動帶入步驟 1 的 Email
+            var userEmail = "";
+            if (customEmailInput && customEmailInput.value.trim() !== "") {
+                userEmail = customEmailInput.value.trim();
+            } else if (step1EmailInput && step1EmailInput.value.trim() !== "") {
+                userEmail = step1EmailInput.value.trim();
+            }
+
+            var txidInput = document.getElementById("txid-input");
+            var addrInput = document.getElementById("usdt-address");
+
+            var txid = txidInput ? txidInput.value.trim() : "";
+            var currentAddr = addrInput ? addrInput.value : "";
+
+            if (!userEmail) {
+                alert("請輸入您要接收授權的 Email！");
+                return;
+            }
+
+            if (!txid) {
+                alert("請先貼上轉帳成功的 TXID 交易哈希值！");
+                return;
+            }
+
+            // 自動編譯郵件主旨與預填內文
+            var subject = encodeURIComponent("【USDT 創始版付款驗證】申請開通: " + userEmail);
+            var bodyText = "親愛的 Manvis 團隊：\n\n" +
+                           "我已完成 USDT 鏈上極速支付，以下是我的交易驗證資訊：\n\n" +
+                           "- 支付網路通道：" + currentUsdtNetwork + "\n" +
+                           "- 收款地址：" + currentAddr + "\n" +
+                           "- 交易哈希 (TXID)：" + txid + "\n" +
+                           "- 指定開通 Email：" + userEmail + "\n\n" +
+                           "請幫我核對核對款項並將「創始版特權」授權序號與中繼聯繫平台密碼發送至上述指定之 Email，已迫不及待想要趕緊體驗分散式AGI😅😆，請協助我盡快完成客製化設置服務。👍👍👍💯";
+
+            // 自動觸發手機/電腦預設的 Mail App
+            window.location.href = "mailto:" + targetAdminEmail + "?subject=" + subject + "&body=" + encodeURIComponent(bodyText);
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                var menuToggle = document.getElementById('menu-toggle');
                 if (menuToggle) menuToggle.checked = false;
-                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+                document.querySelectorAll('.sub-toggle').forEach(function(toggle) { toggle.checked = false; });
             });
         });
     </script>
