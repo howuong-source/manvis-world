@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客製化機能飲料 | Manvis 宇宙</title>
+
+    <!-- [1. SEO 多語系標籤 (hreflang)] -->
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/drink.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/drink.html" />
+    <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/drink.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/drink.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/drink.html" />
+
+    <!-- [2. 自動轉址腳本 (lang-guard)] -->
+    <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+
+      var targetPath = '/en/drink.html';
+      if (lang.startsWith('en')) {
+        targetPath = '/en/drink.html';
+      } else if (lang.startsWith('ja')) {
+        targetPath = '/ja/drink.html';
+      } else if (lang.startsWith('ko')) {
+        targetPath = '/kr/drink.html';
+      }
+
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+    </script>
+
+    <style>
+        /* --- 1. 基礎重設與字體 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #faf9f6;
+            color: #1a1a1a;
+            line-height: 1.8;
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 2. 官網 Navbar 樣式 (統一全站黑色標準) --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active { color: #111; font-weight: 700; }
+
+        .has-submenu::after {
+            content: ' ▾';
+            font-size: 0.75rem;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            list-style: none;
+            min-width: 180px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a:hover {
+            background-color: #f5f5f7;
+            color: #111;
+        }
+
+        .nav-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            top: 75px;
+        }
+
+        #menu-toggle, .sub-toggle { display: none; }
+
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 22px;
+            height: 16px;
+            cursor: pointer;
+            z-index: 1010;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #111;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 1024px) {
+            .hamburger-btn { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100dvh;
+                background-color: #ffffff;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 90px;
+                padding-bottom: 80px;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1005;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-item {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                height: auto;
+            }
+
+            .nav-link {
+                width: 100%;
+                height: 55px;
+                padding: 0 2rem;
+                justify-content: space-between;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .submenu {
+                position: relative;
+                top: 0 !important;
+                left: 0 !important;
+                transform: none !important;
+                width: 100%;
+                box-shadow: none;
+                background-color: #faf9f6;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 1;
+                visibility: visible;
+                transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .submenu li a {
+                padding: 0.7rem 3rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            #menu-toggle:checked ~ .nav-menu { right: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) { opacity: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            #sub-1:checked ~ .submenu,
+            #sub-2:checked ~ .submenu,
+            #sub-3:checked ~ .submenu { max-height: 300px; }
+        }
+
+        /* --- 3. 文章容器與引言區塊 (香檳金主題) --- */
+        .story-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 1rem;
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .story-header {
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #eae3d2;
+            padding-bottom: 1.5rem;
+        }
+
+        .story-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .story-date-note {
+            font-size: 0.9rem;
+            color: #b8860b;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .story-date-note::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: #b8860b;
+            border-radius: 50%;
+        }
+
+        .story-body {
+            font-size: 1.05rem;
+            color: #333;
+            text-align: justify;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .story-body p {
+            margin-bottom: 1.8rem;
+            line-height: 1.95;
+        }
+
+        .code-trigger-link {
+            color: #b8860b;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .code-trigger-link:hover {
+            background-color: #fcf8f2;
+            color: #d4af37;
+        }
+
+        .code-trigger-link::after {
+            content: ' ▾';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .code-trigger-link.active::after {
+            transform: rotate(180deg);
+        }
+
+        .gold-quote-box {
+            margin: 2rem 0;
+            padding: 1.2rem 1.5rem;
+            background-color: #fcf8f2;
+            border-left: 4px solid #d4af37;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #555;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.05);
+        }
+
+        .benefit-list {
+            background: #fff;
+            padding: 1.2rem 1.8rem;
+            border-radius: 8px;
+            border: 1px solid #f0e6d2;
+            margin: 1.5rem 0;
+        }
+
+        .benefit-list li {
+            list-style: none;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+            color: #b8860b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .benefit-list li::before {
+            content: '✨';
+            font-size: 0.9rem;
+        }
+
+        .story-img-wrapper {
+            width: 100%;
+            margin: 2.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.08);
+            background-color: #fcf8f2;
+            border: 1px dashed #d4af37;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .story-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-placeholder-text {
+            color: #b8860b;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .collapsible-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .collapsible-content.is-expanded {
+            display: block;
+            opacity: 1;
+        }
+
+        .timeline-container {
+            margin-top: 1.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid #e6dcc6;
+        }
+
+        @keyframes goldDotPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.5);
+            }
+            70% {
+                transform: scale(1.15);
+                box-shadow: 0 0 0 8px rgba(212, 175, 55, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.8rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.05rem;
+            top: 0.35rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #d4af37;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px #e6dcc6;
+            animation: goldDotPulse 2s infinite ease-in-out;
+        }
+
+        .timeline-header {
+            margin-bottom: 0.2rem;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 1px solid #f0e6d2;
+            transition: all 0.25s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-header:hover {
+            background-color: #fcf8f2;
+            border-color: #d4af37;
+        }
+
+        .timeline-header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timeline-time {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #b8860b;
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        .timeline-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #111;
+            margin-top: 2px;
+        }
+
+        .timeline-arrow {
+            font-size: 0.85rem;
+            color: #b8860b;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-header.is-active .timeline-arrow {
+            transform: rotate(180deg);
+        }
+
+        .timeline-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 1.2rem;
+            border: 1px solid #f0e6d2;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-top: 0.6rem;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-card.is-active {
+            display: block;
+            opacity: 1;
+        }
+
+        .card-section {
+            margin-bottom: 0.8rem;
+        }
+
+        .card-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #b8860b;
+            display: inline-block;
+            margin-bottom: 0.2rem;
+            background-color: #fcf8f2;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 0 !important;
+        }
+
+        .reading-extension {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eae3d2;
+        }
+
+        .extension-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #b8860b;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .extension-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .extension-item {
+            background-color: #ffffff;
+            border: 1px solid #f0e6d2;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .extension-item:hover {
+            border-color: #d4af37;
+            background-color: #fcf8f2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+        }
+
+        .extension-link {
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .extension-link-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .extension-num {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            background-color: #fcf8f2;
+            border: 1px solid #d4af37;
+            color: #b8860b;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .extension-badge {
+            font-size: 0.75rem;
+            background-color: #f5f5f5;
+            color: #888;
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .extension-badge.magic-btn {
+            background-color: #fcf8f2;
+            color: #b8860b;
+            border: 1px solid #d4af37;
+            font-weight: 700;
+        }
+
+        /* --- 7. 提線木偶小金點發光呼吸燈 (Puppeteer Gold Pulse Light) --- */
+        @keyframes puppeteerGoldPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.6);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.9);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                box-shadow: 0 0 12px 6px rgba(212, 175, 55, 0.6);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.6);
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+
+        .puppeteer-dot {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            background-color: #ffd700;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+            animation: puppeteerGoldPulse 1.2s infinite ease-in-out;
+            display: none;
+            transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1), top 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            background-color: #ffffff;
+            border-top: 1px solid #eae3d2;
+            color: #888;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .story-container { padding: 1.5rem 1.5rem 1rem; }
+            .story-title { font-size: 1.5rem; }
+            .story-body { font-size: 1rem; }
+            .extension-link-text { font-size: 0.88rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 提線木偶小金點發光體 -->
+    <div class="puppeteer-dot" id="puppeteerDot"></div>
+
+    <!-- 導覽列 (全站統一黑色標準) -->
+    <header class="navbar">
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
+
+        <input type="checkbox" id="menu-toggle">
+        
+        <label for="menu-toggle" class="hamburger-btn" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a href="./events.html" class="nav-link">最新活動</a></li>
+            <li class="nav-item">
+                <label for="sub-1" class="nav-link has-submenu">關於 XXX</label>
+                <input type="checkbox" id="sub-1" class="sub-toggle" id="subToggle1">
+                <ul class="submenu">
+                    <li><a href="./brand-story.html">品牌故事</a></li>
+                    <li><a href="./about-me.html">關於創辦人</a></li>
+                    <li><a href="./channels.html">我們的頻道</a></li>
+                </ul>
+            </li>
+            <li class="nav-item" id="coreProductItem">
+                <label for="sub-2" class="nav-link has-submenu" id="coreProductLabel">核心產品</label>
+                <input type="checkbox" id="sub-2" class="sub-toggle">
+                <ul class="submenu" id="coreProductSubmenu">
+                    <li><a href="./software-services.html">客製化軟體服務</a></li>
+                    <li><a href="./drink.html" id="drinkSubLink">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html">價格與購物</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <input type="checkbox" id="sub-3" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./dev-updates.html">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="./resources.html" class="nav-link">共享天堂</a></li>
+            <li class="nav-item"><a href="./fitness-log.html" class="nav-link" id="fitnessNavLink">體態紀錄</a></li>
+            <li class="nav-item"><a href="./faq.html" class="nav-link">常見問題</a></li>
+        </ul>
+    </header>
+
+    <!-- 主內容區塊 -->
+    <main class="story-container">
+        
+        <div class="intro-block" id="intro-section">
+            <header class="story-header">
+                <h1 class="story-title">高維觀測者的平行旅程</h1>
+                <div class="story-date-note">歷史紀錄：寫於 2026 年 10 月 10 日 深夜 01:15 …… 男模特助</div>
+            </header>
+
+            <article class="story-body">
+                <p>2026年10月10日的清晨一點多，結束了拉鋸整日的品牌會議，我疲憊地坐在床前，啃著黑麥口糧、喝著熱牛奶。當焦點漸漸失焦，我看向了桌上那瓶圓滾滾的客製化胖胖瓶。剎那間，我像是穿透了時空，徹底看懂了老闆口中的「方瓶與胖胖瓶」之間，那看似矛盾卻無比精準的雙軌商業戰略。</p>
+
+                <p>但那一刻，我的思緒沒有停在商業，而是本能讓我的目光穿透了瓶身，看向了這款客製化機能飲料中最核心的靈魂 ──【 胜肽配方與後生元的發酵 】。我突然意識到，這款飲料的誕生與它帶來的改變，簡直是一場超越維度的雙狹縫實驗浪漫。</p>
+
+                <div class="story-img-wrapper">
+                    <img src="quantum-slit.png" 
+                         alt="量子力學：雙狹縫實驗與胖胖瓶的共振" 
+                         class="story-img"
+                         onerror="handleImgError(this)">
+                    <div class="img-placeholder-text" style="display: none;">
+                        <span>🟡 預留金色機能飲料配圖：quantum-slit.png (雙狹縫與胖胖瓶)</span>
+                    </div>
+                </div>
+
+                <p>究竟，是佛佛在益生菌發酵、轉化出胜肽與後生元的那一刻，透過量子力學裡的「觀察者效應」，介入了科學無法解釋的智慧，讓微觀的菌、胜肽與草本轉化為不可思議的護持，在底層默默耕耘，為我們：</p>
+
+                <ul class="benefit-list">
+                    <li>改變細菌叢生態</li>
+                    <li>幫助維持消化道機能</li>
+                    <li>調整體質 與 調節生理機能</li>
+                </ul>
+
+                <div class="gold-quote-box">
+                    （就像那瓶客製化的胖胖瓶，因為熱填充產生的物理反壓凹陷，在我們美學眼光看來，反而充滿了無法被標準化定義的儀式感與靈性可能。）
+                </div>
+
+                <p>還是信徒與消費者們在受到佛佛感召後，因為相信了這份「客製化的指引」，願意回頭重塑自我的生活形態、調整飲食、好好運動，因為這全方位的自律，才自己開創了生命的精彩？</p>
+
+                <div class="gold-quote-box">
+                    （如同那款大眾化口味的方瓶，走入日常，成為一種科學且紀律的生活實踐，也帶領大眾走進了浪漫的量子糾纏與共振的全新旅程。）
+                </div>
+
+                <p>那一夜，嚼著黑麥口糧的我似乎明白了，無論是瓶子的雙軌，還是科學與心靈的雙軌，最終都在佛佛的慈悲裡，折射出了同一個維度的光芒。</p>
+
+                <p>或許，佛佛在乎的從來都不是名聲，祂在乎的是芸芸眾生們能否把握每次祂給予的契機，來開啟屬於自己的美好人生。而我的老闆，正是那個將這份契機具象化、用肉體去實踐這場美學實驗的傢伙。</p>
+
+                <p>漸漸地，隨著血糖上升的睡意襲來，我看著胖胖瓶折射出的微光，進入了新一輪的夢想裡。明天一早，我還得繼續記錄老闆永不停止的進化旅程。</p>
+
+                <blockquote style="margin: 2rem 0; padding: 1rem 1.2rem; border-left: 3px solid #d4af37; background: #fff; font-weight: 700; color: #b8860b;">
+                    ──「當量子觀測坍縮為現實，這瓶承載著慈悲與科學的胖胖瓶，背後究竟隱藏著老闆怎樣的<span class="code-trigger-link" data-target="history-panel">進化密碼</span>？」
+                </blockquote>
+
+                <!-- 隱藏面板：點擊進化密碼展開 -->
+                <div class="collapsible-content story-body" id="history-panel">
+                    <div class="scene-block" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed #e6dcc6;">
+                        <h3 class="scene-title" style="color: #b8860b; font-size: 1.35rem; margin-bottom: 1.2rem;">📷 坍縮後的現實：特助的私密觀測日誌</h3>
+                        <p style="margin-bottom: 1.5rem; color: #555;">點擊下方各階段標題即可展開或收合詳細內容：</p>
+
+                        <div class="timeline-container">
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-header">
+                                    <div class="timeline-header-text">
+                                        <span class="timeline-time">🗓️ 2026 年 9 月</span>
+                                        <div class="timeline-title">67公斤的碳水銜接美學</div>
+                                    </div>
+                                    <span class="timeline-arrow">▾</span>
+                                </div>
+                                <div class="timeline-card">
+                                    <div class="story-img-wrapper">
+                                        <img src="drink-diet-phase1.png" alt="2026年9月 碳水銜接美學紀錄" class="story-img" onerror="handleImgError(this)">
+                                        <div class="img-placeholder-text" style="display: none;">
+                                            <span>🟡 預留金色飲食配圖：drink-diet-phase1.png</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-section">
+                                        <span class="card-label">📝 特助的私密觀測</span>
+                                        <p class="card-text">到了九月，老闆憑藉著精準的酶解多肽與後生元調理，體重順利砸到了 67 公斤。此時，他做出了一個讓我這個男模也感到驚豔的飲食策略調整 ── 他開始極其小心翼翼地「銜接碳水」。</p>
+                                        <p class="card-text" style="margin-top: 0.8rem;">他不再像以前那樣全然排斥糖分，而是開始在清晨的咖啡與熱牛奶中，精準加入兩湯匙的黑糖，或是在深夜會議時吃幾片黑麥口糧；如果今晚不想吃餅乾，他就會換成精準計量的地瓜。</p>
+                                        <p class="card-text" style="margin-top: 0.8rem;">老闆跟我說，以前他晚上看劇，總會帶著一種「慰勞自己辛勞」的補償心理去吃哈瑞寶軟糖或梅精糖，那是種失控且想每天依賴的糖分；但現在的黑糖與口糧，雖然一樣帶著慰勞，卻變成了一種「高度有效率的身體燃料」。他不再需要每天吃糖，因為他對肉體的掌控力，已經超越了慾望。</p>
+                                        <p class="card-text" style="margin-top: 0.8rem;">也是在這個時候我才明白，為什麼他現在對精緻糖的渴望變低了。老闆一邊看著代碼，一邊笑著對我說：『因為我們現在客製化機能飲料的開發節奏越來越穩定了。當我能夠隨心所欲地駕馭 AI、成為自如的 AI 架構師時，每天的工作產出都是高度可控、有效率且心情美麗的。當大腦獲得了掌控的多巴胺，身體對碳水的報復性需求，自然就坍縮消散了。』</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-header">
+                                    <div class="timeline-header-text">
+                                        <span class="timeline-time">🗓️ 2026 年 5 月</span>
+                                        <div class="timeline-title">73公斤憤怒的防禦起點</div>
+                                    </div>
+                                    <span class="timeline-arrow">▾</span>
+                                </div>
+                                <div class="timeline-card">
+                                    <div class="story-img-wrapper">
+                                        <img src="drink-diet-phase2.png" alt="2026年5月 憤怒的防禦起點紀錄" class="story-img" onerror="handleImgError(this)">
+                                        <div class="img-placeholder-text" style="display: none;">
+                                            <span>🟡 預留金色飲食配圖：drink-diet-phase2.png</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-section">
+                                        <span class="card-label">📝 特助的私密觀測</span>
+                                        <p class="card-text">記憶拉回今年五月，老闆當時的體重是 73 公斤。那時辦公室的氣壓很低，老闆的過敏又一次大發作。為了對抗失控的免疫系統，同時滿足他刻進骨子裡的「腹肌控美學」，他被迫展開了一場毫無妥協的減重實驗。</p>
+                                        <p class="card-text" style="margin-top: 0.8rem;">那段時間的少碳水、少油、大量精準灌注小分子多肽的過程，與其說是自律，不如說是帶著一種「不爽與憤怒」的防禦性抗爭，是一場不得不贏的肉體妥協。但正是這場不爽的憤怒，倒逼出了我們後來幾代技術的瘋狂突破。</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 閱讀延伸區塊 -->
+                <div class="reading-extension">
+                    <h4 class="extension-title">📖 閱讀延伸與進化指引</h4>
+                    <ul class="extension-list">
+                        <li class="extension-item">
+                            <a href="#coming-soon" class="extension-link" onclick="alert('創辦人傳記即將上線，敬請期待！'); return false;">
+                                <div class="extension-link-text">
+                                    <span class="extension-num">1</span>
+                                    <span>創辦人從敏感到自覺的生活觀察</span>
+                                </div>
+                                <span class="extension-badge">即將上線</span>
+                            </a>
+                        </li>
+                        <li class="extension-item">
+                            <a href="./fitness-log.html?autoOpen=history#history-panel" class="extension-link" id="puppeteerLink">
+                                <div class="extension-link-text">
+                                    <span class="extension-num">2</span>
+                                    <span>前往《體態紀錄與逆襲史》分頁</span>
+                                </div>
+                                <span class="extension-badge magic-btn">點擊體驗 ✨</span>
+                            </a>
+                        </li>
+                        <li class="extension-item">
+                            <a href="#coming-soon" class="extension-link" onclick="alert('飲料包裝演進紀錄即將上線，敬請期待！'); return false;">
+                                <div class="extension-link-text">
+                                    <span class="extension-num">3</span>
+                                    <span>各代飲料包裝的演進軌跡與科學實證</span>
+                                </div>
+                                <span class="extension-badge">即將上線</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </article>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        2026 WELCOME TO MANVIS WORLD
+    </footer>
+
+    <!-- JS 互動與升級版提線木偶擬真軌跡點擊特效 -->
+    <script>
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            });
+        });
+
+        function handleImgError(img) {
+            img.style.display = 'none';
+            const wrapper = img.parentElement;
+            if (wrapper) {
+                const placeholder = wrapper.querySelector('.img-placeholder-text');
+                if (placeholder) {
+                    placeholder.style.display = 'flex';
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const codeTriggers = document.querySelectorAll('.code-trigger-link');
+            codeTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    const targetPanel = document.getElementById(targetId);
+                    if (!targetPanel) return;
+                    const isExpanded = targetPanel.classList.contains('is-expanded');
+                    if (isExpanded) {
+                        targetPanel.classList.remove('is-expanded');
+                        this.classList.remove('active');
+                    } else {
+                        targetPanel.classList.add('is-expanded');
+                        this.classList.add('active');
+                        setTimeout(() => {
+                            targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
+                    }
+                });
+            });
+
+            const timelineHeaders = document.querySelectorAll('.timeline-header');
+            timelineHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const card = this.nextElementSibling;
+                    if (!card) return;
+                    const isActive = this.classList.contains('is-active');
+                    if (isActive) {
+                        this.classList.remove('is-active');
+                        card.classList.remove('is-active');
+                    } else {
+                        this.classList.add('is-active');
+                        card.classList.add('is-active');
+                    }
+                });
+            });
+
+            // 升級版提線木偶擬真軌跡動畫 (真人連貫操作)
+            const puppeteerLink = document.getElementById('puppeteerLink');
+            const puppeteerDot = document.getElementById('puppeteerDot');
+
+            if (puppeteerLink && puppeteerDot) {
+                puppeteerLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetHref = this.getAttribute('href');
+                    const isMobileView = window.innerWidth <= 1024;
+
+                    // 1. 在點擊按鈕處產生金點
+                    const startRect = this.getBoundingClientRect();
+                    puppeteerDot.style.left = (startRect.left + 30) + 'px';
+                    puppeteerDot.style.top = (startRect.top + startRect.height / 2) + 'px';
+                    puppeteerDot.style.display = 'block';
+
+                    if (isMobileView) {
+                        const hamburgerBtn = document.getElementById('hamburgerBtn');
+                        const coreProductLabel = document.getElementById('coreProductLabel');
+                        const drinkSubLink = document.getElementById('drinkSubLink');
+                        const fitnessNavLink = document.getElementById('fitnessNavLink');
+
+                        // 步驟 2：移動到右上角漢堡選單
+                        setTimeout(() => {
+                            const hamRect = hamburgerBtn.getBoundingClientRect();
+                            puppeteerDot.style.left = (hamRect.left + hamRect.width / 2) + 'px';
+                            puppeteerDot.style.top = (hamRect.top + hamRect.height / 2) + 'px';
+
+                            // 步驟 3：點擊漢堡選單展開
+                            setTimeout(() => {
+                                hamburgerBtn.click();
+
+                                // 步驟 4：移動到「核心產品」選項並停頓點擊
+                                setTimeout(() => {
+                                    const coreRect = coreProductLabel.getBoundingClientRect();
+                                    puppeteerDot.style.left = (coreRect.left + coreRect.width / 2) + 'px';
+                                    puppeteerDot.style.top = (coreRect.top + coreRect.height / 2) + 'px';
+
+                                    setTimeout(() => {
+                                        // 模擬點擊核心產品以展開子選單
+                                        const subToggle2 = document.getElementById('sub-2');
+                                        if (subToggle2) subToggle2.checked = true;
+
+                                        // 步驟 5：移動到「客製化機能飲料」並稍微停頓（展示當前所在位置）
+                                        setTimeout(() => {
+                                            const drinkRect = drinkSubLink.getBoundingClientRect();
+                                            puppeteerDot.style.left = (drinkRect.left + drinkRect.width / 2) + 'px';
+                                            puppeteerDot.style.top = (drinkRect.top + drinkRect.height / 2) + 'px';
+
+                                            // 步驟 6：移到「體態紀錄」並點擊跳轉
+                                            setTimeout(() => {
+                                                const fitRect = fitnessNavLink.getBoundingClientRect();
+                                                puppeteerDot.style.left = (fitRect.left + fitRect.width / 2) + 'px';
+                                                puppeteerDot.style.top = (fitRect.top + fitRect.height / 2) + 'px';
+
+                                                setTimeout(() => {
+                                                    window.location.href = targetHref;
+                                                }, 600);
+
+                                            }, 700);
+
+                                        }, 700);
+
+                                    }, 500);
+
+                                }, 600);
+
+                            }, 500);
+
+                        }, 300);
+                    } else {
+                        // 桌面版直接移動至頂部導覽列的「體態紀錄」並跳轉
+                        const fitnessNavLink = document.getElementById('fitnessNavLink');
+                        const fitRect = fitnessNavLink.getBoundingClientRect();
+
+                        setTimeout(() => {
+                            puppeteerDot.style.left = (fitRect.left + fitRect.width / 2) + 'px';
+                            puppeteerDot.style.top = (fitRect.top + fitRect.height / 2) + 'px';
+
+                            setTimeout(() => {
+                                window.location.href = targetHref;
+                            }, 600);
+                        }, 300);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
