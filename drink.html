@@ -636,7 +636,7 @@
             font-weight: 700;
         }
 
-        /* --- 7. 提線木偶小金點發光呼吸燈 (Puppeteer Gold Pulse Light) --- */
+        /* --- 7. 提線木偶小金點發光呼吸燈 --- */
         @keyframes puppeteerGoldPulse {
             0% {
                 transform: translate(-50%, -50%) scale(0.6);
@@ -693,10 +693,11 @@
     <!-- 提線木偶小金點發光體 -->
     <div class="puppeteer-dot" id="puppeteerDot"></div>
 
-    <!-- 導覽列 (全站統一黑色標準) -->
+    <!-- 導覽列 (全站統一標準黑色) -->
     <header class="navbar">
         <a href="./index.html" class="logo">Manvis 宇宙</a>
 
+        <!-- 修正點：加上 ID 方便後續 JS 手動控制開關 -->
         <input type="checkbox" id="menu-toggle">
         
         <label for="menu-toggle" class="hamburger-btn" id="hamburgerBtn">
@@ -709,19 +710,19 @@
             <li class="nav-item"><a href="./events.html" class="nav-link">最新活動</a></li>
             <li class="nav-item">
                 <label for="sub-1" class="nav-link has-submenu">關於 XXX</label>
-                <input type="checkbox" id="sub-1" class="sub-toggle" id="subToggle1">
+                <input type="checkbox" id="sub-1" class="sub-toggle">
                 <ul class="submenu">
                     <li><a href="./brand-story.html">品牌故事</a></li>
                     <li><a href="./about-me.html">關於創辦人</a></li>
                     <li><a href="./channels.html">我們的頻道</a></li>
                 </ul>
             </li>
-            <li class="nav-item" id="coreProductItem">
-                <label for="sub-2" class="nav-link has-submenu" id="coreProductLabel">核心產品</label>
+            <li class="nav-item">
+                <label for="sub-2" class="nav-link has-submenu">核心產品</label>
                 <input type="checkbox" id="sub-2" class="sub-toggle">
-                <ul class="submenu" id="coreProductSubmenu">
+                <ul class="submenu">
                     <li><a href="./software-services.html">客製化軟體服務</a></li>
-                    <li><a href="./drink.html" id="drinkSubLink">客製化機能飲料</a></li>
+                    <li><a href="./drink.html">客製化機能飲料</a></li>
                     <li><a href="./price-shop.html">價格與購物</a></li>
                 </ul>
             </li>
@@ -735,6 +736,7 @@
                 </ul>
             </li>
             <li class="nav-item"><a href="./resources.html" class="nav-link">共享天堂</a></li>
+            <!-- 當前分頁為客製化機能飲料，故體態紀錄維持標準黑色鏈結 -->
             <li class="nav-item"><a href="./fitness-log.html" class="nav-link" id="fitnessNavLink">體態紀錄</a></li>
             <li class="nav-item"><a href="./faq.html" class="nav-link">常見問題</a></li>
         </ul>
@@ -868,7 +870,7 @@
                             </a>
                         </li>
                         <li class="extension-item">
-                            <a href="./fitness-log.html?autoOpen=history#history-panel" class="extension-link" id="puppeteerLink">
+                            <a href="./fitness-log.html#history-panel" class="extension-link" id="puppeteerLink">
                                 <div class="extension-link-text">
                                     <span class="extension-num">2</span>
                                     <span>前往《體態紀錄與逆襲史》分頁</span>
@@ -897,7 +899,7 @@
         2026 WELCOME TO MANVIS WORLD
     </footer>
 
-    <!-- JS 互動與升級版提線木偶擬真軌跡點擊特效 -->
+    <!-- JS 互動與流暢提線木偶擬真軌跡點擊特效 -->
     <script>
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
@@ -956,7 +958,7 @@
                 });
             });
 
-            // 升級版提線木偶擬真軌跡動畫 (真人連貫操作)
+            // 提線木偶擬真軌跡動畫 (直接點擊漢堡選單 ➔ 點體態紀錄)
             const puppeteerLink = document.getElementById('puppeteerLink');
             const puppeteerDot = document.getElementById('puppeteerDot');
 
@@ -974,11 +976,10 @@
 
                     if (isMobileView) {
                         const hamburgerBtn = document.getElementById('hamburgerBtn');
-                        const coreProductLabel = document.getElementById('coreProductLabel');
-                        const drinkSubLink = document.getElementById('drinkSubLink');
                         const fitnessNavLink = document.getElementById('fitnessNavLink');
+                        const menuToggle = document.getElementById('menu-toggle');
 
-                        // 步驟 2：移動到右上角漢堡選單
+                        // 步驟 2：平滑移動到右上角漢堡選單
                         setTimeout(() => {
                             const hamRect = hamburgerBtn.getBoundingClientRect();
                             puppeteerDot.style.left = (hamRect.left + hamRect.width / 2) + 'px';
@@ -988,42 +989,21 @@
                             setTimeout(() => {
                                 hamburgerBtn.click();
 
-                                // 步驟 4：移動到「核心產品」選項並停頓點擊
+                                // 步驟 4：移動到選單內的「體態紀錄」
                                 setTimeout(() => {
-                                    const coreRect = coreProductLabel.getBoundingClientRect();
-                                    puppeteerDot.style.left = (coreRect.left + coreRect.width / 2) + 'px';
-                                    puppeteerDot.style.top = (coreRect.top + coreRect.height / 2) + 'px';
+                                    const fitRect = fitnessNavLink.getBoundingClientRect();
+                                    puppeteerDot.style.left = (fitRect.left + fitRect.width / 2) + 'px';
+                                    puppeteerDot.style.top = (fitRect.top + fitRect.height / 2) + 'px';
 
+                                    // 步驟 5：點擊體態紀錄前，先強制把選單關閉（避免返回時漢堡選單還開著），然後跳轉
                                     setTimeout(() => {
-                                        // 模擬點擊核心產品以展開子選單
-                                        const subToggle2 = document.getElementById('sub-2');
-                                        if (subToggle2) subToggle2.checked = true;
+                                        if (menuToggle) menuToggle.checked = false; // 關鍵修復：確保返回時選單是關閉的
+                                        window.location.href = targetHref;
+                                    }, 700);
 
-                                        // 步驟 5：移動到「客製化機能飲料」並稍微停頓（展示當前所在位置）
-                                        setTimeout(() => {
-                                            const drinkRect = drinkSubLink.getBoundingClientRect();
-                                            puppeteerDot.style.left = (drinkRect.left + drinkRect.width / 2) + 'px';
-                                            puppeteerDot.style.top = (drinkRect.top + drinkRect.height / 2) + 'px';
+                                }, 700);
 
-                                            // 步驟 6：移到「體態紀錄」並點擊跳轉
-                                            setTimeout(() => {
-                                                const fitRect = fitnessNavLink.getBoundingClientRect();
-                                                puppeteerDot.style.left = (fitRect.left + fitRect.width / 2) + 'px';
-                                                puppeteerDot.style.top = (fitRect.top + fitRect.height / 2) + 'px';
-
-                                                setTimeout(() => {
-                                                    window.location.href = targetHref;
-                                                }, 600);
-
-                                            }, 700);
-
-                                        }, 700);
-
-                                    }, 500);
-
-                                }, 600);
-
-                            }, 500);
+                            }, 600);
 
                         }, 300);
                     } else {
