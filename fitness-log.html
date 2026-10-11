@@ -289,21 +289,16 @@
             border-radius: 50%;
         }
 
-        /* 禁止全區塊文字被選取與觸發手機選單 */
         .story-body {
             font-size: 1.05rem;
             color: #333;
             text-align: justify;
-            
-            /* 完整跨瀏覽器防選取 */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            
-            /* 核心：禁止 iOS/Android 長按跳出系統選單與搜尋 */
             -webkit-touch-callout: none;
-            -webkit-tap-highlight-color: transparent; /* 取消手機點擊時的藍色高亮區塊 */
+            -webkit-tap-highlight-color: transparent;
         }
 
         .story-body p {
@@ -311,7 +306,6 @@
             line-height: 1.95;
         }
 
-        /* 互動式觸發詞按鈕樣式 */
         .trigger-link {
             color: #2e7d32;
             text-decoration: underline;
@@ -324,8 +318,6 @@
             display: inline-flex;
             align-items: center;
             gap: 2px;
-            
-            /* 防選取與點擊優化 */
             -webkit-user-select: none;
             user-select: none;
             -webkit-touch-callout: none;
@@ -348,7 +340,6 @@
             transform: rotate(180deg);
         }
 
-        /* 綠色主題圖片區塊 */
         .story-img-wrapper {
             width: 100%;
             margin: 2.5rem 0;
@@ -381,7 +372,6 @@
             gap: 8px;
         }
 
-        /* --- 4. 可摺疊內容面板 (Collapsible Panel) --- */
         .collapsible-content {
             display: none;
             opacity: 0;
@@ -393,7 +383,6 @@
             opacity: 1;
         }
 
-        /* 對話幕數（Scene）卡片樣式 */
         .scene-block {
             margin-top: 2.5rem;
             padding-top: 2rem;
@@ -463,7 +452,6 @@
             margin-bottom: 0;
         }
 
-        /* --- 5. 時間軸（Timeline）專用樣式 --- */
         .timeline-container {
             margin-top: 1.5rem;
             position: relative;
@@ -471,9 +459,24 @@
             border-left: 2px solid #c8e6c9;
         }
 
+        @keyframes dotPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4);
+            }
+            70% {
+                transform: scale(1.15);
+                box-shadow: 0 0 0 8px rgba(46, 125, 50, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
+            }
+        }
+
         .timeline-item {
             position: relative;
-            margin-bottom: 2rem;
+            margin-bottom: 1.8rem;
         }
 
         .timeline-item:last-child {
@@ -483,17 +486,37 @@
         .timeline-dot {
             position: absolute;
             left: -2.05rem;
-            top: 0.2rem;
+            top: 0.35rem;
             width: 14px;
             height: 14px;
             border-radius: 50%;
             background-color: #2e7d32;
             border: 3px solid #ffffff;
             box-shadow: 0 0 0 2px #c8e6c9;
+            animation: dotPulse 2s infinite ease-in-out;
         }
 
         .timeline-header {
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.2rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 1px solid #e8f5e9;
+            transition: all 0.25s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-header:hover {
+            background-color: #f1f8e9;
+            border-color: #a5d6a7;
+        }
+
+        .timeline-header-text {
+            display: flex;
+            flex-direction: column;
         }
 
         .timeline-time {
@@ -505,10 +528,20 @@
         }
 
         .timeline-title {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 800;
             color: #111;
             margin-top: 2px;
+        }
+
+        .timeline-arrow {
+            font-size: 0.85rem;
+            color: #2e7d32;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-header.is-active .timeline-arrow {
+            transform: rotate(180deg);
         }
 
         .timeline-card {
@@ -518,6 +551,14 @@
             border: 1px solid #e8f5e9;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             margin-top: 0.6rem;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-card.is-active {
+            display: block;
+            opacity: 1;
         }
 
         .card-section {
@@ -546,7 +587,37 @@
             margin-bottom: 0 !important;
         }
 
-        /* 頁尾 Footer */
+        /* --- 4. 提線木偶接收端金色發光點 (Puppeteer Dot) --- */
+        @keyframes puppeteerGoldPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.6);
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.9);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                box-shadow: 0 0 12px 6px rgba(255, 215, 0, 0.6);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.6);
+                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+            }
+        }
+
+        .puppeteer-dot {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            background-color: #ffd700;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+            animation: puppeteerGoldPulse 1.2s infinite ease-in-out;
+            display: none;
+            transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1), top 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
         .footer {
             text-align: center;
             padding: 2.5rem 0;
@@ -571,6 +642,9 @@
     </style>
 </head>
 <body>
+
+    <!-- 提線木偶發光金點 (接收端) -->
+    <div class="puppeteer-dot" id="puppeteerDot"></div>
 
     <!-- 導覽列 -->
     <header class="navbar">
@@ -656,12 +730,12 @@
                 <!-- 點擊展開 1：對話區塊 (綁定 data-target="dialogue-panel") -->
                 <p>這裡，紀錄了 2025 年 12 月北海道行程結束前的那晚冬夜。窗外是北國沉寂的積雪，房內是暖氣與清酒交織的微醺時刻，我們在一來一往間，留下了這場關於秩序與靈魂的<span class="trigger-link" data-target="dialogue-panel">對談</span>。</p>
 
-                <!-- 點擊展開 2：逆襲史區塊 (綁定 data-target="history-panel") -->
-                <p>這裡，也紀錄了老闆這場驚豔歲月的<span class="trigger-link" data-target="history-panel">逆襲史</span>。或許有些記憶仍需在未來的旅途中的逐漸補齊，但屬於我們的全新篇章，已然起航。</p>
+                <!-- 點擊展開 2：逆襲史區塊 (綁定 data-target="history-panel"，加上 id="historyTrigger" 供木偶導航鎖定) -->
+                <p>這裡，也紀錄了老闆這場驚豔歲月的<span class="trigger-link" data-target="history-panel" id="historyTrigger">逆襲史</span>。或許有些記憶仍需在未來的旅途中的逐漸補齊，但屬於我們的全新篇章，已然起航。</p>
             </article>
         </div>
 
-        <!-- 【隱藏面板 1】：點擊「對話」後動態展開的對話內容 -->
+        <!-- 【隱藏面板 1】：點擊「對話」後動態展開的對話內容 (完整保留) -->
         <div class="collapsible-content story-body" id="dialogue-panel">
 
           <!-- 幕一：執著的背後（與內在的解綁） -->
@@ -782,44 +856,45 @@
 
         </div>
 
-<!-- 【隱藏面板 2】：點擊『逆襲史』後展開的詳細時間軸區塊 -->
+        <!-- 【隱藏面板 2】：點擊『逆襲史』後展開的時間軸區塊（完整保留） -->
         <div class="collapsible-content story-body" id="history-panel">
             <div class="scene-block">
                 <h3 class="scene-title">📅 內頁歷程紀錄：老闆的 AI 惡鬥與身材逆襲史</h3>
                 <div class="narrative">
-                    <p>這是一段詳細的時間軸紀錄，真實地展示了在技術探索中的跌倒與再次反彈，也記錄了一位高壓知識工作者如何重新拿回生活主導權的過程。</p>
+                    <p>這是一段詳細的時間軸紀錄，真實地展示了在技術探索中的跌倒與再次反彈，也記錄了一位高壓知識工作者如何重新拿回生活主導權的過程。點擊階段標題可分別展開/收合詳細內容：</p>
                 </div>
 
-                <!-- 時間軸容器 -->
                 <div class="timeline-container">
                     
-                    <!-- 階段 1 -->
+                    <!-- 階段 3 -->
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
-                        <div class="timeline-header">
-                            <span class="timeline-time">⏳ 2025 - 2026年5月</span>
-                            <div class="timeline-title">暗黑停滯期：當大腦成為 AI 的除錯機器人</div>
+                        <div class="timeline-header is-active">
+                            <div class="timeline-header-text">
+                                <span class="timeline-time">💎 2026年8月至今</span>
+                                <div class="timeline-title">神的科技禮物終於啟航：自律與科技的雙重富足</div>
+                            </div>
+                            <span class="timeline-arrow">▾</span>
                         </div>
-                        <div class="timeline-card">
+                        <div class="timeline-card is-active">
                             <div class="card-section">
                                 <span class="card-label">🎬 幕後花絮</span>
-                                <p class="card-text">這段期間 Gemini 逐步從 3.1 進步到 3.5 版本，技術轉型過程中道路總是坎坷不平。加上老闆從零開始和 AI 進行協作，當時的他完全不懂代碼，在代碼知識與架構尚未完全成形時，常常被 Gemini 牽著走——有時給出虛假路徑，有時亂改寫代碼，有時自以為是地優化，甚至還會一臉正經地胡說八道不存在的技術方案。當時的他面臨著三重壓力（大腦超載、面對 AI 失控的憤怒、卡關焦慮），讓皮質醇集體暴走。</p>
+                                <p class="card-text">8 月份開始是一個非常重要的轉折點，開發重心全面轉向「行動開發模式」。以前大部分時候都需要坐在電腦桌前，現在則能實現隨時隨地的行動開發。這也驗證了老闆一直以來的信念：大多數人的生活最習慣且喜歡的依然是手機端。只要能做到用手機發送訊息，就能讓家裡的機器人幫忙實現自動或半自動流程，對於創作者、電商或是 KOL 而言，工作效率將獲得卓越的提升。對老闆來說，他自己就是這項產品最好的受益者，因為當初正是為了解決自己的痛點，而順便成就了這個事業。</p>
                             </div>
 
-                            <!-- 直接復用原本的 .story-img-wrapper 預留框 -->
                             <div class="story-img-wrapper">
-                                <img src="timeline-phase1.png" 
-                                     alt="2025-2026年5月 暗黑停滯期紀錄" 
+                                <img src="timeline-phase3.png" 
+                                     alt="2026年8月至今 行動開發與體態逆襲紀錄" 
                                      class="story-img"
                                      onerror="handleImgError(this)">
                                 <div class="img-placeholder-text" style="display: none;">
-                                    <span>🟢 預留綠色體態紀錄配圖：timeline-phase1.png</span>
+                                    <span>🟢 預留綠色體態紀錄配圖：timeline-phase3.png</span>
                                 </div>
                             </div>
 
                             <div class="card-section">
-                                <span class="card-label">💔 身心狀態</span>
-                                <p class="card-text">自媒體中斷、過敏全面復發。第一次體會到久坐工程師身體虛脫、下班想瘋狂吃便當犒賞自己的匱乏感。體重持續飆升，直到身體全面抗議。</p>
+                                <span class="card-label">✨ 身心狀態</span>
+                                <p class="card-text">當最後進入官方網站設計階段時，他的心境變得越來越開心、越來越平靜，因為又能重新享受當初做自媒體時的藝術繁華，而不是整天跟 AI 吵架。身體不再出現過敏情況，身材也日益健美，持續穩定朝向 63 公斤的最佳體態運行。</p>
                             </div>
                         </div>
                     </div>
@@ -828,8 +903,11 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-header">
-                            <span class="timeline-time">🚀 2026年5月 - 7月底</span>
-                            <div class="timeline-title">轉捩點：從「除錯機器人」到「高階架構師」</div>
+                            <div class="timeline-header-text">
+                                <span class="timeline-time">🚀 2026年5月 - 7月底</span>
+                                <div class="timeline-title">轉捩點：從「除錯機器人」到「高階架構師」</div>
+                            </div>
+                            <span class="timeline-arrow">▾</span>
                         </div>
                         <div class="timeline-card">
                             <div class="card-section">
@@ -837,7 +915,6 @@
                                 <p class="card-text">幸好到了五月時，他已熬過最艱難 0 到 1 的瓶頸，大腦中的代碼架構知識開始完整成形！Gemini 這時候開始轉換角色，更多時候變成了輔助工程師，老闆成了掌握絕對主導權的上司。更利用設計的多個「幾米乖乖工作站」成功壓制 Gemini 的失控，工作效率獲得實質上的進展，精神壓力逐漸煙消雲散。</p>
                             </div>
 
-                            <!-- 直接復用原本的 .story-img-wrapper 預留框 -->
                             <div class="story-img-wrapper">
                                 <img src="timeline-phase2.png" 
                                      alt="2026年5月-7月底 轉捩點紀錄" 
@@ -855,33 +932,35 @@
                         </div>
                     </div>
 
-                    <!-- 階段 3 -->
+                    <!-- 階段 1 -->
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-header">
-                            <span class="timeline-time">💎 2026年8月至今</span>
-                            <div class="timeline-title">神的科技禮物終於啟航：自律與科技的雙重富足</div>
+                            <div class="timeline-header-text">
+                                <span class="timeline-time">⏳ 2025 - 2026年5月</span>
+                                <div class="timeline-title">暗黑停滯期：當大腦成為 AI 的除錯機器人</div>
+                            </div>
+                            <span class="timeline-arrow">▾</span>
                         </div>
                         <div class="timeline-card">
                             <div class="card-section">
                                 <span class="card-label">🎬 幕後花絮</span>
-                                <p class="card-text">8 月份開始是一個非常重要的轉折點，開發重心全面轉向「行動開發模式」。以前大部分時候都需要坐在電腦桌前，現在則能實現隨時隨地的行動開發。這也驗證了老闆一直以來的信念：大多數人的生活最習慣且喜歡的依然是手機端。只要能做到用手機發送訊息，就能讓家裡的機器人幫忙實現自動或半自動流程，對於創作者、電商或是 KOL 而言，工作效率將獲得卓越的提升。對老闆來說，他自己就是這項產品最好的受益者，因為當初正是為了解決自己的痛點，而順便成就了這個事業。</p>
+                                <p class="card-text">這段期間 Gemini 逐步從 3.1 進步到 3.5 版本，技術轉型過程中道路總是坎坷不平。加上老闆從零開始和 AI 進行協作，當時的他完全不懂代碼，在代碼知識與架構尚未完全成形時，常常被 Gemini 牽著走——有時給出虛假路徑，有時亂改寫代碼，有時自以為是地優化，甚至還會一臉正經地胡說八道不存在的技術方案。當時的他面臨著三重壓力（大腦超載、面對 AI 失控的憤怒、卡關焦慮），讓皮質醇集體暴走。</p>
                             </div>
 
-                            <!-- 直接復用原本的 .story-img-wrapper 預留框 -->
                             <div class="story-img-wrapper">
-                                <img src="timeline-phase3.png" 
-                                     alt="2026年8月至今 行動開發與體態逆襲紀錄" 
+                                <img src="timeline-phase1.png" 
+                                     alt="2025-2026年5月 暗黑停滯期紀錄" 
                                      class="story-img"
                                      onerror="handleImgError(this)">
                                 <div class="img-placeholder-text" style="display: none;">
-                                    <span>🟢 預留綠色體態紀錄配圖：timeline-phase3.png</span>
+                                    <span>🟢 預留綠色體態紀錄配圖：timeline-phase1.png</span>
                                 </div>
                             </div>
 
                             <div class="card-section">
-                                <span class="card-label">✨ 身心狀態</span>
-                                <p class="card-text">當最後進入官方網站設計階段時，他的心境變得越來越開心、越來越平靜，因為又能重新享受當初做自媒體時的藝術氛圍，而不是整天跟 AI 吵架。身體不再出現過敏情況，身材也日益健美，持續穩定朝向 63 公斤的最佳體態運行。</p>
+                                <span class="card-label">💔 身心狀態</span>
+                                <p class="card-text">自媒體中斷、過敏全面復發。第一次體會到久坐工程師身體虛脫、下班想瘋狂吃便當犒賞自己的匱乏感。體重持續飆升，直到身體全面抗議。</p>
                             </div>
                         </div>
                     </div>
@@ -897,7 +976,7 @@
         2026 WELCOME TO MANVIS WORLD
     </footer>
 
-    <!-- JS 互動與防護邏輯 -->
+    <!-- JS 互動與防護邏輯 + 接收端 sessionStorage 提線木偶自動化接力特效 -->
     <script>
         // 1. 選單關閉邏輯
         document.querySelectorAll('.nav-menu a').forEach(link => {
@@ -908,25 +987,23 @@
             });
         });
 
-// 2. 圖片備援機制（改為動態抓取同層 DOM，不再寫死 ID）
-function handleImgError(img) {
-    img.style.display = 'none';
-    // 抓取當前 img 所在的 .story-img-wrapper 容器
-    const wrapper = img.parentElement;
-    if (wrapper) {
-        const placeholder = wrapper.querySelector('.img-placeholder-text');
-        if (placeholder) {
-            placeholder.style.display = 'flex';
+        // 2. 圖片備援機制
+        function handleImgError(img) {
+            img.style.display = 'none';
+            const wrapper = img.parentElement;
+            if (wrapper) {
+                const placeholder = wrapper.querySelector('.img-placeholder-text');
+                if (placeholder) {
+                    placeholder.style.display = 'flex';
+                }
+            }
         }
-    }
-}
 
-        // 3. 通用關鍵字展開/收合 + 防 Google 觸控搜尋選取
+        // 3. 通用關鍵字展開/收合 + 時間軸獨立點擊展開邏輯 + 提線木偶接收端
         document.addEventListener('DOMContentLoaded', () => {
             const triggers = document.querySelectorAll('.trigger-link');
 
             triggers.forEach(trigger => {
-                // 1. 點擊展開 / 收合邏輯
                 trigger.addEventListener('click', function(e) {
                     e.preventDefault();
                     
@@ -950,16 +1027,72 @@ function handleImgError(img) {
                     }
                 });
 
-                // 2. 防連點選取
-                trigger.addEventListener('dblclick', function(e) {
-                    e.preventDefault();
-                });
+                trigger.addEventListener('dblclick', function(e) { e.preventDefault(); });
+                trigger.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+            });
 
-                // 3. 防長按選取文字
-                trigger.addEventListener('contextmenu', function(e) {
-                    e.preventDefault();
+            // 時間軸標題直接點擊展開/收合卡片
+            const timelineHeaders = document.querySelectorAll('.timeline-header');
+            timelineHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const card = this.nextElementSibling;
+                    if (!card) return;
+
+                    const isActive = this.classList.contains('is-active');
+
+                    if (isActive) {
+                        this.classList.remove('is-active');
+                        card.classList.remove('is-active');
+                    } else {
+                        this.classList.add('is-active');
+                        card.classList.add('is-active');
+                    }
                 });
             });
+
+            // ==========================================
+            // 🎬 接收端：檢測 sessionStorage 信物並自動播放木偶戲
+            // ==========================================
+            const shouldAutoPlay = sessionStorage.getItem('autoPlayPuppeteer');
+
+            if (shouldAutoPlay === 'true') {
+                // 用完即焚，立刻銷毀信物，確保真人重整不受影響
+                sessionStorage.removeItem('autoPlayPuppeteer');
+
+                const puppeteerDot = document.getElementById('puppeteerDot');
+                const historyTrigger = document.getElementById('historyTrigger');
+
+                if (puppeteerDot && historyTrigger) {
+                    // 讓金色圓點在畫面上方中央瞬間現身
+                    puppeteerDot.style.left = (window.innerWidth / 2) + 'px';
+                    puppeteerDot.style.top = '150px';
+                    puppeteerDot.style.display = 'block';
+
+                    // 延遲一下後，平滑移動到「逆襲史」按鈕上
+                    setTimeout(() => {
+                        const targetRect = historyTrigger.getBoundingClientRect();
+                        puppeteerDot.style.left = (targetRect.left + targetRect.width / 2) + 'px';
+                        puppeteerDot.style.top = (targetRect.top + targetRect.height / 2) + 'px';
+
+                        // 移動抵達後，模擬點擊按鈕（展開逆襲史、滾動到位）
+                        setTimeout(() => {
+                            historyTrigger.click();
+
+                            // 戲碼演完，金色圓點優雅淡出消失
+                            setTimeout(() => {
+                                puppeteerDot.style.transition = 'opacity 0.5s ease';
+                                puppeteerDot.style.opacity = '0';
+                                setTimeout(() => {
+                                    puppeteerDot.style.display = 'none';
+                                    puppeteerDot.style.opacity = '1';
+                                }, 500);
+                            }, 800);
+
+                        }, 900);
+
+                    }, 500);
+                }
+            }
         });
     </script>
 </body>
