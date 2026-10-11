@@ -1050,8 +1050,8 @@
                 });
             });
 
-// ==========================================
-            // 🎬 接收端：慢動作優化劇場版・自動播放木偶戲
+            // ==========================================
+            // 🎬 接收端：檢測 sessionStorage 信物並自動播放木偶戲
             // ==========================================
             const shouldAutoPlay = sessionStorage.getItem('autoPlayPuppeteer');
 
@@ -1063,45 +1063,37 @@
                 const historyTrigger = document.getElementById('historyTrigger');
 
                 if (puppeteerDot && historyTrigger) {
-                    // 【修改 1】動態將光點移動速度拉長為 1.8 秒，呈現優雅慢動作滑行
-                    puppeteerDot.style.transition = 'left 1.8s cubic-bezier(0.25, 1, 0.5, 1), top 1.8s cubic-bezier(0.25, 1, 0.5, 1)';
-
-                    // 1. 讓金色圓點在畫面上方中央現身（停留 800ms 讓使用者注意到）
+                    // 讓金色圓點在畫面上方中央瞬間現身
                     puppeteerDot.style.left = (window.innerWidth / 2) + 'px';
                     puppeteerDot.style.top = '150px';
                     puppeteerDot.style.display = 'block';
 
-                    // 【修改 2】在光點開始往下跑的同時，讓瀏覽器平滑把畫面滾動到逆襲史附近，確保使用者看得到光點
-                    historyTrigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                    // 2. 經過 800ms 後，開始緩慢滑行到「逆襲史」按鈕上 (歷時 1.8 秒)
+                    // 延遲一下後，平滑移動到「逆襲史」按鈕上
                     setTimeout(() => {
                         const targetRect = historyTrigger.getBoundingClientRect();
                         puppeteerDot.style.left = (targetRect.left + targetRect.width / 2) + 'px';
                         puppeteerDot.style.top = (targetRect.top + targetRect.height / 2) + 'px';
 
-                        // 3. 等光點完全抵達定位後（1.9秒後），模擬點擊按鈕（展開逆襲史）
+                        // 移動抵達後，模擬點擊按鈕（展開逆襲史、滾動到位）
                         setTimeout(() => {
                             historyTrigger.click();
 
-                            // 4. 點擊後在原地停留 1.2 秒讓使用者看清楚，才開始優雅淡出消失
+                            // 戲碼演完，金色圓點優雅淡出消失
                             setTimeout(() => {
-                                puppeteerDot.style.transition = 'opacity 0.8s ease';
+                                puppeteerDot.style.transition = 'opacity 0.5s ease';
                                 puppeteerDot.style.opacity = '0';
-                                
-                                // 淡出動畫結束後徹底隱藏
                                 setTimeout(() => {
                                     puppeteerDot.style.display = 'none';
-                                    puppeteerDot.style.opacity = '1'; // 復原透明度
-                                }, 800);
+                                    puppeteerDot.style.opacity = '1';
+                                }, 500);
+                            }, 800);
 
-                            }, 1200);
+                        }, 900);
 
-                        }, 1900);
-
-                    }, 800);
+                    }, 500);
                 }
             }
+        });
     </script>
 </body>
 </html>
