@@ -1051,7 +1051,7 @@
             });
 
 // ==========================================
-            // 🎬 接收端：視窗同步滾動・劇場級慢動作木偶戲
+            // 🎬 接收端：慢動作優化劇場版・自動播放木偶戲
             // ==========================================
             const shouldAutoPlay = sessionStorage.getItem('autoPlayPuppeteer');
 
@@ -1063,36 +1063,28 @@
                 const historyTrigger = document.getElementById('historyTrigger');
 
                 if (puppeteerDot && historyTrigger) {
-                    // 1. 設定光點的移動過渡時間為 2.0 秒（慢動作流暢滑行）
-                    puppeteerDot.style.transition = 'left 2.0s cubic-bezier(0.25, 1, 0.5, 1), top 2.0s cubic-bezier(0.25, 1, 0.5, 1)';
+                    // 【修改 1】動態將光點移動速度拉長為 1.8 秒，呈現優雅慢動作滑行
+                    puppeteerDot.style.transition = 'left 1.8s cubic-bezier(0.25, 1, 0.5, 1), top 1.8s cubic-bezier(0.25, 1, 0.5, 1)';
 
-                    // 2. 讓金色圓點在畫面上方中央現身（停留 800ms 讓使用者注意到）
+                    // 1. 讓金色圓點在畫面上方中央現身（停留 800ms 讓使用者注意到）
                     puppeteerDot.style.left = (window.innerWidth / 2) + 'px';
                     puppeteerDot.style.top = '150px';
                     puppeteerDot.style.display = 'block';
 
-                    // 3. 經過 800ms 後，開始執行「光點移動 + 視窗滾動」同步戲碼
+                    // 【修改 2】在光點開始往下跑的同時，讓瀏覽器平滑把畫面滾動到逆襲史附近，確保使用者看得到光點
+                    historyTrigger.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // 2. 經過 800ms 後，開始緩慢滑行到「逆襲史」按鈕上 (歷時 1.8 秒)
                     setTimeout(() => {
                         const targetRect = historyTrigger.getBoundingClientRect();
-                        
-                        // 計算目標按鈕相對於整個網頁絕對位置，並讓畫面平滑滾動過去
-                        const targetAbsoluteTop = window.pageYOffset + targetRect.top - (window.innerHeight / 2);
-                        
-                        // 【關鍵修復】讓網頁視窗跟著光點同步平滑滾動，確保使用者永遠看得到光點
-                        window.scrollTo({
-                            top: targetAbsoluteTop > 0 ? targetAbsoluteTop : 0,
-                            behavior: 'smooth'
-                        });
-
-                        // 光點移動到「逆襲史」按鈕的正中心
                         puppeteerDot.style.left = (targetRect.left + targetRect.width / 2) + 'px';
                         puppeteerDot.style.top = (targetRect.top + targetRect.height / 2) + 'px';
 
-                        // 4. 等光點與視窗完全抵達定位後（2.1秒後），模擬點擊按鈕
+                        // 3. 等光點完全抵達定位後（1.9秒後），模擬點擊按鈕（展開逆襲史）
                         setTimeout(() => {
                             historyTrigger.click();
 
-                            // 5. 點擊後在原地停留 1.5 秒讓使用者看清楚，才開始優雅淡出消失
+                            // 4. 點擊後在原地停留 1.2 秒讓使用者看清楚，才開始優雅淡出消失
                             setTimeout(() => {
                                 puppeteerDot.style.transition = 'opacity 0.8s ease';
                                 puppeteerDot.style.opacity = '0';
@@ -1103,9 +1095,9 @@
                                     puppeteerDot.style.opacity = '1'; // 復原透明度
                                 }, 800);
 
-                            }, 1500);
+                            }, 1200);
 
-                        }, 2100);
+                        }, 1900);
 
                     }, 800);
                 }
