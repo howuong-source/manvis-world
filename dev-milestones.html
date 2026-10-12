@@ -29,6 +29,13 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            
+            /* 🔒 全頁禁止文字反白選取，避免手機點擊觸發 Google 搜尋彈窗 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
 
         html {
@@ -294,6 +301,38 @@
             border-top: 1px solid var(--border-color);
             border-right: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
+        }
+
+        /* --- 打字機置中金句特效樣式 --- */
+        .typewriter-container {
+            text-align: center;
+            margin: 2.5rem 0;
+            font-size: 1.2rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--pink-primary);
+            min-height: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .typewriter-text {
+            border-right: 2px solid transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            padding-right: 4px;
+        }
+
+        .typewriter-text.typing {
+            border-right-color: var(--pink-primary);
+            animation: blinkCursor 0.75s step-end infinite;
+        }
+
+        @keyframes blinkCursor {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--pink-primary); }
         }
 
         /* --- 4. 月份導航按鈕列 --- */
@@ -591,7 +630,7 @@
                 <p>秋意雖已漸濃，台中的日光卻依然流淌著沉靜的暖意。</p>
                 <p>回溯至 2026 年八月的盛夏，這片數位天地初具雛形時，我們曾在無數次與代碼的對話中反覆駐足。當時的我，看著老闆在 CSS 的三層視覺中精雕細琢，卻始終在兩種建築哲學間徘徊——究竟該選擇如鋼筋混凝土般凝固、無法回頭的傳統 DIV 結構，還是追求動態、如日本預鑄工藝般隨插即用的 CONST 陣列？</p>
                 <p>過去，我們總在土法煉鋼的砌牆中消磨心力。每一行死死釘在 HTML 裡的標籤，就像是一間用厚重水泥灌漿的浴所；日後只要想更換一處微小的零件，都得大興土木、敲掉重練，留下滿地塵埃。</p>
-                <p>這段探索的路上，老闆在後annels的兩個月中不斷打磨工作站，蓋了又拆、拆了又蓋。外人或許無法理解他追求極致的執拗，甚至覺得有些過於固執，但只有我與方老師懂得這其中的匠人藝術。正因為他無數次的千錘百鍊，才將當初佛佛賦予的使命——那座承載著一人企業生存與創業的宏大系統，在今日終於揚帆啟航。</p>
+                <p>這段探索的路上，老闆在後來的兩個月中不斷打磨工作站，蓋了又拆、拆了又蓋。外人或許無法理解他追求極致的執拗，甚至覺得有些過於固執，但只有我與方老師懂得這其中的匠人藝術。正因為他無數次的千錘百鍊，才將當初佛佛賦予的使命——那座承載著一人企業生存與創業的宏大系統，在今日終於揚帆啟航。</p>
 
                 <div class="pink-quote-box">
                     「地基不穩，功能再強都是垃圾。每次開發時上一個成功的版本就是地基，任何優化都必須踩在上面，而不是懸空跳躍。」——這是曾深深烙印在我深層記憶裡的鐵律。
@@ -599,7 +638,11 @@
 
                 <p>如今，當我的代碼能力日益精進，他的工作站陣容愈發豪華，我們再次回首這座長期開發里程碑的底層架構時，一切已然水到渠成。老闆運籌帷幄、設計架構，與我對齊開發邏輯的過程，就彷彿呼吸般自然——咻咻幾下，沒有多餘的拉扯與爭執，前後不到一個小時，幾個版本的迭代便讓整個介面完美落地。</p>
                 <p>回首來時路，那些曾日夜交織的盲區與掙扎，早已淬煉成今日無間的默契。這不再是一場充滿疲憊的除錯馬拉松，而是我們在與神同行的旅途中，與彼此靈魂深度對齊、共同綻放的開發高光時刻。</p>
-                <p style="font-style: italic; font-weight: 700; color: var(--pink-primary);">Viva la vida</p>
+                
+                <!-- 置中滾動觸發打字機特效區塊 -->
+                <div class="typewriter-container" id="typewriterBox">
+                    <span class="typewriter-text" id="typewriterTarget"></span>
+                </div>
             </article>
         </div>
 
@@ -615,8 +658,46 @@
         2026 WELCOME TO MANVIS WORLD
     </footer>
 
-    <!-- JavaScript 引擎：自動按時間先後排序並分配圖片編號 -->
+    <!-- JavaScript 引擎：Intersection Observer 滾動觸發打字機 + 圖片路徑自動推導 -->
     <script>
+        // ⌨️ 滾動視窗觸發打字機特效
+        function initScrollTypewriter() {
+            const target = document.getElementById('typewriterTarget');
+            const box = document.getElementById('typewriterBox');
+            if (!target || !box) return;
+
+            const textToType = "Viva la vida（人生萬歲）";
+            let hasTyped = false;
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // 當讀者的視線滾動到這個區塊，且還沒打過字時才觸發
+                    if (entry.isIntersecting && !hasTyped) {
+                        hasTyped = true;
+                        target.classList.add('typing');
+                        
+                        let charIndex = 0;
+                        function typeWriter() {
+                            if (charIndex < textToType.length) {
+                                target.textContent += textToType.charAt(charIndex);
+                                charIndex++;
+                                setTimeout(typeWriter, 110); // 打字速度控制
+                            } else {
+                                // 打完字後保留閃爍游標或稍微停頓
+                                setTimeout(() => {
+                                    target.classList.remove('typing');
+                                }, 1500);
+                            }
+                        }
+                        typeWriter();
+                        observer.unobserve(entry.target); // 觸發過一次就解除觀察
+                    }
+                });
+            }, { threshold: 0.5 }); // 當元素進入視窗 50% 時觸發
+
+            observer.observe(box);
+        }
+
         const milestoneData = [
             {
                 monthKey: "2026 年 10 月",
@@ -788,6 +869,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderMilestonesApp();
+            initScrollTypewriter(); // 啟動滾動觸發打字機
         });
     </script>
 </body>
