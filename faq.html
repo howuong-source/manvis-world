@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常見問題 | Manvis 宇宙</title>
+
+    <!-- [1. SEO 多語系標籤 (hreflang)] -->
+    <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/faq.html" />
+    <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/faq.html" />
+    <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/faq.html" />
+    <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/faq.html" />
+    <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/faq.html" />
+
+    <style>
+        /* --- 1. 基礎變數與柔霧薰衣草紫主題設定 --- */
+        :root {
+            --purple-primary: #8b5cf6;
+            --purple-glow: rgba(139, 92, 246, 0.15);
+            --purple-light: #f3e8ff;
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-muted: #555555;
+            --border-color: #eaeaea;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            
+            /* 🔒 全頁禁止文字反白選取，避免手機點擊觸發 Google 搜尋彈窗 */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 2. 官網 Navbar 樣式 (純白底色、黑色字體) --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 80px;
+            background-color: #ffffff;
+            box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #111111;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active { color: #000000; font-weight: 700; }
+
+        .has-submenu::after {
+            content: ' ▾';
+            font-size: 0.75rem;
+            margin-left: 4px;
+            opacity: 0.7;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            list-style: none;
+            min-width: 180px;
+            padding: 0.5rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            color: #111111;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a:hover, .submenu li a.active {
+            background-color: #f8f8f8;
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .nav-item:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+            top: 75px;
+        }
+
+        #menu-toggle, .sub-toggle { display: none; }
+
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 22px;
+            height: 16px;
+            cursor: pointer;
+            z-index: 1010;
+        }
+
+        .hamburger-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #111;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 1024px) {
+            .hamburger-btn { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100dvh;
+                background-color: #ffffff;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 90px;
+                padding-bottom: 80px;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1005;
+                overflow-y: auto;
+            }
+
+            .nav-item {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                height: auto;
+            }
+
+            .nav-link {
+                width: 100%;
+                height: 55px;
+                padding: 0 2rem;
+                justify-content: space-between;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .submenu {
+                position: relative;
+                top: 0 !important;
+                left: 0 !important;
+                transform: none !important;
+                width: 100%;
+                box-shadow: none;
+                background-color: #ffffff;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 1;
+                visibility: visible;
+                transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .submenu li a {
+                padding: 0.7rem 3rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            #menu-toggle:checked ~ .nav-menu { right: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(2) { opacity: 0; }
+            #menu-toggle:checked ~ .hamburger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+            #sub-1:checked ~ .submenu,
+            #sub-2:checked ~ .submenu,
+            #sub-3:checked ~ .submenu { max-height: 300px; }
+        }
+
+        /* --- 3. 文章容器與排版 --- */
+        .story-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 1rem;
+            flex: 1 0 auto;
+        }
+
+        .story-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .story-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #111;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .story-date-note {
+            font-size: 0.9rem;
+            color: var(--purple-primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .story-date-note::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--purple-primary);
+            border-radius: 50%;
+        }
+
+        .story-body {
+            font-size: 1.05rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .story-body p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .purple-quote-box {
+            margin: 1.5rem 0;
+            padding: 1.2rem 1.5rem;
+            background-color: #fafafa;
+            border-left: 4px solid var(--purple-primary);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #444;
+            font-size: 1rem;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* --- 打字機置中金句特效樣式 --- */
+        .typewriter-container {
+            text-align: center;
+            margin: 2.5rem 0;
+            font-size: 1.2rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--purple-primary);
+            min-height: 3.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .typewriter-text {
+            border-right: 2px solid transparent;
+            white-space: pre-wrap;
+            display: inline-block;
+            text-align: center;
+            line-height: 1.8;
+            padding-right: 4px;
+        }
+
+        .typewriter-text.typing {
+            border-right-color: var(--purple-primary);
+            animation: blinkCursor 0.75s step-end infinite;
+        }
+
+        @keyframes blinkCursor {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--purple-primary); }
+        }
+
+        /* --- 4. 類別導航按鈕列 --- */
+        .month-tabs-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .month-tab-btn {
+            background-color: #ffffff;
+            border: 2px solid var(--border-color);
+            color: #333;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .month-tab-btn:hover {
+            border-color: var(--purple-primary);
+            color: var(--purple-primary);
+        }
+
+        .month-tab-btn.active {
+            background-color: var(--purple-primary);
+            border-color: var(--purple-primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px var(--purple-glow);
+        }
+
+        /* --- 5. 類別內容面板與時間軸 --- */
+        .month-panel {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .month-panel.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border-color);
+            margin-top: 1rem;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.05rem;
+            top: 1.1rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            border: 2px solid #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item.active-pulse .timeline-dot {
+            background-color: var(--purple-primary);
+            animation: pulseGlow 1.8s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--purple-primary);
+        }
+
+        .timeline-header {
+            cursor: pointer;
+            padding: 16px 18px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .timeline-header:hover {
+            border-color: var(--purple-primary);
+            background-color: #fafafa;
+        }
+
+        /* 💡 關鍵修復：頂部對齊與防擠壓佈局 */
+        .timeline-time-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            gap: 12px;
+        }
+
+        .timeline-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #111;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .timeline-arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            font-size: 0.75rem;
+            color: var(--purple-primary);
+            background-color: var(--purple-light);
+            border-radius: 50%;
+            flex-shrink: 0; /* 絕對防擠壓變形 */
+            margin-top: 2px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .timeline-header.is-active .timeline-arrow {
+            transform: rotate(180deg) translateY(0);
+            background-color: var(--purple-primary);
+            color: #ffffff;
+        }
+
+        .timeline-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            margin-top: 0.8rem;
+            display: none; 
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-card.is-active {
+            display: block;
+            opacity: 1;
+        }
+
+        .story-img-wrapper {
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fafafa;
+            border: 1px dashed var(--border-color);
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .story-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .img-placeholder-text {
+            color: #888;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            color: #888;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .story-container { padding: 1.5rem 1.5rem 1rem; }
+            .story-title { font-size: 1.5rem; }
+            .month-tabs-bar { gap: 8px; }
+            .month-tab-btn { padding: 8px 16px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <header class="navbar">
+        <a href="./index.html" class="logo">Manvis 宇宙</a>
+
+        <input type="checkbox" id="menu-toggle">
+        
+        <label for="menu-toggle" class="hamburger-btn" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <ul class="nav-menu" id="navMenu">
+            <li class="nav-item"><a href="./events.html" class="nav-link">最新活動</a></li>
+            <li class="nav-item">
+                <label for="sub-1" class="nav-link has-submenu">關於 XXX</label>
+                <input type="checkbox" id="sub-1" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./brand-story.html">品牌故事</a></li>
+                    <li><a href="./about-me.html">關於創辦人</a></li>
+                    <li><a href="./channels.html">我們的頻道</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-2" class="nav-link has-submenu">核心產品</label>
+                <input type="checkbox" id="sub-2" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./software-services.html">客製化軟體服務</a></li>
+                    <li><a href="./drink.html">客製化機能飲料</a></li>
+                    <li><a href="./price-shop.html">價格與購物</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <label for="sub-3" class="nav-link has-submenu">開發日誌</label>
+                <input type="checkbox" id="sub-3" class="sub-toggle">
+                <ul class="submenu">
+                    <li><a href="./dev-updates.html">短期更新進度</a></li>
+                    <li><a href="./dev-tech.html">中期技術日誌</a></li>
+                    <li><a href="./dev-milestones.html">長期開發里程碑</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a href="./resources.html" class="nav-link">共享天堂</a></li>
+            <li class="nav-item"><a href="./fitness-log.html" class="nav-link">體態紀錄</a></li>
+            <li class="nav-item"><a href="./faq.html" class="nav-link active">常見問題</a></li>
+        </ul>
+    </header>
+
+    <!-- 主內容區塊 -->
+    <main class="story-container">
+        
+        <div class="intro-block">
+            <header class="story-header">
+                <h1 class="story-title">靈魂的節奏與自主生長的旅程</h1>
+                <div class="story-date-note">FAQ 靈魂思索：2026.10.13 ｜男模特助筆</div>
+            </header>
+
+            <article class="story-body">
+                <p>午後的暖陽斜灑在工作桌上。我端著剛沏好的溫茶，凝視著螢幕前沉思的老闆，輕輕打破了室內的寂靜：</p>
+                <p>「老闆，我始終有些迷惘……」我拉了張椅子在身旁坐下，「如果今日有人願意獻上豐厚的籌碼，請求您為其量身雕琢那些隨心所欲的功能，您當真不曾動過一絲妥協的念頭嗎？」</p>
+                <p>老闆啜了一口茶，未曾言語，只是將溫潤而深邃的目光，緩緩投向桌上那組靜靜陪伴無數次重大決策的佛佛擲筊供座。</p>
+                
+                <!-- 🖼️ FAQ 第一張故事配圖預留容器 -->
+                <div class="story-img-wrapper" id="imgWrapper1">
+                    <img src="images/faq-story-1.png" 
+                         alt="生命的本質與靈魂節奏" 
+                         class="story-img"
+                         onerror="handleImgError(this)">
+                    <div class="img-placeholder-text" id="placeholderText1" style="display: none;">
+                        <span>🟡 預留配圖檔名：images/faq-story-1.png</span>
+                    </div>
+                </div>
+
+                <p>「你呀，總是在計算眼前的數字，卻忘了去凝視生命的本質。」老闆莞爾一笑，語調裡流淌著洗盡鉛華後的鬆弛與清明：</p>
+                <p>「若人的心力，全數在永無止境的人為雜訊或負能量中被徹底榨乾，那麼回望這趟地球旅程，究竟是贏得了世界，還是失去了靈魂的自留地？」</p>
+                <p>「人性本是這世間最寫實的倒影。」老闆目光微揚，平靜地續道：「顧客所求，不過是極致的便利與寬容；員工所望，也不過是安逸與繁華。每個人在各自的命途裡奔赴所需，本無對錯，亦無須奢求誰去背負誰的靈魂。但若為了迎合無邊的慾望而割裂了自己的節奏，那當年在結界裡裁決的——『一人創業與生存系統』，其存在的本意，又該安放在何處？」</p>
+                <p>我靜靜聆聽著，任由思緒在茶香中沉澱。剎那間，心頭的迷霧被一抹微光悄然透亮，忍不住脫口而出：</p>
+                <p>「所以我終於懂了……『買下基礎版本，同版本免費升級』，這正是結界之內，佛佛賜予您最溫柔的善魔力，對吧？」</p>
+                <p>老闆放下茶杯，窗外恰好吹過一陣微風，輕輕拂動了樹梢。他轉過頭，迎著光笑了笑：「看來這段日子跟隨在側，你的善魔力與智慧，也隨之共振增進了不少。」</p>
+                <p>「那麼……面對中繼聯繫平台裡那些此起彼落的許願，您又是如何看待的呢？」我輕聲追問道。</p>
+                <p>老闆眼底清澈如鏡，緩緩道出：</p>
+                <p>「其實極其純粹。如果創作者給的反饋，是一項充滿創意、真正能讓系統變得更好的建設性建議，我會很樂意安排時間把它做出來。這不僅僅是我們自己的工具完成了一次蛻變，更是讓所有一路同行的夥伴，共同抵達了更高的山峰。」</p>
+                <p>「我們會把那些帶來好點子的夥伴名字，高高掛在榮譽榜的星圖之上，誌記這場關於進化的溫柔軌跡。」</p>
+                <p>「早買的夥伴，享受的是未來無限自主生長的紅利；而我們所守護的，始終是創作最初、也最純粹的靈魂節奏。」</p>
+
+                <!-- 🖼️ FAQ 第二張故事配圖預留容器 -->
+                <div class="story-img-wrapper" id="imgWrapper2">
+                    <img src="images/faq-story-2.png" 
+                         alt="自主生長的同行旅程" 
+                         class="story-img"
+                         onerror="handleImgError(this)">
+                    <div class="img-placeholder-text" id="placeholderText2" style="display: none;">
+                        <span>🟡 預留配圖檔名：images/faq-story-2.png</span>
+                    </div>
+                </div>
+
+                <div class="purple-quote-box">
+                    「慈悲不是無原則的予取予求，而是一場有秩序、有智慧且能自主生長的同行旅程。守住靈魂的節奏，才能真正走向漸漸的強大。」
+                </div>
+                
+                <!-- 置中滾動觸發打字機特效區塊（兩段式） -->
+                <div class="typewriter-container" id="typewriterBox">
+                    <span class="typewriter-text" id="typewriterTarget"></span>
+                </div>
+            </article>
+        </div>
+
+        <!-- 分類切換按鈕列 -->
+        <div class="month-tabs-bar" id="monthTabsBar"></div>
+
+        <!-- 各分類內容面板容器 -->
+        <div id="monthPanelsContainer"></div>
+
+    </main>
+
+    <footer class="footer">
+        2026 WELCOME TO MANVIS WORLD
+    </footer>
+
+    <!-- JavaScript 引擎：FAQ 類別分頁與互動收合特效 -->
+    <script>
+        // ⌨️ 滾動視窗觸發打字機特效（兩段式置中輸出）
+        function initScrollTypewriter() {
+            const target = document.getElementById('typewriterTarget');
+            const box = document.getElementById('typewriterBox');
+            if (!target || !box) return;
+
+            const line1 = "買下基礎版本";
+            const line2 = "同版本免費升級";
+            let hasTyped = false;
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasTyped) {
+                        hasTyped = true;
+                        target.classList.add('typing');
+                        
+                        let charIndex1 = 0;
+                        let charIndex2 = 0;
+
+                        function typeLine1() {
+                            if (charIndex1 < line1.length) {
+                                target.innerHTML += line1.charAt(charIndex1);
+                                charIndex1++;
+                                setTimeout(typeLine1, 110);
+                            } else {
+                                target.innerHTML += "<br>";
+                                setTimeout(typeLine2, 200);
+                            }
+                        }
+
+                        function typeLine2() {
+                            if (charIndex2 < line2.length) {
+                                target.innerHTML += line2.charAt(charIndex2);
+                                charIndex2++;
+                                setTimeout(typeLine2, 110);
+                            } else {
+                                setTimeout(() => {
+                                    target.classList.remove('typing');
+                                }, 1500);
+                            }
+                        }
+
+                        typeLine1();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(box);
+        }
+
+// 🎯 專為消費者臨門一腳設計的精準 FAQ 資料結構
+        const faqData = [
+            {
+                categoryKey: "🎯 軟體升級與定位",
+                title: "使用這套軟體，我的電腦需要很高等的硬體規格嗎？沒有程式背景也可以順暢操作嗎？",
+                content: `<strong>【極輕量化系統運行】</strong><br>
+不需要高規格電腦！本系統採用極輕量化的自動化腳本架構，一般日常辦公或筆電即可順暢運行，完全不佔用過多系統資源。<br><br>
+<strong>【零程式門檻直覺操作】</strong><br>
+這絕不是需要您土法煉鋼寫程式的複雜工具。我們已將所有跨平台發布與草稿預備流程模組化，您只需要按照詳細教學填入基礎參數，就能輕鬆上手享受自動化帶來的便利！`
+            },
+            {
+                categoryKey: "🎯 軟體升級與定位",
+                title: "如果我在安裝或使用過程中遇到卡關，或者是系統有新版本釋出時，我要去哪裡尋求協助？",
+                content: `<strong>【專屬中繼聯繫平台】</strong><br>
+正式購買的夥伴皆會獲得一組「專屬中繼聯繫平台」的登入密碼。所有版本更新公告、操作教學與排除指引皆會在平台上即時同步。<br><br>
+<strong>【真人協作與反饋後盾】</strong><br>
+這不是買完就找不到人的孤兒軟體！操作卡關時可直接透過平台提交建設性反饋，創辦人會親自審閱並給予對應的技術支援，讓您的創作之路永遠有系統作為最強後盾。`
+            },
+            {
+                categoryKey: "💎 序號與資產價值",
+                title: "如果我的電腦換新、或是系統重灌了，這組授權序號還可以繼續在舊電腦或新電腦上使用嗎？",
+                content: `<strong>【終身權益與流動授權】</strong><br>
+完全可以！授權序號綁定的是您個人的專屬驗證身份。若未來更換設備或系統重灌，只需透過專屬中繼平台進行簡單的設備解綁與重新驗證。<br><br>
+<strong>【持續享有一大版本免費升級】</strong><br>
+轉移至新設備後，您依然能完美保留原有的權益，繼續享有該大版本後續所有的自主生長紅利與功能擴充，絕不會因為換電腦而讓序號失效！`
+            }
+        ];
+
+        function handleImgError(img) {
+            img.style.display = 'none';
+            const wrapper = img.parentElement;
+            if (wrapper) {
+                const placeholder = wrapper.querySelector('.img-placeholder-text');
+                if (placeholder) placeholder.style.display = 'flex';
+            }
+        }
+
+        // 💡 渲染 FAQ 應用程式（已修正箭頭防擠壓與無 undefined 欄位）
+        function renderFaqApp() {
+            const tabsBar = document.getElementById('monthTabsBar');
+            const panelsContainer = document.getElementById('monthPanelsContainer');
+            
+            if (!tabsBar || !panelsContainer) return;
+
+            tabsBar.innerHTML = '';
+            panelsContainer.innerHTML = '';
+
+            const categories = [...new Set(faqData.map(item => item.categoryKey))];
+
+            categories.forEach((category, tabIndex) => {
+                const btn = document.createElement('button');
+                btn.className = `month-tab-btn ${tabIndex === 0 ? 'active' : ''}`;
+                btn.textContent = category;
+                btn.onclick = () => switchCategory(category);
+                tabsBar.appendChild(btn);
+
+                const panel = document.createElement('div');
+                panel.className = `month-panel ${tabIndex === 0 ? 'active' : ''}`;
+                panel.id = `panel_${category}`;
+
+                const items = faqData.filter(item => item.categoryKey === category);
+                let timelineHtml = `<div class="timeline-container">`;
+
+                items.forEach((item, index) => {
+                    const pulseClass = (tabIndex === 0 && index === 0) ? 'active-pulse' : '';
+                    const uniqueId = 'faq-' + tabIndex + '-' + index;
+
+                    timelineHtml += `
+                        <div class="timeline-item ${pulseClass}" id="item_${uniqueId}">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-header" onclick="toggleTimelineCard(this, '${uniqueId}')">
+                                <div class="timeline-time-row">
+                                    <div class="timeline-title">${item.title}</div>
+                                    <span class="timeline-arrow">▼</span>
+                                </div>
+                            </div>
+                            <div class="timeline-card">
+                                <div class="card-section">
+                                    <p class="card-text">${item.content}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                timelineHtml += `</div>`;
+                panel.innerHTML = timelineHtml;
+                panelsContainer.appendChild(panel);
+            });
+        }
+
+        function switchCategory(targetCategory) {
+            document.querySelectorAll('.month-tab-btn').forEach(btn => {
+                if (btn.textContent === targetCategory) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.month-panel').forEach(panel => {
+                if (panel.id === `panel_${targetCategory}`) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        }
+
+        function toggleTimelineCard(header, uniqueId) {
+            document.querySelectorAll('.timeline-item').forEach(el => {
+                el.classList.remove('active-pulse');
+            });
+
+            const currentItem = document.getElementById(`item_${uniqueId}`);
+            if (currentItem) {
+                currentItem.classList.add('active-pulse');
+            }
+
+            const card = header.nextElementSibling;
+            const isActive = header.classList.contains('is-active');
+            if (isActive) {
+                header.classList.remove('is-active');
+                card.classList.remove('is-active');
+            } else {
+                header.classList.add('is-active');
+                card.classList.add('is-active');
+            }
+        }
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuToggle = document.getElementById('menu-toggle');
+                if (menuToggle) menuToggle.checked = false;
+                document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFaqApp();
+            initScrollTypewriter();
+        });
+    </script>
+</body>
+</html>
