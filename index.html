@@ -9,7 +9,7 @@
   <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/index.html" />
   <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/index.html" />
   <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/index.html" />
-      <script id="lang-guard">
+<script id="lang-guard">
     (function() {
       var ua = navigator.userAgent.toLowerCase();
       if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
@@ -17,13 +17,14 @@
       var lang = (navigator.language || navigator.userLanguage).toLowerCase();
       if (lang.startsWith('zh')) return;
 
-      var targetPath = '/en/index.html';
+      // 針對 GitHub Pages 測試環境，補上專案名稱前綴 /manvis-world/
+      var targetPath = '/manvis-world/en/index.html';
       if (lang.startsWith('en')) {
-        targetPath = '/en/index.html';
+        targetPath = '/manvis-world/en/index.html';
       } else if (lang.startsWith('ja')) {
-        targetPath = '/ja/index.html';
+        targetPath = '/manvis-world/ja/index.html';
       } else if (lang.startsWith('ko')) {
-        targetPath = '/kr/index.html';
+        targetPath = '/manvis-world/kr/index.html';
       }
 
       document.documentElement.style.display = 'none';
