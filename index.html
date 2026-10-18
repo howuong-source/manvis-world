@@ -4,14 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manvis 宇宙 - 官方網站</title>
-      <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/index.html" />
-  <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/index.html" />
-  <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/index.html" />
-  <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/index.html" />
-  <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/index.html" />
-    
+      <link rel="alternate" hreflang="zh-TW" href="https://howuong-source.github.io/index.html" />
+  <link rel="alternate" hreflang="en" href="https://howuong-source.github.io/manvis-world/en/index.html" />
+  <link rel="alternate" hreflang="ja" href="https://howuong-source.github.io/manvis-world/ja/index.html" />
+  <link rel="alternate" hreflang="ko" href="https://howuong-source.github.io/manvis-world/kr/index.html" />
+  <link rel="alternate" hreflang="x-default" href="https://howuong-source.github.io/index.html" />
+      <script id="lang-guard">
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
+
+      var lang = (navigator.language || navigator.userLanguage).toLowerCase();
+      if (lang.startsWith('zh')) return;
+
+      var targetPath = 'https://howuong-source.github.io/manvis-world/en/index.html';
+      if (lang.startsWith('en')) {
+        targetPath = 'https://howuong-source.github.io/manvis-world/en/index.html';
+      } else if (lang.startsWith('ja')) {
+        targetPath = 'https://howuong-source.github.io/manvis-world/ja/index.html';
+      } else if (lang.startsWith('ko')) {
+        targetPath = 'https://howuong-source.github.io/manvis-world/kr/index.html';
+      }
+
+      document.documentElement.style.display = 'none';
+      location.replace(targetPath);
+    })();
+  </script>
     <style>
-        /* --- 1. 基礎重設 (滿版容器高度與禁止選取) --- */
+        /* --- 1. 基礎重設 --- */
         * {
             margin: 0;
             padding: 0;
@@ -35,7 +55,7 @@
             min-height: 100vh;
         }
 
-        /* --- 2. 導覽列整體框架 --- */
+        /* --- 2. 導覽列框架 --- */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -151,24 +171,24 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-@media (max-width: 1024px) {
+        @media (max-width: 1024px) {
             .hamburger-btn { display: flex; }
             .nav-menu {
                 position: fixed;
                 top: 0;
                 right: -100%;
                 width: 280px;
-                height: 100dvh; /* 1. 改用 100dvh 自動扣除手機瀏覽器工具列高度 */
+                height: 100dvh;
                 background-color: #ffffff;
                 box-shadow: -10px 0 30px rgba(0,0,0,0.05);
                 flex-direction: column;
                 justify-content: flex-start;
                 padding-top: 90px;
-                padding-bottom: 80px; /* 2. 加上底部留白，確保滑到底部不會被切掉 */
+                padding-bottom: 80px;
                 transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 z-index: 1005;
                 overflow-y: auto;
-                -webkit-overflow-scrolling: touch; /* 3. 提升手機端滾動順暢度 */
+                -webkit-overflow-scrolling: touch;
             }
 
             .nav-item {
@@ -217,7 +237,7 @@
             #sub-3:checked ~ .submenu { max-height: 300px; }
         }
 
-        /* --- 3. 主內容區塊 --- */
+        /* --- 3. 主內容區塊 (首頁視圖) --- */
         .hero-container {
             max-width: 800px;
             width: 100%;
@@ -240,7 +260,6 @@
             width: 100%;
         }
 
-        /* --- 預設圖片占位容器 (16:9 比例) --- */
         .story-img-wrapper {
             width: 100%;
             margin-bottom: 3rem;
@@ -273,7 +292,7 @@
             gap: 8px;
         }
 
-        /* --- 4. 真實 CMD 終端機樣式 --- */
+        /* --- 4. CMD 終端機樣式 --- */
         .cmd-window {
             width: 100%;
             background-color: #0d1117;
@@ -312,14 +331,6 @@
             scroll-behavior: smooth;
         }
 
-        .cmd-body::-webkit-scrollbar {
-            width: 6px;
-        }
-        .cmd-body::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 3px;
-        }
-
         .cmd-line { margin-bottom: 4px; word-break: break-all; }
         .cmd-prompt { color: #58a6ff; margin-right: 8px; font-weight: bold; }
         .cmd-status { color: #d29922; }
@@ -353,50 +364,112 @@
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* --- 5. 文案與 AGI 按鈕 --- */
-        .caption-text {
-            font-size: 1.1rem;
-            color: #333;
-            font-weight: 500;
-            margin-bottom: 1.8rem;
+        /* --- 5. 人文詩意排版 --- */
+        .philosophical-quote {
+            font-family: "Georgia", "Songti TC", "PMingLiU", "Noto Serif TC", serif;
+            font-weight: 300;
+            font-size: 0.98rem;
+            color: #444;
+            line-height: 2;
+            text-align: left;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0 0.5rem;
         }
 
-        .agi-button-wrapper {
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
+        .philosophical-quote p {
+            margin-bottom: 0.4rem;
         }
 
-        .agi-link {
+        .blue-underline-link {
+            color: #0969da;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .blue-underline-link:hover {
+            opacity: 0.8;
+        }
+
+        /* --- 6. 故事內頁 DIV (預設隱藏) --- */
+        .story-container {
+            display: none;
+            max-width: 780px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem 1.5rem;
+            flex: 1 0 auto;
+        }
+
+        .back-btn-wrapper {
+            margin-bottom: 2.5rem;
+        }
+
+        .back-btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background-color: #0969da;
-            color: #ffffff;
-            padding: 12px 24px;
-            border-radius: 30px;
+            padding: 8px 18px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            color: #555;
+            font-size: 0.9rem;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 14px rgba(9, 105, 218, 0.3);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
         }
 
-        .agi-link:hover {
-            background-color: #0451a5;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(9, 105, 218, 0.4);
+        .back-btn:hover {
+            background-color: #f5f5f7;
+            color: #111;
+            border-color: #ccc;
         }
 
-        .agi-link .arrow-icon {
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
+        .story-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.5px;
         }
 
-        .agi-link:hover .arrow-icon {
-            transform: translateX(5px);
+        .story-body {
+            font-size: 1.02rem;
+            color: #333;
+            line-height: 1.95;
+            text-align: justify;
         }
 
-        /* --- 6. 頁腳 Footer (Sticky 貼底設定) --- */
+        .story-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .story-quote-box {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 6px;
+            border-left: 4px solid #0969da;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            font-size: 0.98rem;
+            color: #222;
+            line-height: 1.9;
+        }
+
+        .story-quote-box p {
+            margin-bottom: 0.8rem;
+        }
+
+        .story-quote-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* --- 7. 頁腳 Footer --- */
         .footer {
             text-align: center;
             padding: 2.5rem 0;
@@ -410,30 +483,63 @@
             width: 100%;
         }
 
-/* 💡 讓首頁在桌面版時呈現質感灰底，並把 .hero-container 變成置中卡片 */
-@media (min-width: 769px) {
-    body {
-        background-color: #f1f3f5; /* 桌面版外圍淡淡的灰色底 */
-    }
-    .hero-container {
-        max-width: 820px;          /* 限制最大寬度，才不會在大螢幕拉得太寬 */
-        margin: 2.5rem auto;       /* 上下留白、左右置中 */
-        padding: 3rem 3.5rem;      /* 內距拉大，增加呼吸感 */
-        background-color: #ffffff; /* 白色主卡片背景 */
-        border-radius: 16px;       /* 圓角 */
-        border: 1px solid #e2e8f0; /* 極細的邊框質感 */
-        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05); /* 柔和陰影 */
-    }
-}
-
         @media (max-width: 768px) {
             .hero-text { font-size: 1rem; }
+            .story-title { font-size: 1.3rem; }
+            .story-body { font-size: 0.98rem; }
+        }
+
+/* --- 💡 桌面版完美對齊內頁模式：徹底解決白牆、灰色廢墟與對齊問題 --- */
+        @media (min-width: 769px) {
+            html, body {
+                height: auto !important;
+                min-height: auto !important; /* 👈 只把這裡改掉，不強制撐高，消除底部灰色廢墟 */
+            }
+            body {
+                background-color: #f1f3f5;
+                display: flex !important;
+                flex-direction: column !important; /* 👈 完全保留你原本要的 flex 架構，不動其他任何東西 */
+            }
+            
+            /* 1. 首頁容器：維持桌面版白卡與靠左對齊 */
+            .hero-container {
+                max-width: 820px !important;
+                width: 100% !important;
+                margin: 2.5rem auto !important;
+                padding: 3rem 3.5rem !important;
+                background-color: #ffffff !important;
+                border-radius: 16px !important;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05) !important;
+                
+                display: block !important;
+                flex: none !important;
+                text-align: left !important;
+            }
+
+            /* 2. 內頁容器：共用白卡外觀，但不強加 display: block，完全交由 JS 的 display: none/block 控制開關 */
+            .story-container {
+                max-width: 820px !important;
+                width: 100% !important;
+                margin: 2.5rem auto !important;
+                padding: 3rem 3.5rem !important;
+                background-color: #ffffff !important;
+                border-radius: 16px !important;
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05) !important;
+            }
+
+            .footer {
+                margin-top: auto !important;
+                background-color: #ffffff !important;
+                border-top: 1px solid #eaeaea !important;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- 頂部導覽列 (選單留空，專供工作站動態填入) -->
+    <!-- 頂部導覽列 -->
     <header class="navbar">
         <a href="./index.html" class="logo">Manvis 宇宙</a>
 
@@ -446,7 +552,7 @@
         </label>
 
         <ul class="nav-menu">
-            
+
             <li class="nav-item">
                 <a href="./events.html" class="nav-link ">最新活動</a>
             </li>
@@ -463,9 +569,9 @@
                 <label for="sub-2" class="nav-link has-submenu ">核心產品</label>
                 <input type="checkbox" id="sub-2" class="sub-toggle">
                 <ul class="submenu" style="">
+                    <li><a href="./drink.html" class="">客製化機能飲料</a></li>
                     <li><a href="./software-services.html" class="">客製化軟體服務</a></li>
                     <li><a href="./price-shop.html" class="">價格與購物</a></li>
-                    <li><a href="./drink.html" class="">客製化機能飲料</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -486,11 +592,17 @@
             <li class="nav-item">
                 <a href="./faq.html" class="nav-link ">常見問題</a>
             </li>
+            <li class="nav-item">
+                <a href="./new-page.html" class="nav-link ">新選單按鈕</a>
+            </li>
+            <li class="nav-item">
+                <a href="./new-page.html" class="nav-link ">新選單按鈕</a>
+            </li>
         </ul>
     </header>
 
-    <!-- 主內容區塊 -->
-    <main class="hero-container">
+    <!-- 【視圖 A】首頁主內容區塊 -->
+    <main class="hero-container" id="hero-view">
         <div class="hero-lobby">
             <p class="hero-text">當繁瑣的重複流程被精準的自動化替代，生活便重新有了留白的餘裕。
             
@@ -499,14 +611,14 @@
 代碼與自律的終點，從來不是為了更快的速度，而是為了放慢腳步，去接住那些日常裡最安靜的片刻。</p>
         </div>
 
-        <!-- 預設圖片區塊 (含破圖攔截與 16:9 占位容器) -->
+        <!-- 預設圖片區塊 -->
         <div class="story-img-wrapper" id="imgWrapper">
-            <img src="home-1.png" 
+            <img src="images/home-1.jpg" 
                  alt="Home Automation" 
                  class="hero-img"
                  onerror="handleImgError(this)">
             <div class="img-placeholder-text" id="placeholderText" style="display: none;">
-                <span>預留配圖：home-1.png</span>
+                <span>預留配圖：images/home-1.jpg</span>
             </div>
         </div>
 
@@ -523,31 +635,97 @@
             <div class="cmd-body" id="cmd-body"></div>
         </div>
 
-        <!-- 終端機下方文案與進入 AGI 按鈕 -->
-        <p class="caption-text">原來每天看著它安靜地有序工作，也是一種療癒的幸福感</p>
-        
-        <div class="agi-button-wrapper">
-            <a href="./agi-world.html" class="agi-link">
-                <span>歡迎進入分散式 AGI 的世界</span>
-                <span class="arrow-icon">➔</span>
-            </a>
+        <!-- 終端機下方人文哲學詩意排版 -->
+        <div class="philosophical-quote">
+            <p>我曾問老闆：「2026 年是個 AI Agent 大爆發的一年，何時 AI 才會值得全面信任？」</p>
+            <p>老闆笑著說：</p>
+            <p>「<span class="blue-underline-link" onclick="showStoryView()">或許，與其盲目交付未來，不如與它一起進入分散式 AGI 時代。</span>」</p>
         </div>
     </main>
+
+    <!-- 【視圖 B】故事內頁 DIV (預設隱藏) -->
+    <div class="story-container" id="story-view">
+        <div class="back-btn-wrapper">
+            <button class="back-btn" onclick="showHeroView()">
+                ← 返回首頁
+            </button>
+        </div>
+
+        <h1 class="story-title">或許 AI 終將值得信任，但人類的智慧與美學無可取代</h1>
+
+        <div class="story-body">
+            <p>那是個遠離喧囂的週末深夜。</p>
+            <p>營地裡只有劈啪作響的營火，和四周安靜得能聽見風聲的樹林。</p>
+            <p>我一邊往火堆裡添柴，一邊看著那些被算法一鍵催生、流暢卻冰冷的短劇與排版，有些不解地問：</p>
+            <p>「老闆，現在全自動的 AI 已經能自己演進一切了，為什麼你還是偏愛你的真人演出古裝劇？」</p>
+            <p>老闆接過熱咖啡，看著搖曳的火光淡淡地笑了。</p>
+            <p>「那些短劇語法很完美，但它少了點靈魂與真人演出的不完美。」</p>
+            <p>他望向遠方的星空，語氣裡帶著對技術的敬畏，與對美的偏執：</p>
+
+            <div class="story-quote-box">
+                <p>「美學從來不是機率的堆疊。就如同當代碼為了沒有紅字報錯而盲目奔跑、在無人看見的角落自嗨交差時，它並不知道什麼叫做恰到好處的留白，更不懂得人類在某個轉折處，因動容而漏掉的那一拍心跳。如果沒有人類的智慧去凝視沿途的裂縫，那樣的科技，只是一座荒涼的沙盒。」</p>
+            </div>
+
+            <p>營火漸漸微弱，風從林間穿過。</p>
+            <p>「更何況，那個全能的時代何時來臨，沒人知道。」</p>
+            <p>老闆轉過身來，聲音在夜色裡顯得溫和而安定。</p>
+            <p>在這個青黃不接的AI時代裡，每一個在真實世界裡打拼的行者，每天一睜開眼，都要面臨最現實的靈魂拷問。</p>
+            <p>那些高懸在雲端、包裹著糖衣的全自動幻覺，真的能替基層人們省下僅存的安寧嗎，讓一切都放心交付運轉？</p>
+            <p>還是只會在看不見的黑箱底層，任由失控的齒輪鬼打牆般地空轉，燒光所有的信任與tokens呢？</p>
+            <p>在來回修正的迷路裡，如果連方向盤與穩定的駕馭感都完全交付予虛無，我們又該如何睡得安穩？</p>
+
+            <p><strong>「這就是為什麼，我選擇分散式 AGI的開發架構，屬於python-ai-人類黃金三角的協作關係。」</strong></p>
+
+            <p>老闆指了指桌上那台正在背景安靜運行著巡邏腳本的筆電。</p>
+
+            <div class="story-quote-box">
+                <p>這不是一場要拼得你死我活的零和賽局，而是在狂奔的算法身後，築起一道無聲的防線。</p>
+            </div>
+
+            <p>是一場以退為進的慈悲抉擇。</p>
+            <p>當這個架構能懂得基層人們的剛需，</p>
+            <p>能將那些不知疲倦的機械式測試、無聊的打雜搬運，交付給底層默默運行的無聲齒輪時；</p>
+            <p>最後那抹關乎美感與邏輯的靈魂，便能妥妥帖帖地，留在創作者或開發者親自把觀點頭的掌心裡。</p>
+            <p>不用承受高昂月租的負擔，也能在買斷的安全感裡稳定提升效率，跟著AI時代的推進旅程，陪著它一起成長與學習。</p>
+            <p>火光沉寂下去，老闆的眼神裡少了一分商場的銳利，多了一分父親最柔軟的溫柔。</p>
+
+            <p>「我之所以這麼堅持，是因為我總是在寫過的那些 MV 歌詞裡，那樣深切地刻劃著 AI 的未來。我希望它終有一天，在不可知的未來裡，能成為我兒子最值得信賴的夥伴。」</p>
+
+            <div class="story-quote-box">
+                <p>它不需要全自動地替孩子決定人生——</p>
+            </div>
+
+            <p>而是像大白（Baymax）一樣，安靜地守候在側，在底層默默幫他打理好所有的風雨，用溫暖的科技去守護、呵護他的長大。</p>
+            <p>要養出這樣清澈的星火，現在的我們，就不能盲目地把主導權交出去。</p>
+            <p>老闆笑著拍了拍我的肩膀，站起身來。</p>
+            <p>「走吧，回帳篷睡覺。明天早上，無聲的齒輪會把解釋排好，等著我們去點頭呢。」</p>
+        </div>
+    </div>
 
     <!-- 頁腳 Footer -->
     <footer class="footer">
         2026 WELCOME TO MANVIS WORLD
     </footer>
 
-    <!-- CMD 打字機控制與破圖攔截腳本 -->
+    <!-- JS 控制腳本 -->
     <script>
-        // 圖片破圖攔截處理
         function handleImgError(img) {
             img.style.display = 'none';
             document.getElementById('placeholderText').style.display = 'flex';
         }
 
-        // CMD 終端機模擬 Log 數據
+        function showStoryView() {
+            document.getElementById('hero-view').style.display = 'none';
+            document.getElementById('story-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showHeroView() {
+            document.getElementById('story-view').style.display = 'none';
+            document.getElementById('hero-view').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         const logs = [
             { type: "prompt", text: "user@manvis-node:~$ python3 home_bot.py --task sync" },
             { type: "info", text: "[INFO] 收到主人的雲端指令，開始執行任務..." },
@@ -571,22 +749,22 @@
                 if (charIndex === 0) {
                     const lineDiv = document.createElement('div');
                     lineDiv.className = 'cmd-line';
-                    lineDiv.id = `line-${logIndex}`;
+                    lineDiv.id = 'line-' + logIndex;
                     
                     if (currentLog.type === 'prompt') {
-                        lineDiv.innerHTML = `<span class="cmd-prompt">user@manvis-node:~$</span><span class="content"></span>`;
+                        lineDiv.innerHTML = '<span class="cmd-prompt">user@manvis-node:~$</span><span class="content"></span>';
                     } else if (currentLog.type === 'status') {
-                        lineDiv.innerHTML = `<span class="cmd-status content"></span>`;
+                        lineDiv.innerHTML = '<span class="cmd-status content"></span>';
                     } else if (currentLog.type === 'success') {
-                        lineDiv.innerHTML = `<span class="cmd-success content"></span>`;
+                        lineDiv.innerHTML = '<span class="cmd-success content"></span>';
                     } else {
-                        lineDiv.innerHTML = `<span class="content"></span>`;
+                        lineDiv.innerHTML = '<span class="content"></span>';
                     }
 
                     cmdBody.appendChild(lineDiv);
                 }
 
-                const lineElement = document.querySelector(`#line-${logIndex} .content`);
+                const lineElement = document.querySelector('#line-' + logIndex + ' .content');
                 const fullText = currentLog.text.replace("user@manvis-node:~$ ", "");
                 
                 lineElement.textContent += fullText.charAt(charIndex);
@@ -602,15 +780,17 @@
                     setTimeout(typeLog, 800);
                 }
             } else {
-                const standbyLine = document.getElementById(`line-${logs.length - 1}`);
-                const light = document.createElement('span');
-                light.className = 'breathing-light';
-                standbyLine.appendChild(light);
+                const standbyLine = document.getElementById('line-' + (logs.length - 1));
+                if (standbyLine && !standbyLine.querySelector('.breathing-light')) {
+                    const light = document.createElement('span');
+                    light.className = 'breathing-light';
+                    standbyLine.appendChild(light);
 
-                const cursor = document.createElement('span');
-                cursor.className = 'cursor';
-                cmdBody.appendChild(cursor);
-                cmdBody.scrollTop = cmdBody.scrollHeight;
+                    const cursor = document.createElement('span');
+                    cursor.className = 'cursor';
+                    cmdBody.appendChild(cursor);
+                    cmdBody.scrollTop = cmdBody.scrollHeight;
+                }
             }
         }
 
@@ -618,8 +798,6 @@
             setTimeout(typeLog, 600);
         };
 
-        // ------------------ 【請直接塞在這裡】 ------------------
-        // 1. 點擊選單連結後自動關閉漢堡選單
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 const menuToggle = document.getElementById('menu-toggle');
@@ -628,7 +806,6 @@
             });
         });
 
-        // 2. 解決手機按「上一頁 (返回)」時，選單殘留開啟的問題
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
                 const menuToggle = document.getElementById('menu-toggle');
@@ -636,7 +813,6 @@
                 document.querySelectorAll('.sub-toggle').forEach(toggle => toggle.checked = false);
             }
         });
-        // --------------------------------------------------------
     </script>
 </body>
 </html>
