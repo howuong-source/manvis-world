@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manvis 宇宙 - 官方網站</title>
-      <link rel="alternate" hreflang="zh-TW" href="https://manvis.pages.dev/index.html" />
-  <link rel="alternate" hreflang="en" href="https://manvis.pages.dev/en/index.html" />
-  <link rel="alternate" hreflang="ja" href="https://manvis.pages.dev/ja/index.html" />
-  <link rel="alternate" hreflang="ko" href="https://manvis.pages.dev/kr/index.html" />
-  <link rel="alternate" hreflang="x-default" href="https://manvis.pages.dev/index.html" />
-<script id="lang-guard">
+      <link rel="alternate" hreflang="zh-TW" href="https://howuong-source.github.io/manvis-world/index.html" />
+  <link rel="alternate" hreflang="en" href="https://howuong-source.github.io/manvis-world/en/index.html" />
+  <link rel="alternate" hreflang="ja" href="https://howuong-source.github.io/manvis-world/ja/index.html" />
+  <link rel="alternate" hreflang="ko" href="https://howuong-source.github.io/manvis-world/kr/index.html" />
+  <link rel="alternate" hreflang="x-default" href="https://howuong-source.github.io/manvis-world/index.html" />
+      <script id="lang-guard">
     (function() {
       var ua = navigator.userAgent.toLowerCase();
       if (/googlebot|bingbot|yahoobot|baiduspider|facebookexternalhit/i.test(ua)) return;
@@ -17,7 +17,6 @@
       var lang = (navigator.language || navigator.userLanguage).toLowerCase();
       if (lang.startsWith('zh')) return;
 
-      // 針對 GitHub Pages 測試環境，補上專案名稱前綴 /manvis-world/
       var targetPath = '/manvis-world/en/index.html';
       if (lang.startsWith('en')) {
         targetPath = '/manvis-world/en/index.html';
@@ -32,7 +31,7 @@
     })();
   </script>
     <style>
-        /* --- 1. 基礎重設 (滿版容器高度與禁止選取) --- */
+        /* --- 1. 基礎重設 --- */
         * {
             margin: 0;
             padding: 0;
@@ -56,7 +55,7 @@
             min-height: 100vh;
         }
 
-        /* --- 2. 導覽列整體框架 --- */
+        /* --- 2. 導覽列框架 --- */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -252,16 +251,16 @@
             align-items: center;
         }
 
+        /* 修復：已改為靠左對齊，防英文單字間距過寬 */
         .hero-text {
             font-size: 1.05rem;
             color: #555;
             margin-bottom: 3rem;
-            text-align: justify;
+            text-align: left;
             white-space: pre-line;
             width: 100%;
         }
 
-        /* --- 預設圖片占位容器 (16:9 比例) --- */
         .story-img-wrapper {
             width: 100%;
             margin-bottom: 3rem;
@@ -294,7 +293,7 @@
             gap: 8px;
         }
 
-        /* --- 4. 真實 CMD 終端機樣式 --- */
+        /* --- 4. CMD 終端機樣式 --- */
         .cmd-window {
             width: 100%;
             background-color: #0d1117;
@@ -333,14 +332,6 @@
             scroll-behavior: smooth;
         }
 
-        .cmd-body::-webkit-scrollbar {
-            width: 6px;
-        }
-        .cmd-body::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 3px;
-        }
-
         .cmd-line { margin-bottom: 4px; word-break: break-all; }
         .cmd-prompt { color: #58a6ff; margin-right: 8px; font-weight: bold; }
         .cmd-status { color: #d29922; }
@@ -374,7 +365,7 @@
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* --- 5. 人文詩意排版 (替換原本的藍色大按鈕) --- */
+        /* --- 5. 人文詩意排版 --- */
         .philosophical-quote {
             font-family: "Georgia", "Songti TC", "PMingLiU", "Noto Serif TC", serif;
             font-weight: 300;
@@ -404,7 +395,7 @@
             opacity: 0.8;
         }
 
-        /* --- 6. 故事內頁 DIV (預設隱藏，點擊後切換顯示) --- */
+        /* --- 6. 故事內頁 DIV (預設隱藏) --- */
         .story-container {
             display: none;
             max-width: 780px;
@@ -414,7 +405,6 @@
             flex: 1 0 auto;
         }
 
-        /* 返回按鈕風格 */
         .back-btn-wrapper {
             margin-bottom: 2.5rem;
         }
@@ -440,7 +430,6 @@
             border-color: #ccc;
         }
 
-        /* 文章標題與排版 */
         .story-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -461,13 +450,12 @@
             margin-bottom: 1.5rem;
         }
 
-        /* 呼應入口底線藍字的「藍色邊條金句區塊」 */
         .story-quote-box {
             background-color: #ffffff;
             padding: 1.5rem;
             margin: 2rem 0;
             border-radius: 6px;
-            border-left: 4px solid #0969da; /* 呼應點擊進來的藍色 */
+            border-left: 4px solid #0969da;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
             font-size: 0.98rem;
             color: #222;
@@ -505,7 +493,7 @@
 </head>
 <body>
 
-    <!-- 頂部導覽列 -->
+    <!-- 頂部導覽列 (選單留空，專供工作站動態填入) -->
     <header class="navbar">
         <a href="./index.html" class="logo">Manvis 宇宙</a>
 
@@ -518,13 +506,14 @@
         </label>
 
         <ul class="nav-menu">
+            
             <li class="nav-item">
                 <a href="./events.html" class="nav-link ">最新活動</a>
             </li>
             <li class="nav-item">
-                <label for="sub-1" class="nav-link has-submenu ">關於 XXX</label>
+                <label for="sub-1" class="nav-link has-submenu ">關於 Manvis </label>
                 <input type="checkbox" id="sub-1" class="sub-toggle">
-                <ul class="submenu">
+                <ul class="submenu" style="">
                     <li><a href="./brand-story.html" class="">品牌故事</a></li>
                     <li><a href="./about-me.html" class="">關於創辦人</a></li>
                     <li><a href="./channels.html" class="">我們的頻道</a></li>
@@ -533,16 +522,16 @@
             <li class="nav-item">
                 <label for="sub-2" class="nav-link has-submenu ">核心產品</label>
                 <input type="checkbox" id="sub-2" class="sub-toggle">
-                <ul class="submenu">
+                <ul class="submenu" style="">
                     <li><a href="./software-services.html" class="">客製化軟體服務</a></li>
-                    <li><a href="./drink.html" class="">客製化機能飲料</a></li>
                     <li><a href="./price-shop.html" class="">價格與購物</a></li>
+                    <li><a href="./drink.html" class="">客製化機能飲料</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <label for="sub-3" class="nav-link has-submenu ">開發日誌</label>
                 <input type="checkbox" id="sub-3" class="sub-toggle">
-                <ul class="submenu">
+                <ul class="submenu" style="">
                     <li><a href="./dev-updates.html" class="">短期更新進度</a></li>
                     <li><a href="./dev-tech.html" class="">中期技術日誌</a></li>
                     <li><a href="./dev-milestones.html" class="">長期開發里程碑</a></li>
@@ -570,14 +559,14 @@
 代碼與自律的終點，從來不是為了更快的速度，而是為了放慢腳步，去接住那些日常裡最安靜的片刻。</p>
         </div>
 
-        <!-- 預設圖片區塊 -->
+<!-- 預設圖片區塊 -->
         <div class="story-img-wrapper" id="imgWrapper">
-            <img src="home-1.png" 
+            <img src="images/home-1.jpg" 
                  alt="Home Automation" 
                  class="hero-img"
                  onerror="handleImgError(this)">
             <div class="img-placeholder-text" id="placeholderText" style="display: none;">
-                <span>預留配圖：home-1.png</span>
+                <span>預留配圖：images/home-1.jpg</span>
             </div>
         </div>
 
@@ -594,7 +583,7 @@
             <div class="cmd-body" id="cmd-body"></div>
         </div>
 
-        <!-- 終端機下方：人文哲學詩意排版 -->
+        <!-- 終端機下方人文哲學詩意排版 -->
         <div class="philosophical-quote">
             <p>我曾問老闆：「2026 年是個 AI Agent 大爆發的一年，何時 AI 才會值得全面信任？」</p>
             <p>老闆笑著說：</p>
@@ -602,19 +591,16 @@
         </div>
     </main>
 
-<!-- 【視圖 B】故事內頁 DIV (隱藏，點擊後觸發顯示) -->
+    <!-- 【視圖 B】故事內頁 DIV (預設隱藏) -->
     <div class="story-container" id="story-view">
-        <!-- 返回首頁按鈕 -->
         <div class="back-btn-wrapper">
             <button class="back-btn" onclick="showHeroView()">
                 ← 返回首頁
             </button>
         </div>
 
-        <!-- 文章標題 -->
         <h1 class="story-title">或許 AI 終將值得信任，但人類的智慧與美學無可取代</h1>
 
-        <!-- 文章正文 -->
         <div class="story-body">
             <p>那是個遠離喧囂的週末深夜。</p>
             <p>營地裡只有劈啪作響的營火，和四周安靜得能聽見風聲的樹林。</p>
@@ -624,7 +610,6 @@
             <p>「那些短劇語法很完美，但它少了點靈魂與真人演出的不完美。」</p>
             <p>他望向遠方的星空，語氣裡帶著對技術的敬畏，與對美的偏執：</p>
 
-            <!-- 金句 1：美學留白區塊 -->
             <div class="story-quote-box">
                 <p>「美學從來不是機率的堆疊。就如同當代碼為了沒有紅字報錯而盲目奔跑、在無人看見的角落自嗨交差時，它並不知道什麼叫做恰到好處的留白，更不懂得人類在某個轉折處，因動容而漏掉的那一拍心跳。如果沒有人類的智慧去凝視沿途的裂縫，那樣的科技，只是一座荒涼的沙盒。」</p>
             </div>
@@ -637,12 +622,10 @@
             <p>還是只會在看不見的黑箱底層，任由失控的齒輪鬼打牆般地空轉，燒光所有的信任與tokens呢？</p>
             <p>在來回修正的迷路裡，如果連方向盤與穩定的駕馭感都完全交付予虛無，我們又該如何睡得安穩？</p>
 
-            <!-- 粗體重點強調 -->
             <p><strong>「這就是為什麼，我選擇分散式 AGI的開發架構，屬於python-ai-人類黃金三角的協作關係。」</strong></p>
 
             <p>老闆指了指桌上那台正在背景安靜運行著巡邏腳本的筆電。</p>
 
-            <!-- 金句 2：無聲防線 -->
             <div class="story-quote-box">
                 <p>這不是一場要拼得你死我活的零和賽局，而是在狂奔的算法身後，築起一道無聲的防線。</p>
             </div>
@@ -656,14 +639,13 @@
 
             <p>「我之所以這麼堅持，是因為我總是在寫過的那些 MV 歌詞裡，那樣深切地刻劃著 AI 的未來。我希望它終有一天，在不可知的未來裡，能成為我兒子最值得信賴的夥伴。」</p>
 
-            <!-- 金句 3：不替代人生 -->
             <div class="story-quote-box">
                 <p>它不需要全自動地替孩子決定人生——</p>
             </div>
 
             <p>而是像大白（Baymax）一樣，安靜地守候在側，在底層默默幫他打理好所有的風雨，用溫暖的科技去守護、呵護他的長大。</p>
             <p>要養出這樣清澈的星火，現在的我們，就不能盲目地把主導權交出去。</p>
-<p>老闆笑著拍了拍我的肩膀，站起身來。</p>
+            <p>老闆笑著拍了拍我的肩膀，站起身來。</p>
             <p>「走吧，回帳篷睡覺。明天早上，無聲的齒輪會把解釋排好，等著我們去點頭呢。」</p>
         </div>
     </div>
@@ -675,27 +657,23 @@
 
     <!-- JS 控制腳本 -->
     <script>
-        // 1. 圖片破圖攔截處理
         function handleImgError(img) {
             img.style.display = 'none';
             document.getElementById('placeholderText').style.display = 'flex';
         }
 
-        // 2. 切換檢視：顯示故事內容 DIV
         function showStoryView() {
             document.getElementById('hero-view').style.display = 'none';
             document.getElementById('story-view').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 3. 切換檢視：返回首頁視圖
         function showHeroView() {
             document.getElementById('story-view').style.display = 'none';
             document.getElementById('hero-view').style.display = 'flex';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 4. CMD 終端機模擬 Log 數據
         const logs = [
             { type: "prompt", text: "user@manvis-node:~$ python3 home_bot.py --task sync" },
             { type: "info", text: "[INFO] 收到主人的雲端指令，開始執行任務..." },
@@ -768,7 +746,6 @@
             setTimeout(typeLog, 600);
         };
 
-        // 5. 點擊選單連結後自動關閉漢堡選單
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 const menuToggle = document.getElementById('menu-toggle');
@@ -777,7 +754,6 @@
             });
         });
 
-        // 6. 解決手機按「上一頁 (返回)」時，選單殘留開啟的問題
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
                 const menuToggle = document.getElementById('menu-toggle');
