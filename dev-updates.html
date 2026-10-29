@@ -239,19 +239,49 @@
             <span>(還差 0.0g 體脂肪達標)</span>
           </div>
         </div>
-      </div>
-      <div class="devlog-section">
+</div><div class="devlog-section">
 <div class="card-box">
   <div class="title">🚀 開發里程碑快照 (zh-TW)</div>
-  <div>(尚無快照數據)</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:15]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已解決</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-0'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">在「Manvis 系統中繼聯絡平台」釐清 Firebase Security Rules 重複寫入與權限死鎖問題，並設計鐵血防禦架構</div>
+    <div id="note-detail-0" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】解開 Firebase 規則盲點，放棄純 `.write: !data.exists()` 盲區，改採 `.write` 放行身份搭配 `.validate` 時間戳記不可變比對（Write-Once 鐵血死鎖）；對外維持 `.read: false`（零 GET），落實物理隔離與絕對安全。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:32]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已解決</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-1'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">優化前端例外攔截文案，將冷冰冰的 PERMISSION_DENIED 轉化為溫馨客服引導與狀態隔離機制</div>
+    <div id="note-detail-1" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】當客戶重複提交觸發 PERMISSION_DENIED 時，前端彈出溫馨提示說明配置處理中並引導留意郵件；同時釐清多用戶 UID 獨立房間隔離與背景 Worker 佇列狀態機閉環邏輯。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:45]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">已解決</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-2'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">梳理並精準對齊黑燈加工廠（index.js）的「指紋比對守門員」與「工作佇列派發」兩種異構邏輯</div>
+    <div id="note-detail-2" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【痛點與決策】釐清看板展示型節點（甘特圖/日記）採用 limitToLast=1 最小騷擾與指紋比對達到 0 流量攔截；而工作佇列（worker_queue）則嚴禁僅抓單筆，必須以狀態查詢（status === 'pending'）抓取所有未完工任務進行迴圈消化。</div>
+  </div>
 </div>
 
 <div class="card-box">
   <div class="title">🌙 睡前心得與總結</div>
-  <div class="reflection-box">今天開發到下午 2 點 04 分左右，進度看起來相當順利。已經在 GitHub 的倉庫中成功開啟臨時網域，測試結果非常完美。</div>
+  <div class="reflection-box">今日尚未發表中</div>
 </div>
-      </div>
-    </div>
+</div></div>
   </div>
 </body>
 </html>
