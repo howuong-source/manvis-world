@@ -218,19 +218,49 @@
             <span>(Remaining 0.0g fat to goal)</span>
           </div>
         </div>
-      </div>
-      <div class="devlog-section">
+</div><div class="devlog-section">
 <div class="card-box">
   <div class="title">🚀 Dev Milestone Snapshots (en)</div>
-  <div>(No snapshot data available)</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:15]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Resolved</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-0'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Clarify Firebase Security Rules overwrite and permission deadlock issues in 'Manvis System Relay Platform' and design ironclad defense architecture</div>
+    <div id="note-detail-0" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Resolved rule blindspots by replacing pure `.write: !data.exists()` with `.write` identity validation combined with `.validate` timestamp immutability check (Write-Once Ironclad Lock); maintained `.read: false` (Zero GET) for strict physical isolation and absolute security.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:32]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Resolved</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-1'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Optimize frontend exception handling prompt to transform raw PERMISSION_DENIED errors into warm customer service guidance and status isolation mechanism</div>
+    <div id="note-detail-1" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】When duplicate submission triggers PERMISSION_DENIED, display a reassuring prompt notifying that configuration is underway and to check email; simultaneously clarified multi-tenant UID room isolation and background Worker queue state machine closed-loop logic.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:45]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">Resolved</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-2'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">Dissect and align heterogeneous logic between 'Fingerprint Guard' and 'Worker Queue Dispatch' in the Blacklight Engine (index.js)</div>
+    <div id="note-detail-2" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【Pain Point & Decision】Clarified that display-based nodes (Gantt/DevLog) use limitToLast=1 minimal polling and fingerprint comparison for zero-traffic interception; whereas work queues (worker_queue) must never fetch a single item, but query by status (status === 'pending') to loop through and digest all pending tasks.</div>
+  </div>
 </div>
 
 <div class="card-box">
   <div class="title">🌙 Bedtime Reflection & Summary</div>
-  <div class="reflection-box">Development went smoothly today until around 2:04 PM. We successfully set up a temporary domain in our GitHub repository, and the initial testing was a success.</div>
+  <div class="reflection-box">No reflection published yet today</div>
 </div>
-      </div>
-    </div>
+</div></div>
   </div>
 </body>
 </html>
