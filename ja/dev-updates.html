@@ -218,19 +218,49 @@
             <span>(目標まであと 0.0g)</span>
           </div>
         </div>
-      </div>
-      <div class="devlog-section">
+</div><div class="devlog-section">
 <div class="card-box">
   <div class="title">🚀 開発マイルストーンスナップショット (ja)</div>
-  <div>(スナップショットデータはありません)</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:15]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">解決済み</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-0'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">「Manvis システム中継連絡プラットフォーム」における Firebase Security Rules の上書き・権限デッドロック問題を解明し、鉄血防衛アーキテクチャを設計</div>
+    <div id="note-detail-0" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【問題点と決断】ルールの盲点を克服するため、単純な `.write: !data.exists()` を廃止し、`.write` 認証許可と `.validate` タイムスタンプ不変検証の組み合わせ（Write-Once 鉄血ロック）を採用。外部からの `.read: false`（ゼロ GET）を維持し、物理隔離と絶対的な安全性を実現。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:32]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">解決済み</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-1'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">フロントエンドの例外捕捉メッセージを最適化し、冷淡な PERMISSION_DENIED を温かみのあるカスタマーサポート案内とステータス隔離メカニズムに変換</div>
+    <div id="note-detail-1" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【問題点と決断】重複送信により PERMISSION_DENIED が発生した際、設定処理中である旨の親切な通知を表示しメール確認を誘導。同時にマルチユーザー UID の個室隔離とバックグラウンド Worker キューのステータス制御ロジックを整理。</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:45]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">解決済み</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-2'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">ブラックライト加工工場（index.js）における「フィンガープリント比較ゲートキーパー」と「ワークキュー配信」の2つの異なるロジックを整理・統一</div>
+    <div id="note-detail-2" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【問題点と決断】看板表示ノード（ガントチャート/日記）は limitToLast=1 による最小限のポーリングと指紋比較でゼロトラフィック遮断を実現し、作業キュー（worker_queue）は単一取得を厳禁とし、ステータス検索（status === 'pending'）で未完了タスクを全件取得してループ処理することを明確化。</div>
+  </div>
 </div>
 
 <div class="card-box">
   <div class="title">🌙 就寝前の振り返りとまとめ</div>
-  <div class="reflection-box">本日の開発は午後2時4分頃まで順調に進みました。GitHub リポジトリでプレビュー用ドメインを無事に発行でき、テストも無事成功しました。</div>
+  <div class="reflection-box">本日はまだ発表されていません</div>
 </div>
-      </div>
-    </div>
+</div></div>
   </div>
 </body>
 </html>
