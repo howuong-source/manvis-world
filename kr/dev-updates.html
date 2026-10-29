@@ -218,19 +218,49 @@
             <span>(목표까지 0.0g 남음)</span>
           </div>
         </div>
-      </div>
-      <div class="devlog-section">
+</div><div class="devlog-section">
 <div class="card-box">
   <div class="title">🚀 Dev Milestone Snapshots (ko)</div>
-  <div>(No snapshot data available)</div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:15]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">해결됨</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-0'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">'Manvis 시스템 중계 연락 플랫폼'에서 Firebase Security Rules 덮어쓰기 및 권한 데드락 문제를 규명하고 철혈 방어 아키텍처 설계</div>
+    <div id="note-detail-0" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【문제점 및 결정】단순한 `.write: !data.exists()`의 맹점을 극복하고, `.write` 신원 허용과 `.validate` 타임스탬프 불변성 비교(Write-Once 철혈 잠금) 결합 방식을 채택; 외부 `.read: false`(Zero GET)를 유지하여 물리적 격리와 절대적 보안을 달성함.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:32]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">해결됨</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-1'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">프론트엔드 예외 처리 메시지를 최적화하여 차가운 PERMISSION_DENIED 오류를 친절한 고객지원 안내 및 상태 격리 메커니즘으로 전환</div>
+    <div id="note-detail-1" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【문제점 및 결정】고객의 중복 제출로 PERMISSION_DENIED 발생 시, 설정 처리 중임을 알리는 안심 안내와 이메일 확인 유도 팝업을 제공; 다중 사용자 UID 독립 방 격리 및 백그라운드 Worker 큐 상태 머신 폐쇄 루프 로직을 완벽히 정리함.</div>
+  </div>
+  <div class="timeline-item" style="margin-bottom: 12px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <span class="time-tag">[11:45]</span>
+        <span style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-left: 6px;">해결됨</span>
+      </div>
+      <button style="background: none; border: none; cursor: pointer; font-size: 0.9rem;" onclick="var el=document.getElementById('note-detail-2'); el.style.display=(el.style.display==='none'||!el.style.display)?'block':'none';" title="檢視細節">👁️</button>
+    </div>
+    <div style="font-weight: bold; color: #f8fafc; margin-top: 4px; font-size: 0.9rem; line-height: 1.4;">블랙라이트 가공 공장(index.js)의 '지문 비교 수문장'과 '작업 큐 배분'이라는 두 가지 이종 로직을 명확히 정의 및 동기화</div>
+    <div id="note-detail-2" style="display: none; background: #0f172a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; font-size: 0.82rem; color: #94a3b8; line-height: 1.5;">【문제점 및 결정】대시보드 표시형 노드(간트 차트/일기)는 limitToLast=1 최소 폴링 및 지문 비교를 통해 트래픽 0 차단을 달성하고, 작업 큐(worker_queue)는 단일 건 수집을 금지하며 상태 조회(status === 'pending')로 미완료 과제를 전체 수집하여 순회 처리하도록 명확히 확립함.</div>
+  </div>
 </div>
 
 <div class="card-box">
   <div class="title">🌙 Bedtime Reflection & Summary</div>
-  <div class="reflection-box">오늘 개발은 오후 2시 4분경까지 매우 순조롭게 진행되었습니다. GitHub 리포지토리에 임시 도메인을 성공적으로 연결했고, 테스트도 완벽하게 완료했습니다.</div>
+  <div class="reflection-box">오늘 아직 발행되지 않음</div>
 </div>
-      </div>
-    </div>
+</div></div>
   </div>
 </body>
 </html>
